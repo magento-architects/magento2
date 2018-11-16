@@ -1,0 +1,27 @@
+{
+    "name": "magento/library-webapi",
+    "type": "magento2-library",
+        "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "require": {
+        "php": "7.0.2|7.0.4|~7.0.6|~7.1.0",
+        "magento/library-json": "*",
+        "magento/library-http": "*",
+        "magento/library-reflection": "*",
+        "magento/library-api": "*",
+        "magento/library-phrase": "*",
+        "magento/library-logger": "*",
+        "magento/library-controller": "*",
+        "magento/library-translate": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Magento\\Framework\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

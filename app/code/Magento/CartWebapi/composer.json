@@ -1,0 +1,22 @@
+{
+    "name": "magento/module-cart-webapi",
+    "description": "N/A",
+    "require": {
+        "php": "7.0.2|7.0.4|~7.0.6|~7.1.0",
+        "magento/module-cart-api": "*",
+        "magento/module-webapi": "*"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\Cart\\": ""
+        }
+    }
+}

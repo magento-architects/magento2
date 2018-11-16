@@ -1,0 +1,7 @@
+<config>
+    <type name="Magento\Framework\App\ResourceConnection\Config\Reader">
+        <arguments>
+            <argument name="fileResolver" xsi:type="object">Magento\Framework\App\Config\FileResolver\Proxy</argument>
+        </arguments>
+    </type>
+</config>

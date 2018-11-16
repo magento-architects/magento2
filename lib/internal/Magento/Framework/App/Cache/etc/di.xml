@@ -1,0 +1,59 @@
+<config>
+    <preference for="Magento\Framework\App\CacheInterface" type="Magento\Framework\App\Cache\Proxy" />
+    <preference for="Magento\Framework\App\Cache\StateInterface" type="Magento\Framework\App\Cache\State" />
+    <preference for="Magento\Framework\App\Cache\TypeListInterface" type="Magento\Framework\App\Cache\TypeList" />
+    <preference for="Magento\Framework\Config\CacheInterface" type="Magento\Framework\App\Cache\Type\Config" />
+
+
+    <type name="Magento\Framework\App\Cache\Frontend\Factory">
+        <arguments>
+            <argument name="enforcedOptions" xsi:type="init_parameter">Magento\Framework\App\Cache\Frontend\Factory::PARAM_CACHE_FORCED_OPTIONS</argument>
+            <argument name="decorators" xsi:type="array">
+                <item name="tag" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\Framework\Cache\Frontend\Decorator\TagScope</item>
+                    <item name="parameters" xsi:type="array">
+                        <item name="tag" xsi:type="string">MAGE</item>
+                    </item>
+                </item>
+                <item name="logger" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\Framework\Cache\Frontend\Decorator\Logger</item>
+                </item>
+            </argument>
+            <argument name="resource" xsi:type="object">Magento\Framework\App\ResourceConnection\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Cache\State">
+        <arguments>
+            <argument name="banAll" xsi:type="init_parameter">Magento\Framework\App\Cache\State::PARAM_BAN_CACHE</argument>
+        </arguments>
+    </type>
+
+
+    <type name="Magento\Framework\App\Cache\Frontend\Pool">
+        <arguments>
+            <argument name="frontendSettings" xsi:type="array">
+                <item name="page_cache" xsi:type="array">
+                    <item name="backend_options" xsi:type="array">
+                        <item name="cache_dir" xsi:type="string">page_cache</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Cache\Type\FrontendPool">
+        <arguments>
+            <argument name="typeFrontendMap" xsi:type="array">
+                <item name="full_page" xsi:type="string">page_cache</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Cache\FlushCacheByTags">
+        <arguments>
+            <argument name="cacheList" xsi:type="array">
+                <item name="block_html" xsi:type="const">Magento\Framework\App\Cache\Type\Block::TYPE_IDENTIFIER</item>
+                <item name="collections" xsi:type="const">Magento\Framework\App\Cache\Type\Collection::TYPE_IDENTIFIER</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>
