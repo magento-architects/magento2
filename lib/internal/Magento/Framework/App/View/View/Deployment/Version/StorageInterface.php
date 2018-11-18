@@ -8,6 +8,7 @@ namespace Magento\Framework\App\View\Deployment\Version;
 
 /**
  * Persistence of deployment version of static files
+ * @preference Magento\Framework\App\View\Deployment\Version\Storage\File
  */
 interface StorageInterface
 {

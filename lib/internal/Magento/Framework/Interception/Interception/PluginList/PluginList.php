@@ -5,6 +5,8 @@
  */
 namespace Magento\Framework\Interception\PluginList;
 
+use Magento\Framework\ApcuCache;
+use Magento\Framework\Config\CacheInterface;
 use Magento\Framework\Config\Data\Scoped;
 use Magento\Framework\Config\ReaderInterface;
 use Magento\Framework\Config\ScopeInterface;
@@ -87,6 +89,11 @@ class PluginList extends Scoped implements InterceptionPluginList
     private $serializer;
 
     /**
+     * @var ApcuCache
+     */
+    private $cache;
+
+    /**
      * Constructor
      *
      * @param ReaderInterface $reader
@@ -116,7 +123,10 @@ class PluginList extends Scoped implements InterceptionPluginList
         SerializerInterface $serializer = null
     ) {
         $this->serializer = $serializer ?: $objectManager->get(Serialize::class);
-        parent::__construct($reader, $configScope, $cache, $cacheId, $this->serializer);
+        $this->_reader = $reader;
+        $this->_configScope = $configScope;
+        $this->_cacheId = $cacheId;
+        $this->cache = $cache;
         $this->_omConfig = $omConfig;
         $this->_relations = $relations;
         $this->_definitions = $definitions;
@@ -283,14 +293,8 @@ class PluginList extends Scoped implements InterceptionPluginList
             if (false == in_array($scope, $this->_scopePriorityScheme)) {
                 $this->_scopePriorityScheme[] = $scope;
             }
-            $cacheId = implode('|', $this->_scopePriorityScheme) . "|" . $this->_cacheId;
-            $data = $this->_cache->load($cacheId);
-            if ($data) {
-                list($this->_data, $this->_inherited, $this->_processed) = $this->serializer->unserialize($data);
-                foreach ($this->_scopePriorityScheme as $scopeCode) {
-                    $this->_loadedScopes[$scopeCode] = true;
-                }
-            } else {
+            $key = implode('|', $this->_scopePriorityScheme) . "|" . $this->_cacheId;
+            list($this->_data, $this->_inherited, $this->_processed) = $this->cache->getCachedContent($key, function() {
                 $virtualTypes = [];
                 foreach ($this->_scopePriorityScheme as $scopeCode) {
                     if (false == isset($this->_loadedScopes[$scopeCode])) {
@@ -322,6 +326,9 @@ class PluginList extends Scoped implements InterceptionPluginList
                     $this->serializer->serialize([$this->_data, $this->_inherited, $this->_processed]),
                     $cacheId
                 );
+            });
+            foreach ($this->_scopePriorityScheme as $scopeCode) {
+                $this->_loadedScopes[$scopeCode] = true;
             }
             $this->_pluginInstances = [];
         }

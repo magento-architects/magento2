@@ -10,6 +10,7 @@ namespace Magento\Framework\Api;
  * Provides metadata about an attribute.
  *
  * @api
+ * @preference Magento\Framework\Api\AttributeMetadata
  */
 interface MetadataObjectInterface
 {

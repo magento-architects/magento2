@@ -9,6 +9,7 @@ namespace Magento\Framework\Encryption;
  * Encryptor interface
  *
  * @api
+ * @preference Magento\Framework\Encryption\Encryptor
  */
 interface EncryptorInterface
 {

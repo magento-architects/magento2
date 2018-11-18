@@ -53,4 +53,9 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\Locale\Resolver">
+        <arguments>
+            <argument name="defaultLocalePath" xsi:type="const">Magento\Directory\Helper\Data::XML_PATH_DEFAULT_LOCALE</argument>
+        </arguments>
+    </type>
 </config>

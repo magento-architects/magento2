@@ -10,6 +10,7 @@ namespace Magento\Framework\Pricing\Amount;
  * Amount interface, the amount values are in display currency
  *
  * @api
+ * @preference Magento\Framework\Pricing\Amount\Base
  */
 interface AmountInterface
 {

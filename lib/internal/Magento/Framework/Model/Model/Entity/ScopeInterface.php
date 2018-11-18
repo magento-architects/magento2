@@ -8,6 +8,7 @@ namespace Magento\Framework\Model\Entity;
 
 /**
  * Interface ScopeInterface
+ * @preference Magento\Framework\Model\Entity\Scope
  */
 interface ScopeInterface
 {

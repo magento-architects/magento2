@@ -7,7 +7,7 @@ namespace Magento\Framework\Mview;
 
 /**
  * Interface \Magento\Framework\Mview\ConfigInterface
- *
+ * @preference Magento\Framework\Mview\Config
  */
 interface ConfigInterface
 {

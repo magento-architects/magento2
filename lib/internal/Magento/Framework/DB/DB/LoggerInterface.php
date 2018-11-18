@@ -7,6 +7,7 @@ namespace Magento\Framework\DB;
 
 /**
  * DB logger interface
+ * @preference Magento\Framework\DB\Logger\Logger
  */
 interface LoggerInterface
 {

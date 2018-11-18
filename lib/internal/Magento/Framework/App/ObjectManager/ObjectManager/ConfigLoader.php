@@ -9,6 +9,9 @@ namespace Magento\Framework\App\ObjectManager;
 
 use Magento\Framework\ObjectManager\ConfigLoaderInterface;
 
+/**
+ * @deprecated
+ */
 class ConfigLoader implements ConfigLoaderInterface
 {
     /**
@@ -39,6 +42,7 @@ class ConfigLoader implements ConfigLoaderInterface
     public function __construct(
         \Magento\Framework\ObjectManager\Config\Reader\DomFactory $readerFactory
     ) {
+        echo "!!!!!!!!!!WOW. Config loader created<br>";
         $this->_readerFactory = $readerFactory;
     }
 

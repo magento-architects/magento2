@@ -7,6 +7,7 @@ namespace Magento\Framework\Component;
 
 /**
  * @author Josh Di Fabio <joshdifabio@gmail.com>
+ * @preference Magento\Framework\Component\ComponentRegistrar
  */
 interface ComponentRegistrarInterface
 {

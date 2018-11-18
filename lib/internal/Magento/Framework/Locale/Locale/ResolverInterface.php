@@ -9,6 +9,7 @@ namespace Magento\Framework\Locale;
  * Manages locale config information
  *
  * @api
+ * @preference Magento\Framework\Locale\Resolver
  */
 interface ResolverInterface
 {

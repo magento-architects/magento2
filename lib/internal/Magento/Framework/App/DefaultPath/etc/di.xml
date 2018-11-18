@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\DefaultPath\DefaultPath">
+        <arguments>
+            <argument name="parts" xsi:type="array">
+                <item name="module" xsi:type="string">core</item>
+                <item name="controller" xsi:type="string">index</item>
+                <item name="action" xsi:type="string">index</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

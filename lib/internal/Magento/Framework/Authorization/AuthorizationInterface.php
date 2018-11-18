@@ -9,6 +9,7 @@ namespace Magento\Framework;
 
 /**
  * @api
+ * @preference Magento\Framework\Authorization
  */
 interface AuthorizationInterface
 {

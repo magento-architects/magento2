@@ -9,6 +9,7 @@ namespace Magento\Framework\Setup\Declaration\Schema\Db;
 /**
  * This class is responsible for read different schema
  * structural elements: indexes, constraints, table names and columns.
+ * @preference Magento\Framework\Setup\Declaration\Schema\Db\MySQL\DbSchemaReader
  */
 interface DbSchemaReaderInterface
 {

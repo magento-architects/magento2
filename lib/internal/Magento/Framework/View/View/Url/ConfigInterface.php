@@ -8,6 +8,7 @@ namespace Magento\Framework\View\Url;
 /**
  * Url Config Interface
  * @api
+ * @preference Magento\Framework\View\Url\Config
  */
 interface ConfigInterface
 {

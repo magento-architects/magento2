@@ -11,6 +11,7 @@ namespace Magento\Framework\Session;
  * Session Manager Interface
  *
  * @api
+ * @preference Magento\Framework\Session\Generic
  */
 interface SessionManagerInterface
 {

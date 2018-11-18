@@ -9,7 +9,7 @@ namespace Magento\Framework\App;
 
 /**
  * Interface \Magento\Framework\App\DefaultPathInterface
- *
+ * @preference Magento\Framework\App\DefaultPath\DefaultPath
  */
 interface DefaultPathInterface
 {

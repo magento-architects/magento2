@@ -53,7 +53,7 @@ class Io
         if ($directory) {
             $this->_generationDirectory = rtrim($directory, '/') . '/';
         } else {
-            $this->_generationDirectory = realpath(__DIR__ . '/../../../../') . '/' . self::DEFAULT_DIRECTORY . '/';
+            $this->_generationDirectory = BP . '/' . self::DEFAULT_DIRECTORY . '/';
         }
     }
 

@@ -10,6 +10,7 @@ namespace Magento\Framework\MessageQueue;
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\MessageQueue\MessageIdGenerator
  */
 interface MessageIdGeneratorInterface
 {

@@ -44,9 +44,18 @@ class Developer extends \Magento\Framework\ObjectManager\Factory\AbstractFactory
      */
     public function create($requestedType, array $arguments = [])
     {
+        global $objects;
+        if (!isset($objects[$requestedType])) {
+            $objects[$requestedType] = 0;
+        }
+        $objects[$requestedType]++;
         $type = $this->config->getInstanceType($requestedType);
         $parameters = $this->definitions->getParameters($type);
         if ($parameters == null) {
+            $class = new \ReflectionClass($type);
+            if ($class->isInterface()) {
+                throw new \Exception("Can not instantiate interface $type");
+            }
             return new $type();
         }
         if (isset($this->creationStack[$requestedType])) {

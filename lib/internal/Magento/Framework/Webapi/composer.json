@@ -14,7 +14,8 @@
         "magento/library-phrase": "*",
         "magento/library-logger": "*",
         "magento/library-controller": "*",
-        "magento/library-translate": "*"
+        "magento/library-translate": "*",
+        "magento/library-authorization": "*"
     },
     "autoload": {
         "psr-4": {

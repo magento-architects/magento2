@@ -161,21 +161,37 @@ class Config implements \Magento\Framework\ObjectManager\ConfigInterface
     public function getPreference($type)
     {
         $type = ltrim($type, '\\');
-        $preferencePath = [];
-        while (isset($this->_preferences[$type])) {
-            if (isset($preferencePath[$this->_preferences[$type]])) {
-                throw new \LogicException(
-                    'Circular type preference: ' .
-                    $type .
-                    ' relates to ' .
-                    $this->_preferences[$type] .
-                    ' and viceversa.'
-                );
+        if (!isset($this->_preferences[$type])) {
+            $defaultPreference = $this->getDefaultPreference($type);
+            return $defaultPreference ? $this->getPreference($defaultPreference) : $type;
+        } else {
+            $preferencePath = [];
+            while (isset($this->_preferences[$type])) {
+                if (isset($preferencePath[$this->_preferences[$type]])) {
+                    throw new \LogicException(
+                        'Circular type preference: ' .
+                        $type .
+                        ' relates to ' .
+                        $this->_preferences[$type] .
+                        ' and viceversa.'
+                    );
+                }
+                $type = $this->_preferences[$type];
+                $preferencePath[$type] = 1;
             }
-            $type = $this->_preferences[$type];
-            $preferencePath[$type] = 1;
         }
         return $type;
+    }
+
+    private function getDefaultPreference($type)
+    {
+        if (interface_exists($type) || class_exists($type)) {
+            $type = new \ReflectionClass($type);
+            if (preg_match('/@preference ([\w\\\\]*)/', $type->getDocComment(), $matches)) {
+                return $matches[1];
+            }
+        }
+        return null;
     }
 
     /**

@@ -10,6 +10,7 @@ namespace Magento\Framework\App\Config;
 
 /**
  * @api
+ * @preference Magento\Framework\App\Config
  */
 interface ScopeConfigInterface
 {

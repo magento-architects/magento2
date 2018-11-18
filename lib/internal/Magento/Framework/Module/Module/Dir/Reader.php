@@ -7,6 +7,7 @@
  */
 namespace Magento\Framework\Module\Dir;
 
+use Magento\Framework\Component\ComponentRegistrar;
 use Magento\Framework\Config\FileIterator;
 use Magento\Framework\Config\FileIteratorFactory;
 use Magento\Framework\Filesystem;
@@ -57,6 +58,11 @@ class Reader
     private $fileIterators = [];
 
     /**
+     * @var ComponentRegistrar
+     */
+    private $componentRegistrar;
+
+    /**
      * @param Dir $moduleDirs
      * @param ModuleListInterface $moduleList
      * @param FileIteratorFactory $fileIteratorFactory
@@ -66,12 +72,14 @@ class Reader
         Dir $moduleDirs,
         ModuleListInterface $moduleList,
         FileIteratorFactory $fileIteratorFactory,
-        Filesystem\Directory\ReadFactory $readFactory
+        Filesystem\Directory\ReadFactory $readFactory,
+        ComponentRegistrar $componentRegistrar
     ) {
         $this->moduleDirs = $moduleDirs;
         $this->modulesList = $moduleList;
         $this->fileIteratorFactory = $fileIteratorFactory;
         $this->readFactory = $readFactory;
+        $this->componentRegistrar = $componentRegistrar;
     }
 
     /**
@@ -123,10 +131,19 @@ class Reader
     private function getFiles($filename, $subDir = '')
     {
         $result = [];
-        foreach ($this->modulesList->getNames() as $moduleName) {
-            $moduleSubDir = $this->getModuleDir($subDir, $moduleName);
-            $file = $moduleSubDir . '/' . $filename;
-            $directoryRead = $this->readFactory->create($moduleSubDir);
+        $libraryPaths = array_map(
+            function($path) use ($subDir) {
+                return $path . DIRECTORY_SEPARATOR . $subDir;
+            },
+            $this->componentRegistrar->getPaths(ComponentRegistrar::LIBRARY)
+        );
+        $that = $this;
+        $modulePaths = array_map(function($moduleName) use ($that, $subDir) {
+            return $that->getModuleDir($subDir, $moduleName);
+        }, $this->modulesList->getNames());
+        foreach (array_merge($libraryPaths, $modulePaths) as $componentDir) {
+            $file = $componentDir. '/' . $filename;
+            $directoryRead = $this->readFactory->create($componentDir);
             $path = $directoryRead->getRelativePath($file);
             if ($directoryRead->isExist($path)) {
                 $result[] = $file;

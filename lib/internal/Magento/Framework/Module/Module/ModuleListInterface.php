@@ -9,7 +9,7 @@ namespace Magento\Framework\Module;
 
 /**
  * Interface \Magento\Framework\Module\ModuleListInterface
- *
+ * @preference Magento\Framework\Module\ModuleList
  */
 interface ModuleListInterface
 {

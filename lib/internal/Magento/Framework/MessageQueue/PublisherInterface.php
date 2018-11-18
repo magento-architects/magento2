@@ -9,6 +9,7 @@ namespace Magento\Framework\MessageQueue;
  * Producer to publish messages via a specific transport to a specific queue or exchange.
  *
  * @api
+ * @preference Magento\Framework\MessageQueue\PublisherPool
  */
 interface PublisherInterface
 {

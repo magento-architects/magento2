@@ -9,7 +9,7 @@ namespace Magento\Framework\Session;
 
 /**
  * Interface \Magento\Framework\Session\StorageInterface
- *
+ * @preference Magento\Framework\Session\Storage
  */
 interface StorageInterface
 {

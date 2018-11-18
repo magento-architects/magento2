@@ -12,6 +12,7 @@ use Magento\Framework\View\Asset\File\FallbackContext;
  * Interface ConfigInterface
  * @deprecated 100.2.0
  * @see \Magento\Deploy\Config\BundleConfig
+ * @preference Magento\Framework\View\Asset\Bundle\Config
  */
 interface ConfigInterface
 {

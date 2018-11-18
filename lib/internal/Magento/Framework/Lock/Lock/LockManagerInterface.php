@@ -11,6 +11,7 @@ namespace Magento\Framework\Lock;
  * Interface of a lock manager
  *
  * @api
+ * @preference Magento\Framework\Lock\Backend\Database
  */
 interface LockManagerInterface
 {

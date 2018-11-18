@@ -7,6 +7,7 @@ namespace Magento\Framework\Filter\Encrypt;
 
 /**
  * Encrypt adapter interface
+ * @preference Magento\Framework\Filter\Encrypt\Basic
  */
 interface AdapterInterface extends \Zend_Filter_Encrypt_Interface
 {

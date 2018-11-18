@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Message\Manager">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Framework\Message\Session\Proxy</argument>
+            <argument name="exceptionMessageFactory" xsi:type="object">Magento\Framework\Message\ExceptionMessageLookupFactory</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Message\ExceptionMessageFactoryPool">
+        <arguments>
+            <argument name="defaultExceptionMessageFactory" xsi:type="object">Magento\Framework\Message\ExceptionMessageFactory</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Message\Session">
+        <arguments>
+            <argument name="storage" xsi:type="object">Magento\Framework\Message\Session\Storage</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Framework\Message\Session\Storage" type="Magento\Framework\Session\Storage">
+        <arguments>
+            <argument name="namespace" xsi:type="string">message</argument>
+        </arguments>
+    </virtualType>
+</config>

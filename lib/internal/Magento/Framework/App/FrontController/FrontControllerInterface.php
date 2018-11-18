@@ -11,6 +11,7 @@ namespace Magento\Framework\App;
  * Every application area has own front controller.
  *
  * @api
+ * @preference Magento\Framework\App\FrontController
  */
 interface FrontControllerInterface
 {

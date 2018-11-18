@@ -9,6 +9,7 @@ namespace Magento\Framework\Session;
 
 /**
  * Session validator interface
+ * @preference Magento\Framework\Session\Validator
  */
 interface ValidatorInterface
 {

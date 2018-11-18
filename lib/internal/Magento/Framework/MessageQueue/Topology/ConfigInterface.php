@@ -14,6 +14,7 @@ use Magento\Framework\MessageQueue\Topology\Config\QueueConfigItemInterface;
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\MessageQueue\Topology\Config
  */
 interface ConfigInterface
 {

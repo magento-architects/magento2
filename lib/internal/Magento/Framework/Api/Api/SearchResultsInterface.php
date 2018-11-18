@@ -10,6 +10,7 @@ namespace Magento\Framework\Api;
  * Search results interface.
  *
  * @api
+ * @preference Magento\Framework\Api\SearchResults
  */
 interface SearchResultsInterface
 {

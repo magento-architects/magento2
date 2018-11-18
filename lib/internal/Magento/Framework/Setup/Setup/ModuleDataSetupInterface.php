@@ -9,6 +9,7 @@ namespace Magento\Framework\Setup;
  * DB data resource interface for a module
  *
  * @api
+ * @preference Magento\Setup\Module\DataSetup
  */
 interface ModuleDataSetupInterface extends SetupInterface
 {

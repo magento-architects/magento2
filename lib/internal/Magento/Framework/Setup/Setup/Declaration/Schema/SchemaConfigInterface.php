@@ -14,6 +14,8 @@ use Magento\Framework\Setup\Declaration\Schema\Dto\Schema;
  * Used to fetch schema object with data from either db or XML file.
  *
  * Declaration has 2 schema builders, that build schema from db and from XML.
+ *
+ * @preference Magento\Framework\Setup\Declaration\Schema\SchemaConfig
  */
 interface SchemaConfigInterface
 {

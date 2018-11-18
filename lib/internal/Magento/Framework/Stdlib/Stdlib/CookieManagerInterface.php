@@ -22,6 +22,7 @@ use Magento\Framework\Exception\InputException;
  * about how the cookie should be stored and whether JavaScript can access the cookie.
  *
  * @api
+ * @preference Magento\Framework\Stdlib\Cookie\PhpCookieManager
  */
 interface CookieManagerInterface extends CookieReaderInterface
 {

@@ -13,6 +13,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
  *
  * @api
  * @since 100.0.2
+ * @preference Magento\Store\Model\StoreManager
  */
 interface StoreManagerInterface
 {

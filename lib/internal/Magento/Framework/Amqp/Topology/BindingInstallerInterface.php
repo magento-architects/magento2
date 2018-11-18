@@ -10,6 +10,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 
 /**
  * Exchange binding installer.
+ * @preference Magento\Framework\Amqp\Topology\BindingInstaller
  */
 interface BindingInstallerInterface
 {

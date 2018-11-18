@@ -9,6 +9,7 @@ namespace Magento\Framework\App\Request;
 
 /**
  * @api
+ * @preference \Magento\Framework\App\Request\PathInfoProcessor¡¡
  */
 interface PathInfoProcessorInterface
 {

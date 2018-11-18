@@ -7,6 +7,7 @@ namespace Magento\Framework\Url;
 
 /**
  * Route parameters preprocessor interface.
+ * @preference Magento\Framework\Url\RouteParamsPreprocessorComposite
  */
 interface RouteParamsPreprocessorInterface
 {

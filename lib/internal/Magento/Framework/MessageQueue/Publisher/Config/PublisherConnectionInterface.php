@@ -7,6 +7,7 @@ namespace Magento\Framework\MessageQueue\Publisher\Config;
 
 /**
  * Representation of publisher connection configuration.
+ * @preference Magento\Framework\MessageQueue\Publisher\Config\PublisherConnection
  */
 interface PublisherConnectionInterface
 {

@@ -9,6 +9,7 @@ use \Magento\Framework\MessageQueue\Topology\Config\ExchangeConfigItem\BindingIn
 
 /**
  * Instances of this class represent config items declared in etc/queue_topology.xsd
+ * @preference Magento\Framework\MessageQueue\Topology\Config\ExchangeConfigItem
  */
 interface ExchangeConfigItemInterface
 {

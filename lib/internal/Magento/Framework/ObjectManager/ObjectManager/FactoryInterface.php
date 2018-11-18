@@ -9,7 +9,7 @@ use Magento\Framework\ObjectManagerInterface;
 
 /**
  * Interface \Magento\Framework\ObjectManager\FactoryInterface
- *
+ * @preference Magento\Framework\ObjectManager\Factory\Dynamic\Developer
  */
 interface FactoryInterface
 {

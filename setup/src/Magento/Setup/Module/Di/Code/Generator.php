@@ -36,8 +36,7 @@ class Generator extends FrameworkGenerator
         array $generatedEntities = [],
         DefinedClasses $definedClasses = null
     ) {
-        parent::__construct($ioObject, $generatedEntities, $definedClasses);
-        $this->setObjectManager($objectManagerInterface);
+        parent::__construct($objectManagerInterface, $ioObject, $generatedEntities, $definedClasses);
     }
 
     /**

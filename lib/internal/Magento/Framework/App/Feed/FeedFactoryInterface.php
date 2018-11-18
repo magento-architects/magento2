@@ -9,6 +9,7 @@ namespace Magento\Framework\App;
 
 /**
  * Feed factory interface
+ * @preference Magento\Framework\App\FeedFactory
  */
 interface FeedFactoryInterface
 {

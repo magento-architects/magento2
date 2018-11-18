@@ -8,6 +8,7 @@ namespace Magento\Framework\Module\Output;
 /**
  * @deprecated 100.2.0 Magento does not support disabling/enabling modules output from the Admin Panel since 2.2.0
  * version. Module output can still be enabled/disabled in configuration files.
+ * @preference Magento\Framework\Module\Output\Config
  */
 interface ConfigInterface
 {

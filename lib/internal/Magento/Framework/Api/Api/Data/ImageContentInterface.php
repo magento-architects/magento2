@@ -10,6 +10,7 @@ namespace Magento\Framework\Api\Data;
  * Image Content data interface
  *
  * @api
+ * @preference Magento\Framework\Api\ImageContent
  */
 interface ImageContentInterface
 {

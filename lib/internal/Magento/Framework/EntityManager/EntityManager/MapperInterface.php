@@ -7,6 +7,7 @@ namespace Magento\Framework\EntityManager;
 
 /**
  * MapperInterface
+ * @preference Magento\Framework\EntityManager\CompositeMapper
  */
 interface MapperInterface
 {

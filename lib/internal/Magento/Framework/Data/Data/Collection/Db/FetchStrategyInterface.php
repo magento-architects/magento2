@@ -13,7 +13,7 @@ use Magento\Framework\DB\Select;
 
 /**
  * Interface \Magento\Framework\Data\Collection\Db\FetchStrategyInterface
- *
+ * @preference Magento\Framework\Data\Collection\Db\FetchStrategy\Query
  */
 interface FetchStrategyInterface
 {

@@ -13,6 +13,7 @@ use Magento\Framework\Exception\InputException;
  * Interface ImageProcessorInterface
  *
  * @api
+ * @preference Magento\Framework\Api\ImageProcessor
  */
 interface ImageProcessorInterface
 {

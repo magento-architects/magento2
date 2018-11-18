@@ -9,7 +9,7 @@ namespace Magento\Framework\Cache;
 
 /**
  * Interface \Magento\Framework\Cache\ConfigInterface
- *
+ * @preference Magento\Framework\Cache\Config
  */
 interface ConfigInterface
 {

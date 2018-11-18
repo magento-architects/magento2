@@ -9,6 +9,7 @@ namespace Magento\Framework\App\Route;
  * Routes configuration interface
  *
  * @api
+ * @preference Magento\Framework\App\Route\Config
  */
 interface ConfigInterface
 {

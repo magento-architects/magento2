@@ -11,6 +11,7 @@ namespace Magento\Framework\Search\Adapter\Mysql\Field;
  *
  * @deprecated
  * @see \Magento\ElasticSearch
+ * @preference Magento\Framework\Search\Adapter\Mysql\Field\Field
  */
 interface FieldInterface
 {

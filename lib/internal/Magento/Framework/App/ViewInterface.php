@@ -12,6 +12,7 @@ namespace Magento\Framework\App;
  * @api
  * @deprecated 100.2.0
  * @see \Magento\Framework\View\Result\Layout
+ * @preference Magento\Framework\App\View
  */
 interface ViewInterface
 {

@@ -6,8 +6,7 @@
 namespace Magento\Framework\Mview\View;
 
 /**
- * Interface \Magento\Framework\Mview\View\CollectionInterface
- *
+ * @preference Magento\Framework\Mview\View\Collection
  */
 interface CollectionInterface
 {

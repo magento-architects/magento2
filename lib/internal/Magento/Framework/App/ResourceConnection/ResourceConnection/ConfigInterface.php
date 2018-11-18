@@ -9,7 +9,7 @@ namespace Magento\Framework\App\ResourceConnection;
 
 /**
  * Interface \Magento\Framework\App\ResourceConnection\ConfigInterface
- *
+ * @preference Magento\Framework\App\ResourceConnection\Config
  */
 interface ConfigInterface
 {

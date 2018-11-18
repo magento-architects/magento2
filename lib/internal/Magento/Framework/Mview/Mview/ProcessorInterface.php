@@ -7,7 +7,7 @@ namespace Magento\Framework\Mview;
 
 /**
  * Interface \Magento\Framework\Mview\ProcessorInterface
- *
+ * @preference Magento\Framework\Mview\Processor
  */
 interface ProcessorInterface
 {

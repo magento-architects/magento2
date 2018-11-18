@@ -9,6 +9,7 @@ namespace Magento\Framework\Url;
  * This ScopeResolverInterface adds the ability to get the Magento area the code is executing in.
  *
  * @api
+ * @preference Magento\Framework\Url\ScopeResolver
  */
 interface ScopeResolverInterface extends \Magento\Framework\App\ScopeResolverInterface
 {

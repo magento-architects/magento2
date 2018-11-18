@@ -9,6 +9,7 @@ namespace Magento\Framework\Url;
  * Base64 decoder for URLs
  *
  * @api
+ * @preference Magento\Framework\Url\Decoder
  */
 interface DecoderInterface
 {

@@ -115,11 +115,12 @@ abstract class AbstractFactory implements \Magento\Framework\ObjectManager\Facto
         try {
             return new $type(...array_values($args));
         } catch (\TypeError $exception) {
+            echo $exception->getMessage();
             /** @var LoggerInterface $logger */
-            $logger = ObjectManager::getInstance()->get(LoggerInterface::class);
-            $logger->critical(
-                sprintf('Type Error occurred when creating object: %s, %s', $type, $exception->getMessage())
-            );
+//            $logger = ObjectManager::getInstance()->get(LoggerInterface::class);
+  //          $logger->critical(
+    //            sprintf('Type Error occurred when creating object: %s, %s', $type, $exception->getMessage())
+      //      );
 
             throw new RuntimeException(
                 new Phrase('Type Error occurred when creating object: %type', ['type' => $type])

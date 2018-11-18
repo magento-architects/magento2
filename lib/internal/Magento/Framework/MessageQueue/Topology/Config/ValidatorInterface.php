@@ -7,6 +7,7 @@ namespace Magento\Framework\MessageQueue\Topology\Config;
 
 /**
  * Topology config data validator.
+ * @preference Magento\Framework\MessageQueue\Topology\Config\CompositeValidator
  */
 interface ValidatorInterface
 {

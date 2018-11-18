@@ -9,7 +9,7 @@ namespace Magento\Framework\Event;
 
 /**
  * Interface \Magento\Framework\Event\InvokerInterface
- *
+ * @preference Magento\Framework\Event\Invoker\InvokerDefault
  */
 interface InvokerInterface
 {

@@ -7,6 +7,7 @@ namespace Magento\Framework\Module;
 
 /**
  * Resource Model Interface
+ * @preference Magento\Framework\Module\ModuleResource
  */
 interface ResourceInterface
 {

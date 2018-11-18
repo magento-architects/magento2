@@ -7,6 +7,7 @@ namespace Magento\Framework\Css\PreProcessor;
 
 /**
  * Error handler interface
+ * @preference Magento\Framework\Css\PreProcessor\ErrorHandler
  */
 interface ErrorHandlerInterface
 {

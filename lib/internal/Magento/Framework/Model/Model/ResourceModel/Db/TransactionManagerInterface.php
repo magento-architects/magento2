@@ -9,6 +9,7 @@ use Magento\Framework\DB\Adapter\AdapterInterface as Connection;
 
 /**
  * @api
+ * @preference Magento\Framework\Model\ResourceModel\Db\TransactionManager
  */
 interface TransactionManagerInterface
 {

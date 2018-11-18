@@ -7,6 +7,7 @@ namespace Magento\Framework\Locale;
 
 /**
  * @api
+ * @preference Magento\Framework\Locale\Format
  */
 interface FormatInterface
 {

@@ -9,7 +9,7 @@ namespace Magento\Framework\Session;
 
 /**
  * Interface \Magento\Framework\Session\SidResolverInterface
- *
+ * @preference Magento\Framework\Session\SidResolver
  */
 interface SidResolverInterface
 {

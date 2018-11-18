@@ -9,7 +9,7 @@ namespace Magento\Framework\Interception;
 
 /**
  * Interface \Magento\Framework\Interception\PluginListInterface
- *
+ * @preference Magento\Framework\Interception\PluginList\PluginList
  */
 interface PluginListInterface
 {

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Cm\RedisSession\Handler\ConfigInterface" type="Magento\Framework\Session\SaveHandler\Redis\Config"/>
+    <preference for="Cm\RedisSession\Handler\LoggerInterface" type="Magento\Framework\Session\SaveHandler\Redis\Logger"/>
+    <type name="Magento\Framework\Session\SaveHandlerFactory">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="db" xsi:type="string">Magento\Framework\Session\SaveHandler\DbTable</item>
+                <item name="redis" xsi:type="string">Magento\Framework\Session\SaveHandler\Redis</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Session\SaveHandler\Redis">
+        <arguments>
+            <argument name="config" xsi:type="object">Cm\RedisSession\Handler\ConfigInterface</argument>
+            <argument name="logger" xsi:type="object">Cm\RedisSession\Handler\LoggerInterface</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Url">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Framework\Session\Generic\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Session\Validator">
+        <arguments>
+            <argument name="skippedUserAgentList" xsi:type="array">
+                <item name="flash" xsi:type="string">Shockwave Flash</item>
+                <item name="flash_mac" xsi:type="string"><![CDATA[Adobe Flash Player\s{1,}\w{1,10}]]></item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Response\Http">
+        <arguments>
+            <argument name="sessionConfig" xsi:type="object">Magento\Framework\Session\Config\ConfigInterface\Proxy</argument>
+        </arguments>
+    </type>
+</config>

@@ -9,6 +9,7 @@ namespace Magento\Framework\Url;
  * URL security information. Answers whether URL is secured.
  *
  * @api
+ * @preference Magento\Framework\Url\SecurityInfo
  */
 interface SecurityInfoInterface
 {

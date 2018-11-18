@@ -7,6 +7,7 @@ namespace Magento\Framework\DataObject;
 
 /**
  * Interface UuidInterface
+ * @preference Magento\Framework\DataObject\IdentityService
  */
 interface IdentityGeneratorInterface
 {

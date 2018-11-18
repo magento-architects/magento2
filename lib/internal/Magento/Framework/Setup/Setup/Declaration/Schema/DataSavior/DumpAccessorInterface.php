@@ -8,6 +8,8 @@ namespace Magento\Framework\Setup\Declaration\Schema\DataSavior;
 
 /**
  * Allows to access dump, that can be persisted in any file format or in database
+ *
+ * @preference Magento\Framework\Setup\Declaration\Schema\FileSystem\Csv
  */
 interface DumpAccessorInterface
 {

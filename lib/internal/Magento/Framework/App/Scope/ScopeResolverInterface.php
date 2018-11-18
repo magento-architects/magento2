@@ -7,6 +7,7 @@ namespace Magento\Framework\App;
 
 /**
  * Scopes provider
+ * @preference Magento\Framework\App\ScopeResolver
  */
 interface ScopeResolverInterface
 {

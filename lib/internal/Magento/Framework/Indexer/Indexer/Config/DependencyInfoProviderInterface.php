@@ -10,6 +10,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
  * Provides an information about indexers dependencies.
+ * @preference Magento\Framework\Indexer\Config\DependencyInfoProvider
  */
 interface DependencyInfoProviderInterface
 {

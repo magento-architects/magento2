@@ -10,6 +10,7 @@ namespace Magento\Framework\Serialize;
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\Serialize\Serializer\Json
  */
 interface SerializerInterface
 {

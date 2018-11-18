@@ -7,6 +7,7 @@ namespace Magento\Framework\MessageQueue\Publisher\Config;
 
 /**
  * Publisher config reader interface
+ * @preference Magento\Framework\MessageQueue\Publisher\Config\CompositeReader
  */
 interface ReaderInterface extends \Magento\Framework\Config\ReaderInterface
 {

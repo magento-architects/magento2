@@ -12,14 +12,14 @@ namespace Magento\Framework\Webapi;
 class ServiceTypeToEntityTypeMap
 {
     /**
-     * @var string
+     * @var string[]
      */
     private $serviceTypeToEntityTypeMap;
 
     /**
-     * @param $serviceTypeToEntityTypeMap
+     * @param array $serviceTypeToEntityTypeMap
      */
-    public function __construct($serviceTypeToEntityTypeMap)
+    public function __construct($serviceTypeToEntityTypeMap = [])
     {
         $this->serviceTypeToEntityTypeMap = $serviceTypeToEntityTypeMap;
     }

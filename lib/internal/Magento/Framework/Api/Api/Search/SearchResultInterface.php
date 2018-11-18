@@ -11,6 +11,7 @@ use Magento\Framework\Api\SearchResultsInterface;
  * Interface SearchResultInterface
  *
  * @api
+ * @preference Magento\Framework\Api\Search\SearchResult
  */
 interface SearchResultInterface extends SearchResultsInterface
 {

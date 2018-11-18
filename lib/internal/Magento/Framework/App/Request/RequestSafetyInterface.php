@@ -10,6 +10,7 @@ namespace Magento\Framework\App;
  * Request safety check. Can be used to identify if current application request is safe (does not modify state) or not.
  *
  * @api
+ * @preference Magento\Framework\App\Request\Http
  */
 interface RequestSafetyInterface
 {

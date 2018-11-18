@@ -9,6 +9,7 @@ use Magento\Framework\View\DesignInterface;
 
 /**
  * Interface for classes that fetching codes of available locales for the concrete theme.
+ * @preference Magento\Framework\Locale\Deployed\Codes
  */
 interface AvailableLocalesInterface
 {

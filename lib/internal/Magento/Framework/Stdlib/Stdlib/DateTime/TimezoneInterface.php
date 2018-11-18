@@ -11,6 +11,7 @@ use Magento\Framework\Exception\LocalizedException;
 /**
  * Timezone Interface
  * @api
+ * @preference Magento\Framework\Stdlib\DateTime\Timezone
  */
 interface TimezoneInterface
 {

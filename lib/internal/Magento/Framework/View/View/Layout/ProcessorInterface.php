@@ -7,6 +7,7 @@ namespace Magento\Framework\View\Layout;
 
 /**
  * Interface ProcessorInterface
+ * @preference Magento\Framework\View\Model\Layout\Merge
  */
 interface ProcessorInterface
 {

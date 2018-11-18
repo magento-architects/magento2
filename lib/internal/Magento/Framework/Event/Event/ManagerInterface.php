@@ -7,7 +7,7 @@ namespace Magento\Framework\Event;
 
 /**
  * Interface \Magento\Framework\Event\ManagerInterface
- *
+ * @preference Magento\Framework\Event\Manager
  */
 interface ManagerInterface
 {

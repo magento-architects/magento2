@@ -8,6 +8,7 @@ namespace Magento\Framework\Data\Collection;
 /**
  * Interface \Magento\Framework\Data\Collection\EntityFactoryInterface
  *
+ * @preference Magento\Framework\Data\Collection\EntityFactory
  */
 interface EntityFactoryInterface
 {

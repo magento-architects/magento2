@@ -8,8 +8,7 @@
 namespace Magento\Framework\Session;
 
 /**
- * Interface \Magento\Framework\Session\SaveHandlerInterface
- *
+ * @preference Magento\Framework\Session\SaveHandler
  */
 interface SaveHandlerInterface extends \SessionHandlerInterface
 {

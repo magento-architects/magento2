@@ -9,6 +9,7 @@ namespace Magento\Framework\Translate;
  * Inline translation interface
  *
  * @api
+ * @preference Magento\Framework\Translate\Inline
  */
 interface InlineInterface
 {

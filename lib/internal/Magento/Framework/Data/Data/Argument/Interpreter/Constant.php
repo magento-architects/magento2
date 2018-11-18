@@ -20,7 +20,7 @@ class Constant implements InterpreterInterface
     public function evaluate(array $data)
     {
         if (!isset($data['value']) || !defined($data['value'])) {
-            throw new \InvalidArgumentException('Constant name is expected.');
+            throw new \InvalidArgumentException('Constant name is expected (' .  $data['name'] . ')');
         }
         return constant($data['value']);
     }

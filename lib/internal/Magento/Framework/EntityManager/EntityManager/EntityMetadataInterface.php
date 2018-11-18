@@ -8,6 +8,7 @@ namespace Magento\Framework\EntityManager;
 
 /**
  * Interface EntityMetadataInterface
+ * @preference Magento\Framework\EntityManager\EntityMetadata
  */
 interface EntityMetadataInterface
 {

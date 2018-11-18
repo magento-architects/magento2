@@ -8,8 +8,7 @@
 namespace Magento\Framework\Code\Reader;
 
 /**
- * Interface \Magento\Framework\Code\Reader\ClassReaderInterface
- *
+ * @preference Magento\Framework\Code\Reader\ClassReader
  */
 interface ClassReaderInterface
 {

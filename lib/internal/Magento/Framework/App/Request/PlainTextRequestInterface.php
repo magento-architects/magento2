@@ -14,6 +14,7 @@ namespace Magento\Framework\App;
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\App\Request\Http
  */
 interface PlainTextRequestInterface
 {

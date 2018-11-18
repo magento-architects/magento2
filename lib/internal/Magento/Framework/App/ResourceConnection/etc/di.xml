@@ -1,7 +1,24 @@
-<config>
-    <type name="Magento\Framework\App\ResourceConnection\Config\Reader">
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\ResourceConnection">
         <arguments>
-            <argument name="fileResolver" xsi:type="object">Magento\Framework\App\Config\FileResolver\Proxy</argument>
+            <argument name="connectionFactory" xsi:type="object">Magento\Framework\App\ResourceConnection\ConnectionFactory</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\ResourceConnection\Config">
+        <arguments>
+            <argument name="reader" xsi:type="object">Magento\Framework\App\ResourceConnection\Config\Reader\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Cache\Frontend\Factory">
+        <arguments>
+            <argument name="resource" xsi:type="object">Magento\Framework\App\ResourceConnection\Proxy</argument>
         </arguments>
     </type>
 </config>

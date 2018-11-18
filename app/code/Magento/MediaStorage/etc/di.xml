@@ -26,4 +26,9 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\App\StaticResource">
+        <arguments>
+            <argument name="response" xsi:type="object" shared="false">Magento\MediaStorage\Model\File\Storage\Response</argument>
+        </arguments>
+    </type>
 </config>

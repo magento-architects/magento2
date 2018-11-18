@@ -9,6 +9,7 @@ namespace Magento\Framework\Message;
  * Adds different types of messages to the session, and allows access to existing messages.
  *
  * @api
+ * @preference Magento\Framework\Message\Manager
  */
 interface ManagerInterface
 {

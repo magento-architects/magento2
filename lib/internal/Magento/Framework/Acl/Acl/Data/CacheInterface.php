@@ -11,6 +11,7 @@ namespace Magento\Framework\Acl\Data;
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\Acl\Data\Cache
  */
 interface CacheInterface extends \Magento\Framework\Cache\FrontendInterface
 {

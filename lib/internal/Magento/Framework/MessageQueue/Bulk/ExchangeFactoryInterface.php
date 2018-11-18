@@ -10,6 +10,7 @@ namespace Magento\Framework\MessageQueue\Bulk;
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\MessageQueue\Bulk\ExchangeFactory
  */
 interface ExchangeFactoryInterface
 {

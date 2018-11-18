@@ -9,6 +9,10 @@ namespace Magento\Framework\App\Arguments\FileResolver;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 
+/**
+ * @deprecated since 2.3.1. Configuration loading behavior changed. Only single primary di.xml file is loaded now.
+ * @see \Magento\Framework\App\Config\FileResolver
+ */
 class Primary implements \Magento\Framework\Config\FileResolverInterface
 {
     /**

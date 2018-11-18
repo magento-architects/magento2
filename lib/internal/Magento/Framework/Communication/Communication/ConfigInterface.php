@@ -12,6 +12,7 @@ use Magento\Framework\Exception\LocalizedException;
  *
  * @api
  * @since 100.1.0
+ * @preference Magento\Framework\Communication\Config
  */
 interface ConfigInterface
 {

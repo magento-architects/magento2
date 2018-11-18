@@ -12,6 +12,11 @@
     <type name="Magento\Framework\App\Action\AbstractAction">
         <plugin name="contextPlugin" type="Magento\Store\App\Action\Plugin\Context" sortOrder="10"/>
     </type>
+    <type name="Magento\Framework\Config\Scope">
+        <arguments>
+            <argument name="defaultScope" xsi:type="string">frontend</argument>
+        </arguments>
+    </type>
     <type name="Magento\Framework\App\RouterList" shared="true">
         <arguments>
             <argument name="routerList" xsi:type="array">

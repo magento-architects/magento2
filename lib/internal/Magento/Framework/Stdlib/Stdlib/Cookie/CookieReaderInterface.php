@@ -9,6 +9,7 @@ namespace Magento\Framework\Stdlib\Cookie;
 /**
  * CookieReaderInterface provides the ability to read cookies sent in a request.
  * @api
+ * @preference Magento\Framework\Stdlib\Cookie\PhpCookieReader
  */
 interface CookieReaderInterface
 {

@@ -7,6 +7,7 @@ namespace Magento\Framework\DB;
 
 /**
  * Class QueryInterface
+ * @preference Magento\Framework\DB\Query
  */
 interface QueryInterface
 {

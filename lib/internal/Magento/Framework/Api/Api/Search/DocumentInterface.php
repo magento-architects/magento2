@@ -9,7 +9,7 @@ use Magento\Framework\Api\CustomAttributesDataInterface;
 
 /**
  * Interface \Magento\Framework\Api\Search\DocumentInterface
- *
+ * @preference Magento\Framework\Api\Search\Document
  */
 interface DocumentInterface extends CustomAttributesDataInterface
 {

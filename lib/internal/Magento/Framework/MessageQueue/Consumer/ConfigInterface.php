@@ -13,6 +13,7 @@ use Magento\Framework\MessageQueue\Consumer\Config\ConsumerConfigItemInterface;
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\MessageQueue\Consumer\Config
  */
 interface ConfigInterface
 {

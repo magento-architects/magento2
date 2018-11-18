@@ -7,6 +7,7 @@ namespace Magento\Framework\View;
 
 /**
  * Design Interface
+ * @preference Magento\Theme\Model\View\Design
  */
 interface DesignInterface
 {

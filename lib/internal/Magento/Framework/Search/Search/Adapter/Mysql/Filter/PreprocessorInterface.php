@@ -12,6 +12,7 @@ use Magento\Framework\Search\Request\FilterInterface;
  *
  * @deprecated
  * @see \Magento\ElasticSearch
+ * @preference Magento\Framework\Search\Adapter\Mysql\Filter\Preprocessor
  */
 interface PreprocessorInterface
 {

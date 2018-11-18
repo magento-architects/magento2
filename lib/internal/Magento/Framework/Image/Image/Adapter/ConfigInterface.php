@@ -7,7 +7,7 @@ namespace Magento\Framework\Image\Adapter;
 
 /**
  * Interface \Magento\Framework\Image\Adapter\ConfigInterface
- *
+ * @preference Magento\Framework\Image\Adapter\Config
  */
 interface ConfigInterface
 {

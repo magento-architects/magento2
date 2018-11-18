@@ -9,6 +9,7 @@ namespace Magento\Framework\Config;
  * Config scope interface.
  *
  * @api
+ * @preference Magento\Framework\Config\Scope
  */
 interface ScopeInterface
 {

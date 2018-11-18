@@ -9,6 +9,7 @@ namespace Magento\Framework\View\Asset;
  * View asset configuration interface
  *
  * @api
+ * @preference Magento\Framework\View\Asset\Config
  */
 interface ConfigInterface
 {

@@ -59,6 +59,7 @@ class Generator
      * @param LoggerInterface|null $logger
      */
     public function __construct(
+        ObjectManagerInterface $objectManager,
         Io $ioObject = null,
         array $generatedEntities = [],
         DefinedClasses $definedClasses = null,
@@ -66,6 +67,7 @@ class Generator
     ) {
         $this->_ioObject = $ioObject ?: new Io(new File());
         $this->definedClasses = $definedClasses ?: new DefinedClasses();
+        $this->objectManager = $objectManager;
         $this->_generatedEntities = $generatedEntities;
         $this->logger = $logger;
     }

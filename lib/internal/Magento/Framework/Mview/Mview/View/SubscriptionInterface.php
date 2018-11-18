@@ -6,8 +6,7 @@
 namespace Magento\Framework\Mview\View;
 
 /**
- * Interface \Magento\Framework\Mview\View\SubscriptionInterface
- *
+ * @preference Magento\Framework\Mview\View\Subscription
  */
 interface SubscriptionInterface
 {

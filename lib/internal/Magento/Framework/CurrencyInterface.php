@@ -7,6 +7,7 @@ namespace Magento\Framework;
 
 /**
  * @api
+ * @preference Magento\Framework\Currency
  */
 interface CurrencyInterface
 {

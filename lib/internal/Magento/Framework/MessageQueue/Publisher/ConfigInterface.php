@@ -13,6 +13,7 @@ use Magento\Framework\MessageQueue\Publisher\Config\PublisherConfigItemInterface
  *
  * @api
  * @since 100.2.0
+ * @preference Magento\Framework\MessageQueue\Publisher\Config
  */
 interface ConfigInterface
 {

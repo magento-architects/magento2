@@ -31,13 +31,6 @@ class Config implements \Magento\Framework\Interception\ConfigInterface
     protected $_classDefinitions;
 
     /**
-     * Cache
-     *
-     * @var \Magento\Framework\ApcuCache
-     */
-    protected $_cache;
-
-    /**
      * Cache identifier
      *
      * @var string
@@ -94,7 +87,6 @@ class Config implements \Magento\Framework\Interception\ConfigInterface
         $this->_omConfig = $omConfig;
         $this->_relations = $relations;
         $this->_classDefinitions = $classDefinitions;
-        $this->_cache = $cache;
         $this->_cacheId = $cacheId;
         $this->_reader = $reader;
         $this->_scopeList = $scopeList;
@@ -108,7 +100,7 @@ class Config implements \Magento\Framework\Interception\ConfigInterface
      * Initialize interception config
      *
      * @param array $classDefinitions
-     * @return void
+     * @return []
      */
     public function initialize($classDefinitions = [])
     {

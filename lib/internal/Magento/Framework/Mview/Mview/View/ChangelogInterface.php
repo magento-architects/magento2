@@ -7,7 +7,7 @@ namespace Magento\Framework\Mview\View;
 
 /**
  * Interface \Magento\Framework\Mview\View\ChangelogInterface
- *
+ * @preference Magento\Framework\Mview\View\Changelog
  */
 interface ChangelogInterface
 {

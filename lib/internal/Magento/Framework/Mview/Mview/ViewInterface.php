@@ -7,7 +7,7 @@ namespace Magento\Framework\Mview;
 
 /**
  * Interface \Magento\Framework\Mview\ViewInterface
- *
+ * @preference Magento\Framework\Mview\View
  */
 interface ViewInterface
 {

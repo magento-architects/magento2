@@ -9,6 +9,7 @@ namespace Magento\Framework\View\Asset\PreProcessor;
  * Interface ChainFactoryInterface
  *
  * @api
+ * @preference Magento\Framework\View\Asset\PreProcessor\ChainFactory
  */
 interface ChainFactoryInterface
 {

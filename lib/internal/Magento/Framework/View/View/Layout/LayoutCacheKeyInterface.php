@@ -7,6 +7,7 @@ namespace Magento\Framework\View\Layout;
 
 /**
  * Interface LayoutCacheKeyInterface
+ * @preference Magento\Framework\View\Model\Layout\CacheKey
  */
 interface LayoutCacheKeyInterface
 {

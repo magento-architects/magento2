@@ -9,6 +9,7 @@ namespace Magento\Framework\Url;
  * Resolves query parameters in a URL.
  *
  * @api
+ * @preference Magento\Framework\Url\QueryParamsResolver
  */
 interface QueryParamsResolverInterface
 {

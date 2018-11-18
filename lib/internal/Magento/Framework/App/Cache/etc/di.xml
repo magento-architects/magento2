@@ -1,8 +1,40 @@
-<config>
-    <preference for="Magento\Framework\App\CacheInterface" type="Magento\Framework\App\Cache\Proxy" />
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Framework\Config\CacheInterface" type="Magento\Framework\App\Cache\Type\Config" />
+    <preference for="Magento\Framework\App\CacheInterface" type="Magento\Framework\App\Cache" />
     <preference for="Magento\Framework\App\Cache\StateInterface" type="Magento\Framework\App\Cache\State" />
     <preference for="Magento\Framework\App\Cache\TypeListInterface" type="Magento\Framework\App\Cache\TypeList" />
     <preference for="Magento\Framework\Config\CacheInterface" type="Magento\Framework\App\Cache\Type\Config" />
+    <type name="Magento\Framework\App\ObjectManager\ConfigCache">
+        <arguments>
+            <argument name="cacheFrontend" xsi:type="object">Magento\Framework\App\Cache\Type\Config</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\ResourceConnection\Config">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Config\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Validator\Factory">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Config</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Data\Collection\Db\FetchStrategy\Cache">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Collection</argument>
+            <argument name="cacheIdPrefix" xsi:type="string">collection_</argument>
+            <argument name="cacheLifetime" xsi:type="string">86400</argument>
+        </arguments>
+    </type>
+
 
 
     <type name="Magento\Framework\App\Cache\Frontend\Factory">
@@ -19,7 +51,6 @@
                     <item name="class" xsi:type="string">Magento\Framework\Cache\Frontend\Decorator\Logger</item>
                 </item>
             </argument>
-            <argument name="resource" xsi:type="object">Magento\Framework\App\ResourceConnection\Proxy</argument>
         </arguments>
     </type>
     <type name="Magento\Framework\App\Cache\State">
@@ -28,25 +59,6 @@
         </arguments>
     </type>
 
-
-    <type name="Magento\Framework\App\Cache\Frontend\Pool">
-        <arguments>
-            <argument name="frontendSettings" xsi:type="array">
-                <item name="page_cache" xsi:type="array">
-                    <item name="backend_options" xsi:type="array">
-                        <item name="cache_dir" xsi:type="string">page_cache</item>
-                    </item>
-                </item>
-            </argument>
-        </arguments>
-    </type>
-    <type name="Magento\Framework\App\Cache\Type\FrontendPool">
-        <arguments>
-            <argument name="typeFrontendMap" xsi:type="array">
-                <item name="full_page" xsi:type="string">page_cache</item>
-            </argument>
-        </arguments>
-    </type>
     <type name="Magento\Framework\App\Cache\FlushCacheByTags">
         <arguments>
             <argument name="cacheList" xsi:type="array">
@@ -55,5 +67,19 @@
             </argument>
         </arguments>
     </type>
-
+    <type name="Magento\Framework\Translate">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Translate</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Layout">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Layout</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Model\Layout\Merge">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Layout</argument>
+        </arguments>
+    </type>
 </config>

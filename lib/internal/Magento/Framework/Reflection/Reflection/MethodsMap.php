@@ -17,8 +17,8 @@ use Magento\Framework\App\Cache\Type\Reflection as ReflectionCache;
  */
 class MethodsMap
 {
-    const SERVICE_METHOD_PARAMS_CACHE_PREFIX = 'service_method_params_';
-    const SERVICE_INTERFACE_METHODS_CACHE_PREFIX = 'serviceInterfaceMethodsMap';
+    const SERVICE_METHOD_PARAMS_CACHE_PREFIX = 'service_method_params.';
+    const SERVICE_INTERFACE_METHODS_CACHE_PREFIX = 'service_method_map.';
     const BASE_MODEL_CLASS = \Magento\Framework\Model\AbstractExtensibleModel::class;
 
     const METHOD_META_NAME = 'name';
@@ -27,7 +27,7 @@ class MethodsMap
     const METHOD_META_DEFAULT_VALUE = 'defaultValue';
 
     /**
-     * @var \Magento\Framework\Cache\FrontendInterface
+     * @var \Magento\Framework\ApcuCache
      */
     private $cache;
 
@@ -52,13 +52,13 @@ class MethodsMap
     private $serializer;
 
     /**
-     * @param \Magento\Framework\Cache\FrontendInterface $cache
+     * @param \Magento\Framework\ApcuCache $cache
      * @param TypeProcessor $typeProcessor
      * @param \Magento\Framework\Api\AttributeTypeResolverInterface $typeResolver
      * @param FieldNamer $fieldNamer
      */
     public function __construct(
-        \Magento\Framework\Cache\FrontendInterface $cache,
+        \Magento\Framework\ApcuCache $cache,
         TypeProcessor $typeProcessor,
         \Magento\Framework\Api\AttributeTypeResolverInterface $typeResolver,
         FieldNamer $fieldNamer
@@ -99,16 +99,15 @@ class MethodsMap
      */
     public function getMethodsMap($interfaceName)
     {
-        $key = self::SERVICE_INTERFACE_METHODS_CACHE_PREFIX . "-" . md5($interfaceName);
+        $key = self::SERVICE_INTERFACE_METHODS_CACHE_PREFIX . $interfaceName;
         if (!isset($this->serviceInterfaceMethodsMap[$key])) {
-            $methodMap = $this->cache->load($key);
-            if ($methodMap) {
-                $this->serviceInterfaceMethodsMap[$key] = $this->getSerializer()->unserialize($methodMap);
-            } else {
-                $methodMap = $this->getMethodMapViaReflection($interfaceName);
-                $this->serviceInterfaceMethodsMap[$key] = $methodMap;
-                $this->cache->save($this->getSerializer()->serialize($this->serviceInterfaceMethodsMap[$key]), $key);
-            }
+            $that = $this;
+            $this->serviceInterfaceMethodsMap[$key] = $this->cache->getCachedContent(
+                $key,
+                function () use ($that, $interfaceName) {
+                    return $that->getMethodMapViaReflection($interfaceName);
+                }
+            );
         }
         return $this->serviceInterfaceMethodsMap[$key];
     }
@@ -122,11 +121,24 @@ class MethodsMap
      */
     public function getMethodParams($serviceClassName, $serviceMethodName)
     {
-        $cacheId = self::SERVICE_METHOD_PARAMS_CACHE_PREFIX . hash('md5', $serviceClassName . $serviceMethodName);
-        $params = $this->cache->load($cacheId);
-        if ($params !== false) {
-            return $this->getSerializer()->unserialize($params);
-        }
+        $cacheId = self::SERVICE_METHOD_PARAMS_CACHE_PREFIX .  $serviceClassName . '::' . $serviceMethodName;
+        $that = $this;
+        return $this->cache->getCachedContent(
+            $cacheId,
+            function () use ($that, $serviceClassName, $serviceMethodName) {
+                return $that->getMethodParamsViaReflection($serviceClassName, $serviceMethodName);
+            }
+        );
+    }
+
+    /**
+     * @param string $serviceClassName
+     * @param string $serviceMethodName
+     * @return array
+     * @throws \ReflectionException
+     */
+    private function getMethodParamsViaReflection($serviceClassName, $serviceMethodName)
+    {
         $serviceClass = new ClassReflection($serviceClassName);
         /** @var MethodReflection $serviceMethod */
         $serviceMethod = $serviceClass->getMethod($serviceMethodName);
@@ -138,11 +150,12 @@ class MethodsMap
                 self::METHOD_META_NAME => $paramReflection->getName(),
                 self::METHOD_META_TYPE => $this->typeProcessor->getParamType($paramReflection),
                 self::METHOD_META_HAS_DEFAULT_VALUE => $isDefaultValueAvailable,
-                self::METHOD_META_DEFAULT_VALUE => $isDefaultValueAvailable ? $paramReflection->getDefaultValue() : null
+                self::METHOD_META_DEFAULT_VALUE => $isDefaultValueAvailable
+                    ? $paramReflection->getDefaultValue()
+                    : null
             ];
         }
-        $this->cache->save($this->getSerializer()->serialize($params), $cacheId, [ReflectionCache::CACHE_TAG]);
-        return $params;
+        return [$params, [$serviceClass->getFileName()]];
     }
 
     /**
@@ -173,7 +186,7 @@ class MethodsMap
                 $methodMap[$method->getName()] = $this->typeProcessor->getGetterReturnType($method);
             }
         }
-        return $methodMap;
+        return [$methodMap, [$class->getFileName()]];
     }
 
     /**
@@ -226,20 +239,5 @@ class MethodsMap
     {
         $methods = $this->getMethodsMap($type);
         return $methods[$methodName]['isRequired'];
-    }
-
-    /**
-     * Get serializer
-     *
-     * @return \Magento\Framework\Serialize\SerializerInterface
-     * @deprecated 100.2.0
-     */
-    private function getSerializer()
-    {
-        if ($this->serializer === null) {
-            $this->serializer = \Magento\Framework\App\ObjectManager::getInstance()
-                ->get(SerializerInterface::class);
-        }
-        return $this->serializer;
     }
 }

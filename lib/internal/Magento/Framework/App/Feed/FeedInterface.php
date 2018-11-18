@@ -9,6 +9,7 @@ namespace Magento\Framework\App;
 
 /**
  * Feed interface
+ * @preference Magento\Framework\App\Feed
  */
 interface FeedInterface
 {

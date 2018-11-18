@@ -7,6 +7,7 @@ namespace Magento\Framework\View\Asset;
 
 /**
  * Interface for merging multiple assets into one
+ * @preference Magento\Framework\View\Asset\MergeStrategy\Direct
  */
 interface MergeStrategyInterface
 {

@@ -7,6 +7,7 @@ namespace Magento\Framework\App;
 
 /**
  * Application router list
+ * @preference Magento\Framework\App\RouterList
  */
 interface RouterListInterface extends \Iterator
 {

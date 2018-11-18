@@ -7,6 +7,7 @@ namespace Magento\Framework\MessageQueue\Consumer\Config;
 
 /**
  * Queue consumer config validator interface.
+ * @preference Magento\Framework\MessageQueue\Consumer\Config\CompositeValidator
  */
 interface ValidatorInterface
 {

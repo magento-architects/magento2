@@ -9,6 +9,7 @@ namespace Magento\Framework\App;
 
 /**
  * @api
+ * @preference Magento\Framework\App\Response\Http
  */
 interface ResponseInterface
 {
