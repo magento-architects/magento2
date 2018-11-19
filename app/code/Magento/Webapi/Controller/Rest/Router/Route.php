@@ -48,11 +48,28 @@ class Route implements RouterInterface
     protected $route;
 
     /**
+     * Route constructor.
      * @param string $route
+     * @param null $serviceClass
+     * @param null $serviceMethod
+     * @param null $secure
+     * @param array $aclResources
+     * @param array $parameters
      */
-    public function __construct($route = '')
-    {
+    public function __construct(
+        $route = '',
+        $serviceClass = null,
+        $serviceMethod = null,
+        $secure = null,
+        $aclResources = [],
+        $parameters = []
+    ) {
         $this->route = trim($route, '/');
+        $this->serviceClass = $serviceClass;
+        $this->serviceMethod = $serviceMethod;
+        $this->secure = $secure;
+        $this->aclResources = $aclResources;
+        $this->parameters = $parameters;
     }
 
     /**

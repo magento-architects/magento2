@@ -16,9 +16,6 @@ use Magento\Framework\Webapi\Request;
  */
 class SchemaRequestProcessor implements RequestProcessorInterface
 {
-
-    const PROCESSOR_PATH = 'schema';
-
     /**
      * @var \Magento\Webapi\Model\Rest\Swagger\Generator
      */
@@ -59,16 +56,5 @@ class SchemaRequestProcessor implements RequestProcessorInterface
             $request->getRequestUri()
         );
         $this->response->setBody($responseBody)->setHeader('Content-Type', 'application/json');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function canProcess(\Magento\Framework\Webapi\Rest\Request $request)
-    {
-        if (strpos(ltrim($request->getPathInfo(), '/'), self::PROCESSOR_PATH) === 0) {
-            return true;
-        }
-        return false;
     }
 }

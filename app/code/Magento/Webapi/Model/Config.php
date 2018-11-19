@@ -3,14 +3,12 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Magento\Webapi\Model;
 
 use Magento\Framework\ApcuCache;
 use Magento\Webapi\Model\Config\Reader;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Serialize\SerializerInterface;
-die('erererer');
 /**
  * This class gives access to consolidated web API configuration from <Module_Name>/etc/webapi.xml files.
  *
@@ -54,9 +52,8 @@ class Config implements ConfigInterface
         ApcuCache $cache,
         Reader $configReader
     ) {
-        die ('ddd');
         $this->services = $cache->getCachedContent(self::CACHE_ID, function() use ($configReader) {
-            $configReader->read();
+            return $configReader->read();
         });
     }
 

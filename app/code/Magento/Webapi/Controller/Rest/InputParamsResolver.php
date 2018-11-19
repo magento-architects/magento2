@@ -32,16 +32,6 @@ class InputParamsResolver
     private $serviceInputProcessor;
 
     /**
-     * @var Router
-     */
-    private $router;
-
-    /**
-     * @var Route
-     */
-    private $route;
-
-    /**
      * @var RequestValidator
      */
     private $requestValidator;
@@ -59,13 +49,11 @@ class InputParamsResolver
         RestRequest $request,
         ParamsOverrider $paramsOverrider,
         ServiceInputProcessor $serviceInputProcessor,
-        Router $router,
         RequestValidator $requestValidator
     ) {
         $this->request = $request;
         $this->paramsOverrider = $paramsOverrider;
         $this->serviceInputProcessor = $serviceInputProcessor;
-        $this->router = $router;
         $this->requestValidator = $requestValidator;
     }
 
@@ -75,10 +63,9 @@ class InputParamsResolver
      * @return array
      * @throws \Magento\Framework\Webapi\Exception
      */
-    public function resolve()
+    public function resolve($route)
     {
         $this->requestValidator->validate();
-        $route = $this->getRoute();
         $serviceMethodName = $route->getServiceMethod();
         $serviceClassName = $route->getServiceClass();
 
@@ -100,18 +87,5 @@ class InputParamsResolver
         $inputData = $this->paramsOverrider->override($inputData, $route->getParameters());
         $inputParams = $this->serviceInputProcessor->process($serviceClassName, $serviceMethodName, $inputData);
         return $inputParams;
-    }
-
-    /**
-     * Retrieve current route.
-     *
-     * @return Route
-     */
-    public function getRoute()
-    {
-        if (!$this->route) {
-            $this->route = $this->router->match($this->request);
-        }
-        return $this->route;
     }
 }

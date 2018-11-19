@@ -31,9 +31,26 @@ class Factory
      * @return RouterInterface
      * @throws \LogicException If specified route class does not implement proper interface.
      */
-    public function createRoute($routeClass, $route)
-    {
-        $route = $this->objectManager->create($routeClass, ['route' => $route]);
+    public function createRoute(
+        $routeClass,
+        $route,
+        $serviceClass = null,
+        $serviceMethod = null,
+        $secure = null,
+        $aclResources = [],
+        $parameters = []
+    ) {
+        $route = $this->objectManager->create(
+            $routeClass,
+            [
+                'route' => $route,
+                'serviceClass' => $serviceClass,
+                'serviceMethod' => $serviceMethod,
+                'secure' => $secure,
+                'aclResources' => $aclResources,
+                'parameter' => $parameters
+            ]
+        );
         if (!$route instanceof RouterInterface) {
             throw new \LogicException('Route must implement "Magento\Framework\App\RouterInterface".');
         }

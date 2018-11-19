@@ -141,30 +141,18 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
     public function __construct(
         RestRequest $request,
         RestResponse $response,
-        Router $router,
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Framework\App\State $appState,
-        Authorization $authorization,
-        ServiceInputProcessor $serviceInputProcessor,
         ErrorProcessor $errorProcessor,
-        PathProcessor $pathProcessor,
         \Magento\Framework\App\AreaList $areaList,
-        ParamsOverrider $paramsOverrider,
-        StoreManagerInterface $storeManager,
         RequestProcessorPool $requestProcessorPool
     ) {
-        $this->_router = $router;
         $this->_request = $request;
         $this->_response = $response;
         $this->_objectManager = $objectManager;
         $this->_appState = $appState;
-        $this->authorization = $authorization;
-        $this->serviceInputProcessor = $serviceInputProcessor;
         $this->_errorProcessor = $errorProcessor;
-        $this->_pathProcessor = $pathProcessor;
         $this->areaList = $areaList;
-        $this->paramsOverrider = $paramsOverrider;
-        $this->storeManager = $storeManager;
         $this->requestProcessorPool = $requestProcessorPool;
     }
 
@@ -253,11 +241,6 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
         $this->checkPermissions();
         if ($this->getCurrentRoute()->isSecure() && !$this->_request->isSecure()) {
             throw new \Magento\Framework\Webapi\Exception(__('Operation allowed only in HTTPS'));
-        }
-        if ($this->storeManager->getStore()->getCode() === Store::ADMIN_CODE
-            && strtoupper($this->_request->getMethod()) === RestRequest::HTTP_METHOD_GET
-        ) {
-            throw new \Magento\Framework\Webapi\Exception(__('Cannot perform GET operation with store code \'all\''));
         }
     }
 }

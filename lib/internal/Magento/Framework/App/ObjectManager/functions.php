@@ -3,7 +3,7 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-function createObjectManager($areaCode, $inputArguments)
+function createObjectManager($areaCode, $inputArguments) : \Magento\Framework\ObjectManagerInterface
 {
     $cache = new \Magento\Framework\ApcuCache();
     $arguments = array_filter($inputArguments, function($key){

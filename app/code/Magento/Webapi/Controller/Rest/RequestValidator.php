@@ -27,11 +27,6 @@ class RequestValidator
     private $router;
 
     /**
-     * @var StoreManagerInterface
-     */
-    private $storeManager;
-
-    /**
      * @var Authorization
      */
     private $authorization;
@@ -47,12 +42,10 @@ class RequestValidator
     public function __construct(
         RestRequest $request,
         Router $router,
-        StoreManagerInterface $storeManager,
         Authorization $authorization
     ) {
         $this->request = $request;
         $this->router = $router;
-        $this->storeManager = $storeManager;
         $this->authorization = $authorization;
     }
 
@@ -75,8 +68,8 @@ class RequestValidator
     /**
      * Perform authentication and authorization.
      *
-     * @throws \Magento\Framework\Exception\AuthorizationException
-     * @return void
+     * @throws AuthorizationException
+     * @throws \Magento\Framework\Webapi\Exception
      */
     private function checkPermissions()
     {
