@@ -9,7 +9,6 @@ namespace Magento\Webapi\Controller\Rest;
 use Magento\Framework\Exception\AuthorizationException;
 use Magento\Framework\Webapi\Authorization;
 use Magento\Framework\Webapi\Rest\Request as RestRequest;
-use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * This class is responsible for validating the request
@@ -36,7 +35,6 @@ class RequestValidator
      *
      * @param RestRequest $request
      * @param Router $router
-     * @param StoreManagerInterface $storeManager
      * @param Authorization $authorization
      */
     public function __construct(

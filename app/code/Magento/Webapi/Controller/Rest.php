@@ -87,11 +87,6 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
     protected $_errorProcessor;
 
     /**
-     * @var \Magento\Webapi\Controller\PathProcessor
-     */
-    protected $_pathProcessor;
-
-    /**
      * @var \Magento\Framework\App\AreaList
      */
     protected $areaList;
@@ -113,12 +108,6 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
     protected $requestProcessorPool;
 
     /**
-     * @var StoreManagerInterface
-     * @deprecated 100.1.0
-     */
-    private $storeManager;
-
-    /**
      * Initialize dependencies
      *
      * @param RestRequest $request
@@ -132,7 +121,6 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
      * @param PathProcessor $pathProcessor
      * @param \Magento\Framework\App\AreaList $areaList
      * @param ParamsOverrider $paramsOverrider
-     * @param StoreManagerInterface $storeManager
      * @param RequestProcessorPool $requestProcessorPool
      *
      * TODO: Consider removal of warning suppression
@@ -167,8 +155,6 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
      */
     public function dispatch(\Magento\Framework\App\RequestInterface $request)
     {
-        $path = $this->_pathProcessor->process($request->getPathInfo());
-        $this->_request->setPathInfo($path);
         $this->areaList->getArea($this->_appState->getAreaCode())
             ->load(\Magento\Framework\App\Area::PART_TRANSLATE);
         try {
