@@ -7,7 +7,6 @@ namespace Magento\Webapi\Model;
 
 use Magento\Framework\ApcuCache;
 use Magento\Webapi\Model\Config\Reader;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Serialize\SerializerInterface;
 /**
  * This class gives access to consolidated web API configuration from <Module_Name>/etc/webapi.xml files.

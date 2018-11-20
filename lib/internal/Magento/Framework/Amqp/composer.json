@@ -17,9 +17,5 @@
     "autoload": {
         "psr-4": {
             "Magento\\Framework\\Amqp\\": ""
-        },
-        "files": [
-            "registration.php"
-        ]
-    }
+        }}
 }

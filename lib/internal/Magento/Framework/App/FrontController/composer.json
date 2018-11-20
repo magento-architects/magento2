@@ -12,9 +12,6 @@
     "autoload": {
         "psr-4": {
             "Magento\\Framework\\App\\": ""
-        },
-        "files": [
-            "registration.php"
-        ]
-    }
+        }
+        }
 }

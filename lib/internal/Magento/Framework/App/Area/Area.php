@@ -12,6 +12,7 @@ use Magento\Framework\ObjectManager\ConfigLoaderInterface;
  * Application area model
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @deprecated
  */
 class Area implements \Magento\Framework\App\AreaInterface
 {
@@ -47,13 +48,6 @@ class Area implements \Magento\Framework\App\AreaInterface
      * @var string
      */
     protected $_code;
-
-    /**
-     * Event Manager
-     *
-     * @var \Magento\Framework\Event\ManagerInterface
-     */
-    protected $_eventManager;
 
     /**
      * Translator
@@ -109,7 +103,6 @@ class Area implements \Magento\Framework\App\AreaInterface
      */
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
-        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Framework\TranslateInterface $translator,
         \Magento\Framework\ObjectManagerInterface $objectManager,
         ConfigLoaderInterface $diConfigLoader,
@@ -121,7 +114,6 @@ class Area implements \Magento\Framework\App\AreaInterface
         $this->_code = $areaCode;
         $this->_objectManager = $objectManager;
         $this->_diConfigLoader = $diConfigLoader;
-        $this->_eventManager = $eventManager;
         $this->_translator = $translator;
         $this->_logger = $logger;
         $this->_design = $design;

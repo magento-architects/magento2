@@ -59,4 +59,9 @@
             <argument name="fileName" xsi:type="string">webapi.xml</argument>
         </arguments>
     </type>
+    <type name="Magento\Webapi\Model\Config">
+        <arguments>
+            <argument name="configReader" xsi:type="object">Magento\Webapi\Model\Config\Reader\Proxy</argument>
+        </arguments>
+    </type>
 </config>

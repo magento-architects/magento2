@@ -55,6 +55,11 @@ class Translate implements \Magento\Framework\TranslateInterface
     protected $_data = [];
 
     /**
+     * @var bool
+     */
+    private $dataLoaded = false;
+
+    /**
      * @var \Magento\Framework\View\DesignInterface
      */
     protected $_viewDesign;
@@ -496,6 +501,9 @@ class Translate implements \Magento\Framework\TranslateInterface
      */
     public function getData()
     {
+        if (!$this->dataLoaded) {
+            $this->loadData();
+        }
         if ($this->_data === null) {
             return [];
         }

@@ -59,11 +59,11 @@
             <argument name="requestProcessors" xsi:type="array">
                 <item name="syncSchema" xsi:type="array" sortOrder="50">
                     <item name="matcher" xsi:type="object">Magento\Webapi\Controller\Rest\SchemaRequestMatcher</item>
-                    <item name="processor" xsi:type="string">Magento\Webapi\Controller\Rest\SchemaRequestProcessor\Proxy</item>
+                    <item name="processor" xsi:type="string">Magento\Webapi\Controller\Rest\SchemaRequestProcessor</item>
                 </item>
                 <item name="sync" xsi:type="array" sortOrder="100">
                     <item name="matcher" xsi:type="object">Magento\Webapi\Controller\Rest\SynchronousRequestMatcher</item>
-                    <item name="processor" xsi:type="object" >Magento\Webapi\Controller\Rest\SynchronousRequestProcessor\Proxy</item>
+                    <item name="processor" xsi:type="string" >Magento\Webapi\Controller\Rest\SynchronousRequestProcessor</item>
                 </item>
             </argument>
         </arguments>

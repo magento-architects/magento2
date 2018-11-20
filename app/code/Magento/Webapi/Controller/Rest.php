@@ -38,18 +38,6 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
     const SCHEMA_PATH = '/schema';
 
     /**
-     * @var Router
-     * @deprecated 100.1.0
-     */
-    protected $_router;
-
-    /**
-     * @var Route
-     * @deprecated 100.1.0
-     */
-    protected $_route;
-
-    /**
      * @var \Magento\Framework\Webapi\Rest\Request
      */
     protected $_request;
@@ -65,23 +53,6 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
     protected $_objectManager;
 
     /**
-     * @var \Magento\Framework\App\State
-     */
-    protected $_appState;
-
-    /**
-     * @var Authorization
-     * @deprecated 100.1.0
-     */
-    protected $authorization;
-
-    /**
-     * @var ServiceInputProcessor
-     * @deprecated 100.1.0
-     */
-    protected $serviceInputProcessor;
-
-    /**
      * @var \Magento\Framework\Webapi\ErrorProcessor
      */
     protected $_errorProcessor;
@@ -92,54 +63,23 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
     protected $areaList;
 
     /**
-     * @var \Magento\Framework\Session\Generic
-     */
-    protected $session;
-
-    /**
-     * @var ParamsOverrider
-     * @deprecated 100.1.0
-     */
-    protected $paramsOverrider;
-
-    /**
      * @var RequestProcessorPool
      */
     protected $requestProcessorPool;
 
     /**
-     * Initialize dependencies
-     *
-     * @param RestRequest $request
-     * @param RestResponse $response
-     * @param Router $router
-     * @param \Magento\Framework\ObjectManagerInterface $objectManager
-     * @param \Magento\Framework\App\State $appState
-     * @param Authorization $authorization
-     * @param ServiceInputProcessor $serviceInputProcessor
-     * @param ErrorProcessor $errorProcessor
-     * @param PathProcessor $pathProcessor
+     * Rest constructor.
+     * @param RestResponse $_response
+     * @param \Magento\Framework\ObjectManagerInterface $_objectManager
+     * @param ErrorProcessor $_errorProcessor
      * @param \Magento\Framework\App\AreaList $areaList
-     * @param ParamsOverrider $paramsOverrider
      * @param RequestProcessorPool $requestProcessorPool
-     *
-     * TODO: Consider removal of warning suppression
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
-    public function __construct(
-        RestRequest $request,
-        RestResponse $response,
-        \Magento\Framework\ObjectManagerInterface $objectManager,
-        \Magento\Framework\App\State $appState,
-        ErrorProcessor $errorProcessor,
-        \Magento\Framework\App\AreaList $areaList,
-        RequestProcessorPool $requestProcessorPool
-    ) {
-        $this->_request = $request;
-        $this->_response = $response;
-        $this->_objectManager = $objectManager;
-        $this->_appState = $appState;
-        $this->_errorProcessor = $errorProcessor;
+    public function __construct(RestResponse $_response, \Magento\Framework\ObjectManagerInterface $_objectManager, ErrorProcessor $_errorProcessor, \Magento\Framework\App\AreaList $areaList, RequestProcessorPool $requestProcessorPool)
+    {
+        $this->_response = $_response;
+        $this->_objectManager = $_objectManager;
+        $this->_errorProcessor = $_errorProcessor;
         $this->areaList = $areaList;
         $this->requestProcessorPool = $requestProcessorPool;
     }
@@ -155,27 +95,18 @@ class Rest implements \Magento\Framework\App\FrontControllerInterface
      */
     public function dispatch(\Magento\Framework\App\RequestInterface $request)
     {
-        $this->areaList->getArea($this->_appState->getAreaCode())
-            ->load(\Magento\Framework\App\Area::PART_TRANSLATE);
+/*        \Magento\Framework\Phrase::setRenderer(
+            $this->_objectManager->get(\Magento\Framework\Phrase\RendererInterface::class)
+        );*/
         try {
-            $processor = $this->requestProcessorPool->getProcessor($this->_request);
-            $processor->process($this->_request);
+            $processor = $this->requestProcessorPool->getProcessor($request);
+            $processor->process($request);
         } catch (\Exception $e) {
             $maskedException = $this->_errorProcessor->maskException($e);
             $this->_response->setException($maskedException);
         }
 
         return $this->_response;
-    }
-
-    /**
-     * Check if current request is schema request.
-     *
-     * @return bool
-     */
-    protected function isSchemaRequest()
-    {
-        return $this->_request->getPathInfo() === self::SCHEMA_PATH;
     }
 
     /**

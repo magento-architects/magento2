@@ -7,11 +7,17 @@ declare(strict_types=1);
 
 namespace Magento\Webapi\Controller\Rest;
 
+use Magento\Framework\ObjectManagerInterface;
+
 /**
  *  Request Processor Pool
  */
 class RequestProcessorPool
 {
+    /**
+     * @var ObjectManagerInterface
+     */
+    private $objectManager;
 
     /**
      * @var array
@@ -19,12 +25,13 @@ class RequestProcessorPool
     private $requestProcessors;
 
     /**
-     * Initial dependencies
-     *
-     * @param RequestProcessorInterface[] $requestProcessors
+     * RequestProcessorPool constructor.
+     * @param ObjectManagerInterface $objectManager
+     * @param array $requestProcessors
      */
-    public function __construct($requestProcessors = [])
+    public function __construct(ObjectManagerInterface $objectManager, array $requestProcessors = [])
     {
+        $this->objectManager = $objectManager;
         $this->requestProcessors = $requestProcessors;
     }
 
@@ -38,7 +45,7 @@ class RequestProcessorPool
     {
         foreach ($this->requestProcessors as $processorConfig) {
             if ($processorConfig['matcher']->canProcess($request)) {
-                return $processorConfig['processor'];
+                return $this->objectManager->get($processorConfig['processor']);
             }
         }
 

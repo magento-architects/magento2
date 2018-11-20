@@ -27,7 +27,7 @@
             "Magento\\Framework\\App\\": ""
         },
         "files": [
-            "registration.php", "functions.php"
+            "functions.php"
         ]
     }
 }

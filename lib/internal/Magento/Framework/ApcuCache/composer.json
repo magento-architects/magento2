@@ -11,6 +11,6 @@
         "psr-4": {
             "Magento\\Framework\\": ""
         },
-        "files": ["registration.php"]
+        "files": ["bootstrap.php"]
     }
 }

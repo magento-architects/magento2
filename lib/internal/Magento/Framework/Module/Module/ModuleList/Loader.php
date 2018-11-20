@@ -210,4 +210,59 @@ class Loader
         }
         return $result;
     }
+
+
+    /**
+     * Sort the list of modules using "sequence" key in meta-information
+     *
+     * @param array $origList
+     * @return array
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
+    private function sort($input)
+    {
+        $sorted = [];
+        $index = 0;
+        foreach ($input as $key => $item) {
+            $isRoot = true;
+            if (isset($item['require'])) {
+                foreach (array_keys($item['require']) as $dependency) {
+                    if (isset($input[$dependency])) {
+                        $isRoot = false;
+                        break;
+                    }
+                }
+            }
+            if ($isRoot) {
+                $input[$key]['position'] = $index;
+                $index++;
+            }
+        }
+        $index++;
+        foreach ($input as $key => $item) {
+            if (!isset($item['position'])) {
+                $input[$key]['position'] = $this->getPosition($input, $key, [], $index);
+            }
+        }
+        return $input;
+    }
+
+    private function getPosition(&$input, $itemName, $visited, $defaultIndex)
+    {
+        if (isset($visited[$itemName])) {
+            return $defaultIndex;
+        } else {
+            $visited[$itemName] = 1;
+            $positions = [];
+            foreach (array_keys($input[$itemName]['require']) as $dependency) {
+                if (isset($input[$dependency])) {
+                    if (!isset ($input[$dependency]['position'])) {
+                        $input[$dependency]['position'] = $this->getPosition($input, $dependency, $visited, $defaultIndex);
+                    }
+                    $positions[] = $input[$dependency]['position'];
+                }
+            }
+            return max($positions) + 1;
+        }
+    }
 }
