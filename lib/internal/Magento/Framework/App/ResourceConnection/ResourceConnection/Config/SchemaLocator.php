@@ -28,7 +28,7 @@ class SchemaLocator implements \Magento\Framework\Config\SchemaLocatorInterface
      */
     public function getPerFileSchema()
     {
-        return $this->urnResolver->getRealPath('urn:magento:framework:App/etc/resources.xsd');
+        return $this->urnResolver->getRealPath('urn:magento:framework:AppResourceConnection/etc/resources.xsd');
     }
 
     /**

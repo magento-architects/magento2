@@ -37,7 +37,7 @@ class ObjectManagerFactory
             });
         } else {
             $objectManager = $cache->getCachedContent($key, function() use ($areaCode, $arguments, $cache) {
-                return $this->createRuntime($areaCode, $arguments, $cache);
+                return self::createRuntime($areaCode, $arguments, $cache);
             });
             $generatingAutoloader = $objectManager->get(\Magento\Framework\Code\Generator\Autoloader::class);
             spl_autoload_register([$generatingAutoloader, 'load']);

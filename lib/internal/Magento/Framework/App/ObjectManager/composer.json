@@ -24,7 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\App\\": ""
+            "Magento\\Framework\\App\\": "",
+            "Magento\\Framework\\App\\ObjectManager\\": "ObjectManager"
         },
         "files": [
             "functions.php"

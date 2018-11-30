@@ -13,6 +13,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\": ""
-        }}
+            "Magento\\Framework\\": "",
+            "Magento\\Framework\\ObjectManager\\": "ObjectManager"
+        }
+    }
 }

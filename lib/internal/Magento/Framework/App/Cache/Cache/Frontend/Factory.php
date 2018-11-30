@@ -73,29 +73,19 @@ class Factory
     ];
 
     /**
-     * Resource
-     *
-     * @var \Magento\Framework\App\ResourceConnection
-     */
-    protected $_resource;
-
-    /**
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
      * @param Filesystem $filesystem
-     * @param \Magento\Framework\App\ResourceConnection $resource
      * @param array $enforcedOptions
      * @param array $decorators
      */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
         Filesystem $filesystem,
-        \Magento\Framework\App\ResourceConnection $resource,
         array $enforcedOptions = [],
         array $decorators = []
     ) {
         $this->_objectManager = $objectManager;
         $this->_filesystem = $filesystem;
-        $this->_resource = $resource;
         $this->_enforcedOptions = $enforcedOptions;
         $this->_decorators = $decorators;
     }
@@ -261,19 +251,6 @@ class Factory
                     $backendType = \Magento\Framework\Cache\Backend\Eaccelerator::class;
                 }
                 break;
-            case 'database':
-                $backendType = \Magento\Framework\Cache\Backend\Database::class;
-                $options = $this->_getDbAdapterOptions();
-                break;
-            case 'remote_synchronized_cache':
-                $backendType = \Magento\Framework\Cache\Backend\RemoteSynchronizedCache::class;
-                $options['remote_backend'] = \Magento\Framework\Cache\Backend\Database::class;
-                $options['remote_backend_options'] = $this->_getDbAdapterOptions();
-                $options['local_backend'] = \Cm_Cache_Backend_File::class;
-                $cacheDir = $this->_filesystem->getDirectoryWrite(DirectoryList::CACHE);
-                $options['local_backend_options']['cache_dir'] = $cacheDir->getAbsolutePath();
-                $cacheDir->create();
-                break;
             default:
                 if ($type != $this->_defaultBackend) {
                     try {
@@ -304,25 +281,6 @@ class Factory
             $backendOptions = $this->_getTwoLevelsBackendOptions($backendOptions, $cacheOptions);
         }
         return $backendOptions;
-    }
-
-    /**
-     * Get options for database backend type
-     *
-     * @return array
-     */
-    protected function _getDbAdapterOptions()
-    {
-        $options['adapter_callback'] = function () {
-            return $this->_resource->getConnection();
-        };
-        $options['data_table_callback'] = function () {
-            return $this->_resource->getTableName('cache');
-        };
-        $options['tags_table_callback'] = function () {
-            return $this->_resource->getTableName('cache_tag');
-        };
-        return $options;
     }
 
     /**
@@ -357,16 +315,6 @@ class Factory
         } else {
             $options['slow_backend_options'] = $this->_backendOptions;
         }
-        if ($options['slow_backend'] == 'database') {
-            $options['slow_backend'] = \Magento\Framework\Cache\Backend\Database::class;
-            $options['slow_backend_options'] = $this->_getDbAdapterOptions();
-            if (isset($cacheOptions['slow_backend_store_data'])) {
-                $options['slow_backend_options']['store_data'] = (bool)$cacheOptions['slow_backend_store_data'];
-            } else {
-                $options['slow_backend_options']['store_data'] = false;
-            }
-        }
-
         $backend = ['type' => 'TwoLevels', 'options' => $options];
         return $backend;
     }

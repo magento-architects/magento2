@@ -90,9 +90,8 @@ class Config implements \Magento\Framework\Interception\ConfigInterface
         $this->_cacheId = $cacheId;
         $this->_reader = $reader;
         $this->_scopeList = $scopeList;
-        $that = $this;
-        $this->_intercepted = $cache->getCachedContent($cacheId, function() use ($that, $classDefinitions) {
-            return $that->initialize($classDefinitions->getClasses());
+        $this->_intercepted = $cache->getCachedContent($cacheId, function() use ($classDefinitions) {
+            return $this->initialize($classDefinitions->getClasses());
         });
     }
 

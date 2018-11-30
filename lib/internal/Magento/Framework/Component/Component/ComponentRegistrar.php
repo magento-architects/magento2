@@ -141,5 +141,6 @@ class ComponentRegistrar implements ComponentRegistrarInterface
         $registration = '<?php $managedComponents = ' . var_export($managedPackages, true) . ";\n";
         $registration .= '\Magento\Framework\Component\ComponentRegistrar::setComponents($managedComponents);';
         \file_put_contents($outputFile, $registration);
+        echo "Magento components installed\n";
     }
 }

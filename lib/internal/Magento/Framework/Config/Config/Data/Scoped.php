@@ -5,6 +5,7 @@
  */
 namespace Magento\Framework\Config\Data;
 
+use Magento\Framework\ApcuCache;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\App\ObjectManager;
 
@@ -31,7 +32,7 @@ class Scoped extends \Magento\Framework\Config\Data
     /**
      * Configuration cache
      *
-     * @var \Magento\Framework\Config\CacheInterface
+     * @var ApcuCache
      */
     protected $_cache;
 
@@ -73,7 +74,7 @@ class Scoped extends \Magento\Framework\Config\Data
     public function __construct(
         \Magento\Framework\Config\ReaderInterface $reader,
         \Magento\Framework\Config\ScopeInterface $configScope,
-        \Magento\Framework\Config\CacheInterface $cache,
+        ApcuCache $cache,
         $cacheId,
         SerializerInterface $serializer = null
     ) {
@@ -111,18 +112,9 @@ class Scoped extends \Magento\Framework\Config\Data
             }
             foreach ($this->_scopePriorityScheme as $scopeCode) {
                 if (false == isset($this->_loadedScopes[$scopeCode])) {
-                    if ($scopeCode !== 'primary' && ($data = $this->_cache->load($scopeCode . '::' . $this->_cacheId))
-                    ) {
-                        $data = $this->serializer->unserialize($data);
-                    } else {
-                        $data = $this->_reader->read($scopeCode);
-                        if ($scopeCode !== 'primary') {
-                            $this->_cache->save(
-                                $this->serializer->serialize($data),
-                                $scopeCode . '::' . $this->_cacheId
-                            );
-                        }
-                    }
+                    $data = $this->_cache->getCachedContent($scopeCode . '::' . $this->_cacheId, function() use ($scopeCode) {
+                        return $this->_reader->read($scopeCode);
+                    });
                     $this->merge($data);
                     $this->_loadedScopes[$scopeCode] = true;
                 }

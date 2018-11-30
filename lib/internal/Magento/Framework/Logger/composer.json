@@ -11,6 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\": ""
-        }}
+            "Magento\\Framework\\Logger\\": "Logger"
+        }
+    }
 }

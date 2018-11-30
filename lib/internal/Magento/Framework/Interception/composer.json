@@ -8,10 +8,11 @@
     "require": {
         "php": "7.0.2|7.0.4|~7.0.6|~7.1.0",
         "zendframework/zend-code": "^3.1.0",
-        "magento/library-app-cache": "*"
+        "magento/library-apcu-cache": "*"
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\": ""
-        }}
+            "Magento\\Framework\\Interception\\": "Interception"
+        }
+    }
 }

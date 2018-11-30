@@ -5,6 +5,7 @@
  */
 namespace Magento\Framework\App\ResourceConnection;
 
+use Magento\Framework\ApcuCache;
 use Magento\Framework\Config\ConfigOptionsListConstants;
 use Magento\Framework\Serialize\SerializerInterface;
 
@@ -30,21 +31,10 @@ class Config extends \Magento\Framework\Config\Data\Scoped implements ConfigInte
      */
     private $initialized = false;
 
-    /**
-     * Constructor
-     *
-     * @param Config\Reader $reader
-     * @param \Magento\Framework\Config\ScopeInterface $configScope
-     * @param \Magento\Framework\Config\CacheInterface $cache
-     * @param \Magento\Framework\App\DeploymentConfig $deploymentConfig
-     * @param string|null $cacheId
-     * @param SerializerInterface|null $serializer
-     * @throws \InvalidArgumentException
-     */
     public function __construct(
         Config\Reader $reader,
         \Magento\Framework\Config\ScopeInterface $configScope,
-        \Magento\Framework\Config\CacheInterface $cache,
+        ApcuCache $cache,
         \Magento\Framework\App\DeploymentConfig $deploymentConfig,
         $cacheId = 'resourcesCache',
         SerializerInterface $serializer = null

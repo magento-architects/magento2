@@ -11,7 +11,7 @@ use Magento\Framework\DB\SelectFactory;
 
 /**
  * Connection adapter interface
- *
+ * @preference \Magento\Framework\App\ResourceConnection\ConnectionAdapter
  */
 interface ConnectionAdapterInterface
 {

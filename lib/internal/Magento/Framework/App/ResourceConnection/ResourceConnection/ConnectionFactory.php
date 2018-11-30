@@ -5,13 +5,28 @@
  */
 namespace Magento\Framework\App\ResourceConnection;
 
-use Magento\Framework\Model\ResourceModel\Type\Db\ConnectionFactory as ModelConnectionFactory;
+use Magento\Framework\ObjectManagerInterface;
 
 /**
  * Connection adapter factory
  */
-class ConnectionFactory extends ModelConnectionFactory
+class ConnectionFactory
 {
+    /**
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager;
+
+    /**
+     * Constructor
+     *
+     * @param ObjectManagerInterface $objectManager
+     */
+    public function __construct(ObjectManagerInterface $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
+
     /**
      * Create connection adapter instance
      *
@@ -21,10 +36,11 @@ class ConnectionFactory extends ModelConnectionFactory
      */
     public function create(array $connectionConfig)
     {
-        $connection = parent::create($connectionConfig);
-        /** @var \Magento\Framework\DB\Adapter\DdlCache $ddlCache */
-        $ddlCache = $this->objectManager->get(\Magento\Framework\DB\Adapter\DdlCache::class);
-        $connection->setCacheAdapter($ddlCache);
+        /** @var \Magento\Framework\App\ResourceConnection\ConnectionAdapterInterface $adapterInstance */
+        $connection = $this->objectManager->create(
+            \Magento\Framework\App\ResourceConnection\ConnectionAdapterInterface::class,
+            ['config' => $connectionConfig]
+        )->getConnection();
         return $connection;
     }
 }

@@ -1,0 +1,5 @@
+<config>
+    <type name="Magento\Customer\Model\Authorization\CustomerSessionUserContext">
+        <plugin name="webApiCustomerSessionUserContext" type="Magento\Webapi\Model\Plugin\Authorization\CustomerSessionUserContext" />
+    </type>
+</config>

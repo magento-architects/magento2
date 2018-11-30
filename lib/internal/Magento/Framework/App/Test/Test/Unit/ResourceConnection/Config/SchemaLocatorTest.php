@@ -23,9 +23,9 @@ class SchemaLocatorTest extends \PHPUnit\Framework\TestCase
         $urnResolverMock = $this->createMock(\Magento\Framework\Config\Dom\UrnResolver::class);
         $urnResolverMock->expects($this->once())
             ->method('getRealPath')
-            ->with('urn:magento:framework:App/etc/resources.xsd')
+            ->with('urn:magento:framework:AppResourceConnection/etc/resources.xsd')
             ->willReturn(
-                $this->urnResolver->getRealPath('urn:magento:framework:App/etc/resources.xsd')
+                $this->urnResolver->getRealPath('urn:magento:framework:AppResourceConnection/etc/resources.xsd')
             );
         $this->model = new \Magento\Framework\App\ResourceConnection\Config\SchemaLocator($urnResolverMock);
     }
@@ -33,7 +33,7 @@ class SchemaLocatorTest extends \PHPUnit\Framework\TestCase
     public function testGetSchema()
     {
         $this->assertEquals(
-            $this->urnResolver->getRealPath('urn:magento:framework:App/etc/resources.xsd'),
+            $this->urnResolver->getRealPath('urn:magento:framework:AppResourceConnection/etc/resources.xsd'),
             $this->model->getSchema()
         );
     }
@@ -41,7 +41,7 @@ class SchemaLocatorTest extends \PHPUnit\Framework\TestCase
     public function testGetPerFileSchema()
     {
         $this->assertEquals(
-            $this->urnResolver->getRealPath('urn:magento:framework:App/etc/resources.xsd'),
+            $this->urnResolver->getRealPath('urn:magento:framework:AppResourceConnection/etc/resources.xsd'),
             $this->model->getPerFileSchema()
         );
     }

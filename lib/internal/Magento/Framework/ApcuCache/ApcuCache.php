@@ -50,10 +50,15 @@ class ApcuCache
                 $last = time() - $this->revalidateFrequency;
                 $reload = false;
                 foreach ($includedFiles as $file) {
-                    $stat = stat($file);
-                    if ($stat['mtime'] >= $last) {
+                    if (!file_exists($file)) {
                         $reload = true;
                         break;
+                    } else {
+                        $stat = @stat($file);
+                        if ($stat['mtime'] >= $last) {
+                            $reload = true;
+                            break;
+                        }
                     }
                 }
                 apcu_store(MAGENTO_APCU_FILES_CHECKED_KEY, true, $this->revalidateFrequency);

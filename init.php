@@ -46,9 +46,17 @@ function from_camel_case($input) {
 
 foreach (new DirectoryIterator($directory) as $dir) {
     if ($dir->isDir() && !$dir->isDot()) {
+//Optimizing composer.json
+          $composerJson = $dir->getPathname() . DIRECTORY_SEPARATOR . 'composer.json';
+        if (file_exists($dir->getPathname() . DIRECTORY_SEPARATOR . $dir->getFilename())) {
+            $find = '"Magento\\\\Framework\\\\App\\\\": ""';
+            $replace = '"Magento\\\\Framework\\\\App\\\\' . $dir->getFilename() . '\\\\": "' . $dir->getFilename() . '"';
+            echo $find . "\n" . $replace . "\n";
+            $content = str_replace('}}',  "}\n    }", str_replace($find, $replace, file_get_contents($composerJson)));
+            file_put_contents($composerJson, $content);
+        }
 //        echo 'mv ' . $dir->getPathname() . DIRECTORY_SEPARATOR . '* ' . $dir->getPathname() . DIRECTORY_SEPARATOR . $dir->getFilename() . "\n";
-
-        if (!file_exists($dir->getPathname() . DIRECTORY_SEPARATOR . 'composer.json') && !file_exists($dir->getPathname() . DIRECTORY_SEPARATOR . $dir->getFilename())) {
+/*        if (!file_exists($dir->getPathname() . DIRECTORY_SEPARATOR . 'composer.json') && !file_exists($dir->getPathname() . DIRECTORY_SEPARATOR . $dir->getFilename())) {
             echo $dir->getFilename() .  "\n";
             mkdir($dir->getPathname() . DIRECTORY_SEPARATOR . $dir->getFilename());
             exec('mv ' . $dir->getPathname() . DIRECTORY_SEPARATOR . '* ' . $dir->getPathname() . DIRECTORY_SEPARATOR . $dir->getFilename());
@@ -57,7 +65,7 @@ foreach (new DirectoryIterator($directory) as $dir) {
             $namespace = '\\\\Magento\\\\Framework\\\\';
             initialize($dir->getPathname(), $componentName, $componentType, $namespace);
             echo "done\n";
-        }
+        }*/
   //      echo $dir->getPathname() . "\n";
     }
 }

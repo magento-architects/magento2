@@ -6,7 +6,6 @@
 namespace Magento\Framework\Interception\PluginList;
 
 use Magento\Framework\ApcuCache;
-use Magento\Framework\Config\CacheInterface;
 use Magento\Framework\Config\Data\Scoped;
 use Magento\Framework\Config\ReaderInterface;
 use Magento\Framework\Config\ScopeInterface;
@@ -94,20 +93,18 @@ class PluginList extends Scoped implements InterceptionPluginList
     private $cache;
 
     /**
-     * Constructor
-     *
+     * PluginList constructor.
      * @param ReaderInterface $reader
      * @param ScopeInterface $configScope
-     * @param CacheInterface $cache
+     * @param ApcuCache $cache
      * @param RelationsInterface $relations
      * @param ConfigInterface $omConfig
      * @param DefinitionInterface $definitions
      * @param ObjectManagerInterface $objectManager
      * @param ClassDefinitions $classDefinitions
      * @param array $scopePriorityScheme
-     * @param string|null $cacheId
+     * @param string $cacheId
      * @param SerializerInterface|null $serializer
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
         ReaderInterface $reader,
@@ -294,7 +291,7 @@ class PluginList extends Scoped implements InterceptionPluginList
                 $this->_scopePriorityScheme[] = $scope;
             }
             $key = implode('|', $this->_scopePriorityScheme) . "|" . $this->_cacheId;
-            list($this->_data, $this->_inherited, $this->_processed) = $this->cache->getCachedContent($key, function() {
+            list($this->_data, $this->_inherited, $this->_processed) = $this->cache->getCachedContent($key, function() use ($key) {
                 $virtualTypes = [];
                 foreach ($this->_scopePriorityScheme as $scopeCode) {
                     if (false == isset($this->_loadedScopes[$scopeCode])) {
@@ -324,7 +321,7 @@ class PluginList extends Scoped implements InterceptionPluginList
                 }
                 $this->_cache->save(
                     $this->serializer->serialize([$this->_data, $this->_inherited, $this->_processed]),
-                    $cacheId
+                    $key
                 );
             });
             foreach ($this->_scopePriorityScheme as $scopeCode) {
