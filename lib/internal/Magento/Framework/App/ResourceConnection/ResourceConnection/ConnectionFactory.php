@@ -10,7 +10,7 @@ use Magento\Framework\ObjectManagerInterface;
 /**
  * Connection adapter factory
  */
-class ConnectionFactory
+class ConnectionFactory implements ConnectionFactoryInterface
 {
     /**
      * @var ObjectManagerInterface
@@ -41,6 +41,10 @@ class ConnectionFactory
             \Magento\Framework\App\ResourceConnection\ConnectionAdapterInterface::class,
             ['config' => $connectionConfig]
         )->getConnection();
+        /** @var \Magento\Framework\DB\Adapter\DdlCache $ddlCache */
+        // TODO: RESOLVE DDL CACHE
+//        $ddlCache = $this->objectManager->get(\Magento\Framework\DB\Adapter\DdlCache::class);
+//        $connection->setCacheAdapter($ddlCache);
         return $connection;
     }
 }

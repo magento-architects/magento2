@@ -58,6 +58,13 @@ class Reader
     private $fileIterators = [];
 
     /**
+     * Empty directories
+     *
+     * @var array
+     */
+    private $emptyDirs = [];
+
+    /**
      * @var ComponentRegistrar
      */
     private $componentRegistrar;

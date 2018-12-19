@@ -96,9 +96,12 @@ class ComponentRegistrar implements ComponentRegistrarInterface
 
     public static function setComponents($components)
     {
-        self::$paths = $components;
+        self::$paths = array_replace(self::$paths, $components);
     }
 
+    /**
+     * @param \Composer\Script\Event $event
+     */
     public static function install(\Composer\Script\Event $event)
     {
         echo "Installing magento components\n";

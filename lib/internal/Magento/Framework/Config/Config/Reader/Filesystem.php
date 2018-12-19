@@ -125,13 +125,13 @@ class Filesystem implements \Magento\Framework\Config\ReaderInterface
     {
         echo "Reading " . get_class($this) . "<br/>";
         $scope = $scope ?: $this->_defaultScope;
-        $fileList = $this->_fileResolver->get($this->_fileName, $scope);
+        list($fileList, $checkedPaths) = $this->_fileResolver->get($this->_fileName, $scope);
         if (!count($fileList)) {
             return [[], []];
         }
         $output = $this->_readFiles($fileList);
-
-        return [$output, array_keys($fileList->toArray())];
+        $filesRead = array_merge(array_keys($fileList->toArray()), $checkedPaths);
+        return [$output, $filesRead];
     }
 
     /**

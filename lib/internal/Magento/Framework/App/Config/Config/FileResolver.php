@@ -8,6 +8,8 @@
 namespace Magento\Framework\App\Config;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Component\ComponentRegistrar;
+use \Magento\Framework\Filesystem;
 
 class FileResolver implements \Magento\Framework\Config\FileResolverInterface
 {
@@ -33,6 +35,16 @@ class FileResolver implements \Magento\Framework\Config\FileResolverInterface
     protected $filesystem;
 
     /**
+     * @var ComponentRegistrar
+     */
+    private $componentRegistrar;
+
+    /**
+     * @var Filesystem\Directory\ReadFactory
+     */
+    protected $readFactory;
+
+    /**
      * @param \Magento\Framework\Module\Dir\Reader $moduleReader
      * @param \Magento\Framework\Filesystem $filesystem
      * @param \Magento\Framework\Config\FileIteratorFactory $iteratorFactory
@@ -40,11 +52,15 @@ class FileResolver implements \Magento\Framework\Config\FileResolverInterface
     public function __construct(
         \Magento\Framework\Module\Dir\Reader $moduleReader,
         \Magento\Framework\Filesystem $filesystem,
-        \Magento\Framework\Config\FileIteratorFactory $iteratorFactory
+        \Magento\Framework\Config\FileIteratorFactory $iteratorFactory,
+        \Magento\Framework\Component\ComponentRegistrar $componentRegistrar,
+        \Magento\Framework\Filesystem\Directory\ReadFactory $readFactory
     ) {
         $this->iteratorFactory = $iteratorFactory;
         $this->filesystem = $filesystem;
         $this->_moduleReader = $moduleReader;
+        $this->componentRegistrar = $componentRegistrar;
+        $this->readFactory = $readFactory;
     }
 
     /**
@@ -52,22 +68,42 @@ class FileResolver implements \Magento\Framework\Config\FileResolverInterface
      */
     public function get($filename, $scope)
     {
-        switch ($scope) {
-            case 'primary':
-                $directory = $this->filesystem->getDirectoryRead(DirectoryList::CONFIG);
-                $absolutePaths = [];
-                foreach ($directory->search('{' . $filename . ',*/' . $filename . '}') as $path) {
-                    $absolutePaths[] = $directory->getAbsolutePath($path);
+        $configFiles = [];
+        $configDir = \Magento\Framework\Module\Dir::MODULE_ETC_DIR;
+        $checkedPaths = [];
+        $componentPaths = array_merge(
+            $this->componentRegistrar->getPaths(ComponentRegistrar::LIBRARY),
+            $this->componentRegistrar->getPaths(ComponentRegistrar::MODULE),
+            $this->componentRegistrar->getPaths(ComponentRegistrar::THEME)
+        );
+
+        foreach ($componentPaths as $componentPath) {
+            $componentDir = $this->readFactory->create($componentPath);
+            if ($componentDir->isExist($configDir . DIRECTORY_SEPARATOR . $filename)) {
+                $configFiles[] = $componentDir->getAbsolutePath($configDir . DIRECTORY_SEPARATOR . $filename);
+            } else {
+                $checkedPaths[] = $componentDir->getAbsolutePath($configDir);
+            }
+            if ($scope !== 'global') {
+                $areaConfigDir = $configDir . DIRECTORY_SEPARATOR . $scope;
+                if ($componentDir->isExist($areaConfigDir . DIRECTORY_SEPARATOR . $filename)) {
+                    $configFiles[] = $componentDir->getAbsolutePath($areaConfigDir . DIRECTORY_SEPARATOR . $filename);
+                } else {
+                    $checkedPaths[] = $componentDir->getAbsolutePath($areaConfigDir);
                 }
-                $iterator = $this->iteratorFactory->create($absolutePaths);
-                break;
-            case 'global':
-                $iterator = $this->_moduleReader->getConfigurationFiles($filename);
-                break;
-            default:
-                $iterator = $this->_moduleReader->getConfigurationFiles($scope . '/' . $filename);
-                break;
+            }
         }
-        return $iterator;
+
+        $directory = $this->filesystem->getDirectoryRead(DirectoryList::CONFIG);
+        $found = false;
+        foreach ($directory->search('{' . $filename . ',*/' . $filename . '}') as $path) {
+            $configFiles[] = $directory->getAbsolutePath($path);
+            $found = true;
+        }
+        if (!$found) {
+            $checkedPaths[] = $directory->getAbsolutePath();
+        }
+        $iterator = $this->iteratorFactory->create($configFiles);
+        return [$iterator, $checkedPaths];
     }
 }

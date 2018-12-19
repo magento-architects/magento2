@@ -46,7 +46,7 @@ class FileResolverByModule extends \Magento\Framework\App\Config\FileResolver
         ComponentRegistrar $componentRegistrar,
         \Magento\Framework\Filesystem\Driver\File $driver
     ) {
-        parent::__construct($moduleReader, $filesystem, $iteratorFactory);
+        parent::__construct($moduleReader, $filesystem, $iteratorFactory, $componentRegistrar);
         $this->componentRegistrar = $componentRegistrar;
         $this->driver = $driver;
     }

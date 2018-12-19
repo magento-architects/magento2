@@ -12,6 +12,9 @@
         "psr-4": {
             "Magento\\Framework\\": "",
             "Magento\\Framework\\Phrase\\": "Phrase"
-        }
+        },
+        "files": [
+            "Phrase/__.php"
+        ]
     }
 }

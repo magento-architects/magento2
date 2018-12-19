@@ -47,18 +47,25 @@ class ApcuCache
                 $includedFiles = $this->serializer ?
                     $this->serializer->unserialize(apcu_fetch($key . '.used_files'))
                     : apcu_fetch($key . '.used_files');
-                $last = time() - $this->revalidateFrequency;
                 $reload = false;
-                foreach ($includedFiles as $file) {
-                    if (!file_exists($file)) {
-                        $reload = true;
-                        break;
-                    } else {
-                        $stat = @stat($file);
-                        if ($stat['mtime'] >= $last) {
+                foreach ($includedFiles as $file => $timestamp) {
+                    if ($timestamp) {
+                        if (!file_exists($file)) {
+                            var_dump("deleted", $file);
                             $reload = true;
                             break;
+                        } else {
+                            $stat = @stat($file);
+                            if ($stat['mtime'] !== $timestamp) {
+                                var_dump("updated", $file);
+                                $reload = true;
+                                break;
+                            }
                         }
+                    } else if (file_exists($file)) {
+                        var_dump("created", $file);
+                        $reload = true;
+                        break;
                     }
                 }
                 apcu_store(MAGENTO_APCU_FILES_CHECKED_KEY, true, $this->revalidateFrequency);
@@ -83,6 +90,14 @@ class ApcuCache
     {
         echo "Recreating $key </br>";
         list($value, $loadedFiles) = $create();
+        $loadedFiles = array_combine($loadedFiles, array_map(function($file) {
+            if (file_exists($file)) {
+                $stat = @stat($file);
+                return $stat['mtime'];
+            } else {
+                return false;
+            }
+        }, $loadedFiles));
         apcu_store($key, $this->serializer ? $this->serializer->serialize($value) : $value);
         apcu_store($key . '.used_files', $this->serializer ? $this->serializer->serialize($loadedFiles) : $loadedFiles);
         apcu_store(MAGENTO_APCU_FILES_CHECKED_KEY, true, $this->revalidateFrequency);

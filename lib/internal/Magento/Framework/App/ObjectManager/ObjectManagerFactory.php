@@ -33,7 +33,7 @@ class ObjectManagerFactory
         $objectManager = null;
         if (file_exists($metadataPath)) {
             $objectManager = $cache->getCachedContent($key, function() use ($metadataPath, $areaCode, $arguments, $cache) {
-                return $this->createCompiled($metadataPath, $areaCode, $arguments, $cache);
+                return self::createCompiled($metadataPath, $areaCode, $arguments, $cache);
             });
         } else {
             $objectManager = $cache->getCachedContent($key, function() use ($areaCode, $arguments, $cache) {
@@ -125,17 +125,12 @@ class ObjectManagerFactory
         $moduleDirs = new \Magento\Framework\Module\Dir($componentRegistrar);
         $moduleList = new \Magento\Framework\Module\ModuleList($deploymentConfig, $moduleListLoader);
         $moduleReader = new \Magento\Framework\Module\Dir\Reader($moduleDirs, $moduleList, $fileIteratorFactory, $readFactory, $componentRegistrar);
-        $fileResolver = new \Magento\Framework\App\Config\FileResolver($moduleReader, $filesystem, $fileIteratorFactory);
+        $fileResolver = new \Magento\Framework\App\Config\FileResolver($moduleReader, $filesystem, $fileIteratorFactory, $componentRegistrar, $readFactory);
         $schemaLocator = new \Magento\Framework\ObjectManager\Config\SchemaLocator();
         $validationState = new \Magento\Framework\App\Arguments\ValidationState('production');
         $diConfigReader = new \Magento\Framework\ObjectManager\Config\Reader\Dom($fileResolver, $argumentMapper, $schemaLocator, $validationState);
-        $configAreas = ($areaCode === 'global') ? ['global', 'primary'] : ['global', $areaCode, 'primary'];
-        $loadedConfigFiles = [];
-        foreach ($configAreas as $area) {
-            list($areaConfig, $areaFiles) = $diConfigReader->read($area);
-            $diConfig->extend($areaConfig);
-            $loadedConfigFiles = array_merge($loadedConfigFiles, $areaFiles);
-        }
+        list($areaConfig, $loadedConfigFiles) = $diConfigReader->read($areaCode);
+        $diConfig->extend($areaConfig);
         $factoryClass = $diConfig->getPreference(\Magento\Framework\ObjectManager\Factory\Dynamic\Developer::class);
         $factory = new $factoryClass($diConfig, null, $definitions, $arguments);
         $sharedInstances = [

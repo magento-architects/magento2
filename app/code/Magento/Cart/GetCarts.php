@@ -23,6 +23,9 @@ class GetCarts implements \Magento\CartApi\GetCarts
         $this->resourceConnection = $resourceConnection;
     }
 
+    /**
+     * @return array
+     */
     public function execute(): array
     {
         $db = $this->resourceConnection->getConnection();

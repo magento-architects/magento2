@@ -7,5 +7,10 @@ namespace Magento\CartApi;
 
 interface AddItems
 {
-    public function execute($scope, array $items);
+    /**
+     * @param string $scope
+     * @param array $items
+     * @param string $cartId
+     */
+    public function execute($scope, array $items, $cartId = null);
 }
