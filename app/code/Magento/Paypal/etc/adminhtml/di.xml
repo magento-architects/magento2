@@ -57,7 +57,6 @@
     </type>
     <type name="Magento\Paypal\Model\Config\Rules\Reader">
         <arguments>
-            <argument xsi:type="object" name="fileResolver">Magento\Paypal\Model\Config\Rules\FileResolver</argument>
             <argument xsi:type="object" name="schemaLocator">Magento\Paypal\Model\Config\Rules\SchemaLocator</argument>
         </arguments>
     </type>
