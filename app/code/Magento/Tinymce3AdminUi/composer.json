@@ -1,0 +1,26 @@
+{
+    "name": "magento/module-tinymce-3-admin-ui",
+    "description": "N/A",
+    "require": {
+        "php": "~7.1.3||~7.2.0",
+        "magento/framework": "*",
+        "magento/module-backend": "*",
+        "magento/module-ui": "*",
+        "magento/module-variable": "*",
+        "magento/module-widget": "*"
+
+    },
+    "suggest": {
+        "magento/module-cms": "*"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Magento\\Tinymce3\\": ""
+        }
+    }
+}

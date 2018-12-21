@@ -10,4 +10,12 @@
         <observer name="newrelicreporting_observer_report_sales_order_place" instance="Magento\NewRelicReporting\Model\Observer\ReportOrderPlaced" />
         <observer name="newrelicreporting_newrelic_report_sales_order_place" instance="Magento\NewRelicReporting\Model\Observer\ReportOrderPlacedToNewRelic" />
     </event>
+    <event name="catalog_product_save_before">
+        <observer name="newrelicreporting_observer_report_product_save" instance="Magento\NewRelicReporting\Model\Observer\ReportProductSaved" />
+        <observer name="newrelicreporting_newrelic_report_product_save" instance="Magento\NewRelicReporting\Model\Observer\ReportProductSavedToNewRelic" />
+    </event>
+    <event name="catalog_product_delete_after_done">
+        <observer name="newrelicreporting_observer_report_product_delete" instance="Magento\NewRelicReporting\Model\Observer\ReportProductDeleted" />
+        <observer name="newrelicreporting_newrelic_report_product_delete" instance="Magento\NewRelicReporting\Model\Observer\ReportProductDeletedToNewRelic" />
+    </event>
 </config>
