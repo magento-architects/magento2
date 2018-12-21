@@ -27,7 +27,7 @@ class MethodsMap
     const METHOD_META_DEFAULT_VALUE = 'defaultValue';
 
     /**
-     * @var \Magento\Framework\ApcuCache
+     * @var \Magento\Framework\Config\Loader
      */
     private $cache;
 
@@ -52,13 +52,13 @@ class MethodsMap
     private $serializer;
 
     /**
-     * @param \Magento\Framework\ApcuCache $cache
+     * @param \Magento\Framework\Config\Loader $cache
      * @param TypeProcessor $typeProcessor
      * @param \Magento\Framework\Api\AttributeTypeResolverInterface $typeResolver
      * @param FieldNamer $fieldNamer
      */
     public function __construct(
-        \Magento\Framework\ApcuCache $cache,
+        \Magento\Framework\Config\Loader $cache,
         TypeProcessor $typeProcessor,
         \Magento\Framework\Api\AttributeTypeResolverInterface $typeResolver,
         FieldNamer $fieldNamer

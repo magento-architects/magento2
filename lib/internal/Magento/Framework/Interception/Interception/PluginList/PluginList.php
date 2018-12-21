@@ -5,7 +5,7 @@
  */
 namespace Magento\Framework\Interception\PluginList;
 
-use Magento\Framework\ApcuCache;
+use Magento\Framework\Config\Loader;
 use Magento\Framework\Config\Data\Scoped;
 use Magento\Framework\Config\ReaderInterface;
 use Magento\Framework\Config\ScopeInterface;
@@ -88,7 +88,7 @@ class PluginList extends Scoped implements InterceptionPluginList
     private $serializer;
 
     /**
-     * @var ApcuCache
+     * @var Loader
      */
     private $cache;
 
@@ -96,7 +96,7 @@ class PluginList extends Scoped implements InterceptionPluginList
      * PluginList constructor.
      * @param ReaderInterface $reader
      * @param ScopeInterface $configScope
-     * @param ApcuCache $cache
+     * @param Loader $cache
      * @param RelationsInterface $relations
      * @param ConfigInterface $omConfig
      * @param DefinitionInterface $definitions
@@ -109,7 +109,7 @@ class PluginList extends Scoped implements InterceptionPluginList
     public function __construct(
         ReaderInterface $reader,
         ScopeInterface $configScope,
-        ApcuCache $cache,
+        Loader $cache,
         RelationsInterface $relations,
         ConfigInterface $omConfig,
         DefinitionInterface $definitions,

@@ -5,7 +5,7 @@
  */
 namespace Magento\Webapi\Model;
 
-use Magento\Framework\ApcuCache;
+use Magento\Framework\Config\Loader;
 use Magento\Webapi\Model\Config\Reader;
 use Magento\Framework\Serialize\SerializerInterface;
 /**
@@ -26,7 +26,7 @@ class Config implements ConfigInterface
     const API_PATTERN = '/^(.+?)\\\\(.+?)\\\\Api(\\\\.+)Interface$/';
 
     /**
-     * @var ApcuCache
+     * @var Loader
      */
     protected $cache;
 
@@ -48,7 +48,7 @@ class Config implements ConfigInterface
      * @param SerializerInterface|null $serializer
      */
     public function __construct(
-        ApcuCache $cache,
+        Loader $cache,
         Reader $configReader
     ) {
         $this->services = $cache->getCachedContent(self::CACHE_ID, function() use ($configReader) {

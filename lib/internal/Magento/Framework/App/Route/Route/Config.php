@@ -49,14 +49,14 @@ class Config implements ConfigInterface
     /**
      * Config constructor.
      * @param Config\Reader $reader
-     * @param \Magento\Framework\ApcuCache $cache
+     * @param \Magento\Framework\Config\Loader $cache
      * @param \Magento\Framework\Config\ScopeInterface $configScope
      * @param \Magento\Framework\App\AreaList $areaList
      * @param string $cacheId
      */
     public function __construct(
         Config\Reader $reader,
-        \Magento\Framework\ApcuCache $cache,
+        \Magento\Framework\Config\Loader $cache,
         \Magento\Framework\Config\ScopeInterface $configScope,
         \Magento\Framework\App\AreaList $areaList,
         $cacheId = 'RoutesConfig'

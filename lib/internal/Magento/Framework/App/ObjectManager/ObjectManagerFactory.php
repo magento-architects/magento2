@@ -5,7 +5,7 @@
  */
 namespace Magento\Framework\App;
 
-use Magento\Framework\ApcuCache;
+use Magento\Framework\Config\Loader;
 
 /**
  * Initialization of object manager is a complex operation.
@@ -24,7 +24,7 @@ class ObjectManagerFactory
      */
     public static function create($areaCode, $inputArguments) : \Magento\Framework\ObjectManagerInterface
     {
-        $cache = new \Magento\Framework\ApcuCache();
+        $cache = new \Magento\Framework\Config\Loader();
         $arguments = array_filter($inputArguments, function($key){
             return strtolower(substr($key, 0, 8)) === 'magento.';
         }, ARRAY_FILTER_USE_KEY);
@@ -48,7 +48,7 @@ class ObjectManagerFactory
     /**
      * @param string $metadataPath
      * @param array $arguments
-     * @param ApcuCache $cache
+     * @param Loader $cache
      * @return \Magento\Framework\ObjectManagerInterface
      */
     private static function createCompiled($metadataPath, $arguments, $cache)
@@ -69,7 +69,7 @@ class ObjectManagerFactory
         $compiledConfigCache = $objectManager->get(\Magento\Framework\App\Interception\Cache\CompiledConfig::class);
         $pluginList = $objectManager->create(\Magento\Framework\Interception\PluginListInterface::class, ['cache' => $compiledConfigCache]);
         $sharedInstances[\Magento\Framework\Interception\PluginList\PluginList::class] = $pluginList;
-        $sharedInstances[\Magento\Framework\ApcuCache::class] = $cache;
+        $sharedInstances[\Magento\Framework\Config\Loader::class] = $cache;
         $cacheManager = $objectManager->get(\Magento\Framework\App\Cache\Manager::class);
         $cacheManager->setEnabled([CompiledConfig::TYPE_IDENTIFIER], true);
         $loadedFiles = array_diff_assoc(get_included_files(), $includedFiles);
@@ -80,10 +80,10 @@ class ObjectManagerFactory
     /**
      * @param string $areaCode
      * @param array $arguments
-     * @param ApcuCache $cache
+     * @param Loader $cache
      * @return array
      */
-    private static function createRuntime($areaCode, $arguments, ApcuCache $cache)
+    private static function createRuntime($areaCode, $arguments, Loader $cache)
     {
         $includedFiles = get_included_files();
         $directoryList = new \Magento\Framework\App\Filesystem\DirectoryList(BP);
@@ -134,7 +134,7 @@ class ObjectManagerFactory
         $factoryClass = $diConfig->getPreference(\Magento\Framework\ObjectManager\Factory\Dynamic\Developer::class);
         $factory = new $factoryClass($diConfig, null, $definitions, $arguments);
         $sharedInstances = [
-            \Magento\Framework\ApcuCache::class => $cache,
+            \Magento\Framework\Config\Loader::class => $cache,
             \Magento\Framework\App\DeploymentConfig::class => $deploymentConfig,
             \Magento\Framework\App\Filesystem\DirectoryList::class => $directoryList,
             \Magento\Framework\Component\ComponentRegistrarInterface::class => $componentRegistrar,

@@ -5,7 +5,7 @@
  */
 namespace Magento\Framework\Config\Data;
 
-use Magento\Framework\ApcuCache;
+use Magento\Framework\Config\Loader;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\App\ObjectManager;
 
@@ -32,7 +32,7 @@ class Scoped extends \Magento\Framework\Config\Data
     /**
      * Configuration cache
      *
-     * @var ApcuCache
+     * @var Loader
      */
     protected $_cache;
 
@@ -74,7 +74,7 @@ class Scoped extends \Magento\Framework\Config\Data
     public function __construct(
         \Magento\Framework\Config\ReaderInterface $reader,
         \Magento\Framework\Config\ScopeInterface $configScope,
-        ApcuCache $cache,
+        Loader $cache,
         $cacheId,
         SerializerInterface $serializer = null
     ) {

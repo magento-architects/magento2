@@ -3,9 +3,11 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Magento\Framework;
+namespace Magento\Framework\Config;
 
-class ApcuCache
+use Magento\Framework\Serialize;
+
+class Loader
 {
     /**
      * @var \Magento\Framework\Serialize\SerializerInterface

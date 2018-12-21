@@ -5,7 +5,7 @@
  */
 namespace Magento\Framework\Api\ExtensionAttribute;
 
-use Magento\Framework\ApcuCache;
+use Magento\Framework\Config\Loader;
 use Magento\Framework\Api\ExtensionAttribute\Config\Reader;
 use Magento\Framework\Serialize\SerializerInterface;
 
@@ -27,7 +27,7 @@ class Config extends \Magento\Framework\Config\Data
      * @param string $cacheId |null
      * @param SerializerInterface|null $serializer
      */
-    public function __construct(Reader $reader, ApcuCache $cache, $cacheId = self::CACHE_ID)
+    public function __construct(Reader $reader, Loader $cache, $cacheId = self::CACHE_ID)
     {
         $cache->getCachedContent($cacheId, function () use ($reader) {
             $result = $reader->read();

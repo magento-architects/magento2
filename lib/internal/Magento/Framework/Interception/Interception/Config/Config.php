@@ -68,7 +68,7 @@ class Config implements \Magento\Framework\Interception\ConfigInterface
      *
      * @param \Magento\Framework\Config\ReaderInterface $reader
      * @param \Magento\Framework\Config\ScopeListInterface $scopeList
-     * @param \Magento\Framework\ApcuCache $cache
+     * @param \Magento\Framework\Config\Loader $cache
      * @param \Magento\Framework\ObjectManager\RelationsInterface $relations
      * @param \Magento\Framework\Interception\ObjectManager\ConfigInterface $omConfig
      * @param \Magento\Framework\ObjectManager\DefinitionInterface $classDefinitions
@@ -78,7 +78,7 @@ class Config implements \Magento\Framework\Interception\ConfigInterface
     public function __construct(
         \Magento\Framework\Config\ReaderInterface $reader,
         \Magento\Framework\Config\ScopeListInterface $scopeList,
-        \Magento\Framework\ApcuCache $cache,
+        \Magento\Framework\Config\Loader $cache,
         \Magento\Framework\ObjectManager\RelationsInterface $relations,
         \Magento\Framework\Interception\ObjectManager\ConfigInterface $omConfig,
         \Magento\Framework\ObjectManager\DefinitionInterface $classDefinitions,
