@@ -16,6 +16,13 @@ use Magento\Framework\Oauth\Exception;
 class FileResolverByModule extends \Magento\Framework\App\Config\FileResolver
 {
     /**
+     * Module configuration file reader
+     *
+     * @var \Magento\Framework\Module\Dir\Reader
+     */
+    protected $_moduleReader;
+
+    /**
      * This flag says, that we need to read from all modules.
      */
     const ALL_MODULES = 'all';
@@ -46,6 +53,7 @@ class FileResolverByModule extends \Magento\Framework\App\Config\FileResolver
         ComponentRegistrar $componentRegistrar,
         \Magento\Framework\Filesystem\Driver\File $driver
     ) {
+        $this->_moduleReader = $moduleReader;
         parent::__construct($moduleReader, $filesystem, $iteratorFactory, $componentRegistrar);
         $this->componentRegistrar = $componentRegistrar;
         $this->driver = $driver;

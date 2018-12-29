@@ -14,13 +14,6 @@ use \Magento\Framework\Filesystem;
 class FileResolver implements \Magento\Framework\Config\FileResolverInterface
 {
     /**
-     * Module configuration file reader
-     *
-     * @var \Magento\Framework\Module\Dir\Reader
-     */
-    protected $_moduleReader;
-
-    /**
      * File iterator factory
      *
      * @var \Magento\Framework\Config\FileIteratorFactory
@@ -50,7 +43,6 @@ class FileResolver implements \Magento\Framework\Config\FileResolverInterface
      * @param \Magento\Framework\Config\FileIteratorFactory $iteratorFactory
      */
     public function __construct(
-        \Magento\Framework\Module\Dir\Reader $moduleReader,
         \Magento\Framework\Filesystem $filesystem,
         \Magento\Framework\Config\FileIteratorFactory $iteratorFactory,
         \Magento\Framework\Component\ComponentRegistrar $componentRegistrar,
@@ -58,7 +50,6 @@ class FileResolver implements \Magento\Framework\Config\FileResolverInterface
     ) {
         $this->iteratorFactory = $iteratorFactory;
         $this->filesystem = $filesystem;
-        $this->_moduleReader = $moduleReader;
         $this->componentRegistrar = $componentRegistrar;
         $this->readFactory = $readFactory;
     }

@@ -3,7 +3,8 @@
     "description": "N/A",
     "require": {
         "php": "7.0.2|7.0.4|~7.0.6|~7.1.0",
-        "magento/library-app-resource-connection": "*"
+        "magento/library-app-resource-connection": "*",
+        "magento/module-cart-api": "*"
     },
     "type": "magento2-module",
     "license": [

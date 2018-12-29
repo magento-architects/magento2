@@ -77,11 +77,12 @@ class Loader
      */
     public function load(array $exclude = [])
     {
+        echo "!!! Loading modules <br/>";
         $result = [];
         foreach ($this->getModuleConfigs() as list($file, $contents)) {
             try {
-                $this->parser->loadXML($contents);
-            } catch (\Magento\Framework\Exception\LocalizedException $e) {
+                $data = json_decode($contents);
+            } catch (\Exception $e) {
                 throw new \Magento\Framework\Exception\LocalizedException(
                     new \Magento\Framework\Phrase(
                         'Invalid Document: %1%2 Error: %3',
@@ -90,14 +91,12 @@ class Loader
                     $e
                 );
             }
-
-            $data = $this->converter->convert($this->parser->getDom());
-            $name = key($data);
+            $name = $data['name'];
             if (!in_array($name, $exclude)) {
-                $result[$name] = $data[$name];
+                $result[$name] = $data;
             }
         }
-        return $this->sortBySequence($result);
+        return $result;//$this->sortBySequence($result);
     }
 
     /**
@@ -116,7 +115,7 @@ class Loader
     {
         $modulePaths = $this->moduleRegistry->getPaths(ComponentRegistrar::MODULE);
         foreach ($modulePaths as $modulePath) {
-            $filePath = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, "$modulePath/etc/module.xml");
+            $filePath = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, "$modulePath/composer.json");
             yield [$filePath, $this->filesystemDriver->fileGetContents($filePath)];
         }
     }

@@ -118,14 +118,8 @@ class ObjectManagerFactory
         $filesystem = new \Magento\Framework\Filesystem($directoryList, $readFactory, $writeFactory);
         $fileReadFactory = new \Magento\Framework\Filesystem\File\ReadFactory($driverPool);
         $fileIteratorFactory = new \Magento\Framework\Config\FileIteratorFactory($fileReadFactory);
-        $converter = new \Magento\Framework\Module\Declaration\Converter\Dom();
-        $parser = new \Magento\Framework\Xml\Parser();
-        $componentRegistrar = new \Magento\Framework\Component\ComponentRegistrar();
-        $moduleListLoader = new \Magento\Framework\Module\ModuleList\Loader($converter, $parser, $componentRegistrar, $driver);
-        $moduleDirs = new \Magento\Framework\Module\Dir($componentRegistrar);
-        $moduleList = new \Magento\Framework\Module\ModuleList($deploymentConfig, $moduleListLoader);
-        $moduleReader = new \Magento\Framework\Module\Dir\Reader($moduleDirs, $moduleList, $fileIteratorFactory, $readFactory, $componentRegistrar);
-        $fileResolver = new \Magento\Framework\App\Config\FileResolver($moduleReader, $filesystem, $fileIteratorFactory, $componentRegistrar, $readFactory);
+        $componentList = new \Magento\Framework\Component\ComponentRegistrar();
+        $fileResolver = new \Magento\Framework\App\Config\FileResolver($filesystem, $fileIteratorFactory, $componentList, $readFactory);
         $schemaLocator = new \Magento\Framework\ObjectManager\Config\SchemaLocator();
         $validationState = new \Magento\Framework\App\Arguments\ValidationState('production');
         $diConfigReader = new \Magento\Framework\ObjectManager\Config\Reader\Dom($fileResolver, $argumentMapper, $schemaLocator, $validationState);
@@ -137,7 +131,7 @@ class ObjectManagerFactory
             \Magento\Framework\Config\Loader::class => $cache,
             \Magento\Framework\App\DeploymentConfig::class => $deploymentConfig,
             \Magento\Framework\App\Filesystem\DirectoryList::class => $directoryList,
-            \Magento\Framework\Component\ComponentRegistrarInterface::class => $componentRegistrar,
+            \Magento\Framework\Component\ComponentRegistrarInterface::class => $componentList,
             \Magento\Framework\Filesystem\DirectoryList::class => $directoryList,
             \Magento\Framework\Filesystem\DriverPool::class => $driverPool,
             \Magento\Framework\Interception\DefinitionInterface::class => $pluginDefinition,
