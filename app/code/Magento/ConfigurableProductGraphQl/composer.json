@@ -8,8 +8,7 @@
         "magento/module-configurable-product": "*",
         "magento/module-catalog-graph-ql": "*",
         "magento/module-quote": "*",
-        "magento/module-quote-graph-ql": "*",
-        "magento/framework": "*"
+        "magento/module-quote-graph-ql": "*"
     },
     "license": [
         "OSL-3.0",

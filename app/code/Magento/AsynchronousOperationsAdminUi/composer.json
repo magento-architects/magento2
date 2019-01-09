@@ -5,7 +5,6 @@
         "sort-packages": true
     },
     "require": {
-        "magento/framework": "*",
         "magento/framework-bulk": "*",
         "magento/module-authorization": "*",
         "magento/module-backend": "*",

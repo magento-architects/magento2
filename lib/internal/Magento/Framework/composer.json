@@ -40,7 +40,8 @@
         "zendframework/zend-validator": "^2.6.0",
         "zendframework/zend-mail": "^2.9.0",
         "zendframework/zend-mime": "^2.5.0",
-        "guzzlehttp/guzzle": "^6.3.3"
+        "guzzlehttp/guzzle": "^6.3.3",
+        "magento/library-console": "*"
     },
     "archive": {
         "exclude": [
@@ -54,6 +55,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\": ""
+            "Magento\\Framework\\": "",
+            "Magento\\Framework\\Console": "Console/Console"
         }}
 }

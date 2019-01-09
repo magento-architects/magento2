@@ -11,8 +11,7 @@
     "magento/module-graph-ql": "*",
     "magento/module-newsletter": "*",
     "magento/module-integration": "*",
-    "magento/module-store": "*",
-    "magento/framework": "*"
+    "magento/module-store": "*"
   },
   "license": [
     "OSL-3.0",

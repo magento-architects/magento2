@@ -7,9 +7,7 @@
         "magento/module-catalog": "*",
         "magento/module-bundle": "*",
         "magento/module-catalog-graph-ql": "*",
-        "magento/module-store": "*",
-        "magento/framework": "*"
-    },
+        "magento/module-store": "*"},
     "license": [
         "OSL-3.0",
         "AFL-3.0"

@@ -88,7 +88,6 @@ class ObjectManagerFactory
         $includedFiles = get_included_files();
         $directoryList = new \Magento\Framework\App\Filesystem\DirectoryList(BP);
         $driverPool = new \Magento\Framework\Filesystem\DriverPool();
-        $driver = $driverPool->getDriver(\Magento\Framework\Filesystem\DriverPool::FILE);
         $configFilePool = new \Magento\Framework\Config\File\ConfigFilePool();
         $reader = new \Magento\Framework\App\DeploymentConfig\Reader($directoryList, $driverPool, $configFilePool);
         $deploymentConfig = new \Magento\Framework\App\DeploymentConfig($reader);

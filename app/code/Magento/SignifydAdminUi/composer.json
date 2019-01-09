@@ -5,7 +5,6 @@
         "sort-packages": true
     },
     "require": {
-        "magento/framework": "*",
         "magento/module-backend": "*",
         "magento/module-checkout": "*",
         "magento/module-config": "*",

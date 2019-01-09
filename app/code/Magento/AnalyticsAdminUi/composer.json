@@ -6,9 +6,7 @@
         "magento/module-backend": "*",
         "magento/module-config": "*",
         "magento/module-integration": "*",
-        "magento/module-store": "*",
-        "magento/framework": "*"
-    },
+        "magento/module-store": "*"},
     "type": "magento2-module",
     "license": [
         "OSL-3.0",

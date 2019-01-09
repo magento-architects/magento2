@@ -5,6 +5,7 @@
  */
 namespace Magento\Framework\Config;
 
+use Magento\Framework\App\Cache;
 use Magento\Framework\Serialize;
 
 class Loader
@@ -28,7 +29,7 @@ class Loader
      * @param Serialize\SerializerInterface $serializer
      * @param string $prefix
      */
-    public function __construct(Serialize\SerializerInterface $serializer =  null, $prefix = "magento.")
+    public function __construct(Cache $cache, Serialize\SerializerInterface $serializer =  null, $prefix = "magento.")
     {
         $this->serializer = $serializer;
         $this->prefix = $prefix;

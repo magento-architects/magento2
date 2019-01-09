@@ -8,9 +8,6 @@
     "config": {
         "sort-packages": true
     },
-    "require": {
-        "magento/framework": "*"
-    },
     "type": "magento2-language",
     "autoload": {
         "files": [

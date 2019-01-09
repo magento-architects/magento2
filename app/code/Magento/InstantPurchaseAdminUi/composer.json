@@ -14,9 +14,7 @@
     "magento/module-sales": "*",
     "magento/module-shipping": "*",
     "magento/module-quote": "*",
-    "magento/module-vault": "*",
-    "magento/framework": "*"
-  },
+    "magento/module-vault": "*"},
   "autoload": {
     "psr-4": {
       "Magento\\InstantPurchase\\": ""

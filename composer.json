@@ -328,6 +328,10 @@
             "**/Test/**"
         ]
     },
+    "scripts": {
+        "post-install-cmd": "\\Magento\\Framework\\Component\\ComponentInstaller::install",
+        "post-update-cmd": "\\Magento\\Framework\\Component\\ComponentInstaller::install"
+    },
     "autoload-dev": {
         "psr-4": {
             "Magento\\Sniffs\\": "dev/tests/static/framework/Magento/Sniffs/",
