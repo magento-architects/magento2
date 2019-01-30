@@ -5,6 +5,8 @@
  */
 namespace Magento\Framework\Code\Reader;
 
+use mysql_xdevapi\Exception;
+
 class ClassReader implements ClassReaderInterface
 {
     /**
@@ -16,20 +18,24 @@ class ClassReader implements ClassReaderInterface
      */
     public function getConstructor($className)
     {
-        $class = new \ReflectionClass($className);
-        $result = null;
-        $constructor = $class->getConstructor();
-        if ($constructor) {
-            $result = [];
-            /** @var $parameter \ReflectionParameter */
-            foreach ($constructor->getParameters() as $parameter) {
-                $result[] = [
-                    $parameter->getName(),
-                    $parameter->getClass() !== null ? $parameter->getClass()->getName() : null,
-                    !$parameter->isOptional() && !$parameter->isDefaultValueAvailable(),
-                    $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
-                ];
+        try {
+            $class = new \ReflectionClass($className);
+            $result = null;
+            $constructor = $class->getConstructor();
+            if ($constructor) {
+                $result = [];
+                /** @var $parameter \ReflectionParameter */
+                foreach ($constructor->getParameters() as $parameter) {
+                    $result[] = [
+                        $parameter->getName(),
+                        $parameter->getClass() !== null ? $parameter->getClass()->getName() : null,
+                        !$parameter->isOptional() && !$parameter->isDefaultValueAvailable(),
+                        $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
+                    ];
+                }
             }
+        } catch (\ReflectionException $e) {
+            throw new \Exception("Exception while reading constructor signature of $className: " . $e->getMessage());
         }
 
         return $result;
