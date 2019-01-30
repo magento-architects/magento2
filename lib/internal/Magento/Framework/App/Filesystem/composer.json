@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\App\\Filesystem\\": "Filesystem/Filesystem"
+            "Magento\\Framework\\App\\Filesystem\\": "Filesystem"
         }
     }
 }
