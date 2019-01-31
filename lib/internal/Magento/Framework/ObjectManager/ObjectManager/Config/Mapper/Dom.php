@@ -71,68 +71,72 @@ class Dom implements \Magento\Framework\Config\ConverterInterface
                 case 'virtualType':
                     $typeData = [];
                     $typeNodeAttributes = $node->attributes;
-                    $typeNodeShared = $typeNodeAttributes->getNamedItem('shared');
-                    if ($typeNodeShared) {
-                        $typeData['shared'] = $this->booleanUtils->toBoolean($typeNodeShared->nodeValue);
-                    }
-                    if ($node->nodeName == 'virtualType') {
-                        $attributeType = $typeNodeAttributes->getNamedItem('type');
-                        // attribute type is required for virtual type only in merged configuration
-                        if ($attributeType) {
-                            $typeData['type'] = $attributeType->nodeValue;
+                    $typeName = $typeNodeAttributes->getNamedItem('name')->nodeValue;
+                    try {
+                        $typeNodeShared = $typeNodeAttributes->getNamedItem('shared');
+                        if ($typeNodeShared) {
+                            $typeData['shared'] = $this->booleanUtils->toBoolean($typeNodeShared->nodeValue);
                         }
-                    }
-                    $typeArguments = [];
-                    $typePlugins = [];
-                    /** @var \DOMNode $typeChildNode */
-                    foreach ($node->childNodes as $typeChildNode) {
-                        if ($typeChildNode->nodeType != XML_ELEMENT_NODE) {
-                            continue;
+                        if ($node->nodeName == 'virtualType') {
+                            $attributeType = $typeNodeAttributes->getNamedItem('type');
+                            // attribute type is required for virtual type only in merged configuration
+                            if ($attributeType) {
+                                $typeData['type'] = $attributeType->nodeValue;
+                            }
                         }
-                        switch ($typeChildNode->nodeName) {
-                            case 'arguments':
-                                /** @var \DOMNode $argumentNode */
-                                foreach ($typeChildNode->childNodes as $argumentNode) {
-                                    if ($argumentNode->nodeType != XML_ELEMENT_NODE) {
-                                        continue;
+                        $typeArguments = [];
+                        $typePlugins = [];
+                        /** @var \DOMNode $typeChildNode */
+                        foreach ($node->childNodes as $typeChildNode) {
+                            if ($typeChildNode->nodeType != XML_ELEMENT_NODE) {
+                                continue;
+                            }
+                            switch ($typeChildNode->nodeName) {
+                                case 'arguments':
+                                    /** @var \DOMNode $argumentNode */
+                                    foreach ($typeChildNode->childNodes as $argumentNode) {
+                                        if ($argumentNode->nodeType != XML_ELEMENT_NODE) {
+                                            continue;
+                                        }
+                                        $argumentName = $argumentNode->attributes->getNamedItem('name')->nodeValue;
+                                        $argumentData = $this->argumentParser->parse($argumentNode);
+                                        $typeArguments[$argumentName] = $this->argumentInterpreter->evaluate(
+                                            $argumentData
+                                        );
                                     }
-                                    $argumentName = $argumentNode->attributes->getNamedItem('name')->nodeValue;
-                                    $argumentData = $this->argumentParser->parse($argumentNode);
-                                    $typeArguments[$argumentName] = $this->argumentInterpreter->evaluate(
-                                        $argumentData
+                                    break;
+                                case 'plugin':
+                                    $pluginAttributes = $typeChildNode->attributes;
+                                    $pluginDisabledNode = $pluginAttributes->getNamedItem('disabled');
+                                    $pluginSortOrderNode = $pluginAttributes->getNamedItem('sortOrder');
+                                    $pluginTypeNode = $pluginAttributes->getNamedItem('type');
+                                    $pluginData = [
+                                        'sortOrder' => $pluginSortOrderNode ? (int)$pluginSortOrderNode->nodeValue : 0,
+                                    ];
+                                    if ($pluginDisabledNode) {
+                                        $pluginData['disabled'] = $this->booleanUtils->toBoolean(
+                                            $pluginDisabledNode->nodeValue
+                                        );
+                                    }
+                                    if ($pluginTypeNode) {
+                                        $pluginData['instance'] = $pluginTypeNode->nodeValue;
+                                    }
+                                    $typePlugins[$pluginAttributes->getNamedItem('name')->nodeValue] = $pluginData;
+                                    break;
+                                default:
+                                    throw new \Exception(
+                                        "Invalid application config fore $typeName. Unknown node: {$typeChildNode->nodeName}."
                                     );
-                                }
-                                break;
-                            case 'plugin':
-                                $pluginAttributes = $typeChildNode->attributes;
-                                $pluginDisabledNode = $pluginAttributes->getNamedItem('disabled');
-                                $pluginSortOrderNode = $pluginAttributes->getNamedItem('sortOrder');
-                                $pluginTypeNode = $pluginAttributes->getNamedItem('type');
-                                $pluginData = [
-                                    'sortOrder' => $pluginSortOrderNode ? (int)$pluginSortOrderNode->nodeValue : 0,
-                                ];
-                                if ($pluginDisabledNode) {
-                                    $pluginData['disabled'] = $this->booleanUtils->toBoolean(
-                                        $pluginDisabledNode->nodeValue
-                                    );
-                                }
-                                if ($pluginTypeNode) {
-                                    $pluginData['instance'] = $pluginTypeNode->nodeValue;
-                                }
-                                $typePlugins[$pluginAttributes->getNamedItem('name')->nodeValue] = $pluginData;
-                                break;
-                            default:
-                                throw new \Exception(
-                                    "Invalid application config. Unknown node: {$typeChildNode->nodeName}."
-                                );
+                            }
                         }
+                        $typeData['arguments'] = $typeArguments;
+                        if (!empty($typePlugins)) {
+                            $typeData['plugins'] = $typePlugins;
+                        }
+                        $output[$typeName] = $typeData;
+                    } catch (\Exception $e) {
+                        throw new \Exception("Configuration issue in " . $node->nodeName . " " . $typeName . ": " . $e->getMessage());
                     }
-
-                    $typeData['arguments'] = $typeArguments;
-                    if (!empty($typePlugins)) {
-                        $typeData['plugins'] = $typePlugins;
-                    }
-                    $output[$typeNodeAttributes->getNamedItem('name')->nodeValue] = $typeData;
                     break;
                 default:
                     throw new \Exception("Invalid application config. Unknown node: {$node->nodeName}.");

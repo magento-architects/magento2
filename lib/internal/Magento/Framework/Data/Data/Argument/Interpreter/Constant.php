@@ -19,8 +19,10 @@ class Constant implements InterpreterInterface
      */
     public function evaluate(array $data)
     {
-        if (!isset($data['value']) || !defined($data['value'])) {
-            throw new \InvalidArgumentException('Constant name is expected (' .  $data['name'] . ')');
+        if (!isset($data['value'])) {
+            throw new \InvalidArgumentException('Constant name is expected for argument "' .  $data['name'] . '"');
+        } else if (!defined($data['value'])) {
+            throw new \InvalidArgumentException('Constant "' . $data['value'] . '" provided as a value for argument "' .  $data['name'] . '" does not exist');
         }
         return constant($data['value']);
     }
