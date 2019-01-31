@@ -6,11 +6,8 @@
     },
     "require": {
         "php": "~7.1.3||~7.2.0||~7.3.0",
-        "magento/module-backend": "*",
         "magento/module-config": "*",
-        "magento/module-store": "*",
-        "magento/module-catalog": "*",
-        "magento/module-theme": "*"
+        "magento/module-store": "*"
     },
     "type": "magento2-module",
     "license": [

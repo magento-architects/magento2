@@ -8,10 +8,5 @@
     "config": {
         "sort-packages": true
     },
-    "type": "magento2-language",
-    "autoload": {
-        "files": [
-            "registration.php"
-        ]
-    }
+    "type": "magento2-language"
 }

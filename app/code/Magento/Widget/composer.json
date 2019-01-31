@@ -7,8 +7,6 @@
     "require": {
         "php": "~7.1.3||~7.2.0||~7.3.0",
         "ext-dom": "*",
-        "magento/module-backend": "*",
-        "magento/module-catalog": "*",
         "magento/module-cms": "*",
         "magento/module-store": "*",
         "magento/module-theme": "*",
