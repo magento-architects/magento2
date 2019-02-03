@@ -95,19 +95,15 @@ abstract class EntityAbstract
      */
     public function generate()
     {
-        try {
-            if ($this->_validateData()) {
-                $sourceCode = $this->_generateCode();
-                if ($sourceCode) {
-                    $fileName = $this->_ioObject->generateResultFileName($this->_getResultClassName());
-                    $this->_ioObject->writeResultFile($fileName, $sourceCode);
-                    return $fileName;
-                } else {
-                    $this->_addError('Can\'t generate source code.');
-                }
+        if ($this->_validateData()) {
+            $sourceCode = $this->_generateCode();
+            if ($sourceCode) {
+                $fileName = $this->_ioObject->generateResultFileName($this->_getResultClassName());
+                $this->_ioObject->writeResultFile($fileName, $sourceCode);
+                return $fileName;
+            } else {
+                $this->_addError('Can\'t generate source code for class.');
             }
-        } catch (\Exception $e) {
-            $this->_addError($e->getMessage());
         }
         return false;
     }

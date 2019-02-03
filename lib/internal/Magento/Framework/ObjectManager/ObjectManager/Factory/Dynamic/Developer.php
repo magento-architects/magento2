@@ -61,9 +61,9 @@ class Developer extends \Magento\Framework\ObjectManager\Factory\AbstractFactory
             return new $type();
         }
         if (isset($this->creationStack[$requestedType])) {
-            $lastFound = end($this->creationStack);
+            $graph = implode(" -> ", $this->creationStack) . " -> " . $requestedType;
             $this->creationStack = [];
-            throw new \LogicException("Circular dependency: {$requestedType} depends on {$lastFound} and vice versa.");
+            throw new \LogicException("Circular dependency found in instantiation graph: $graph");
         }
         $this->creationStack[$requestedType] = $requestedType;
         try {

@@ -35,9 +35,8 @@ class ClassReader implements ClassReaderInterface
                 }
             }
         } catch (\ReflectionException $e) {
-            throw new \Exception("Exception while reading constructor signature of $className: " . $e->getMessage());
+            throw new \Exception("Exception while reading constructor signature of $className: " . $e->getMessage(), 0, $e);
         }
-
         return $result;
     }
 

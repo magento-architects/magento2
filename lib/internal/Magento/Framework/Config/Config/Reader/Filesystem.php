@@ -146,6 +146,11 @@ class Filesystem implements \Magento\Framework\Config\ReaderInterface
         /** @var \Magento\Framework\Config\Dom $configMerger */
         $configMerger = null;
         foreach ($fileList as $key => $content) {
+            if (!strlen($content)) {
+                throw new \Magento\Framework\Exception\LocalizedException(
+                    new \Magento\Framework\Phrase('The XML in file "%1" is empty', [$key])
+                );
+            }
             try {
                 if (!$configMerger) {
                     $configMerger = $this->_createConfigMerger($this->_domDocumentClass, $content);

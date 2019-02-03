@@ -131,12 +131,7 @@ class Generator
             if (!($file = $generator->generate())) {
                 /** @var $logger LoggerInterface */
                 $errors = $generator->getErrors();
-                $errors[] = 'Class ' . $className . ' generation error: The requested class did not generate properly, '
-                    . 'because the \'generated\' directory permission is read-only. '
-                    . 'If --- after running the \'bin/magento setup:di:compile\' CLI command when the \'generated\' '
-                    . 'directory permission is set to write --- the requested class did not generate properly, then '
-                    . 'you must add the generated class object to the signature of the related construct method, only.';
-                $message = implode(PHP_EOL, $errors);
+                $message = "Could not generate class $className: " . implode(PHP_EOL, $errors);
                 $this->getLogger()->critical($message);
                 throw new \RuntimeException($message);
             }

@@ -103,7 +103,7 @@ class Reader
             if ($fileDriver->isExists($filePath)) {
                 $result = include $filePath;
                 if (!is_array($result)) {
-                    throw new RuntimeException(new Phrase("Invalid configuration file: '%1'", [$filePath]));
+                    throw new RuntimeException(new Phrase("Invalid configuration in '%1'. The file must return configuration map.", [$filePath]));
                 }
             }
         } else {

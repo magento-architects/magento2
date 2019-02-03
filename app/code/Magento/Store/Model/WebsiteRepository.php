@@ -156,7 +156,7 @@ class WebsiteRepository implements \Magento\Store\Api\WebsiteRepositoryInterface
                 $this->initDefaultWebsite();
             }
             if (!$this->default) {
-                throw new \DomainException(__("The default website isn't defined. Set the website and try again."));
+                throw new \DomainException(__("The default website is not specified in configuration."));
             }
         }
 
