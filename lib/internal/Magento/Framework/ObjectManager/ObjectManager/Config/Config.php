@@ -162,7 +162,7 @@ class Config implements \Magento\Framework\ObjectManager\ConfigInterface
     {
         $type = ltrim($type, '\\');
         if (!isset($this->_preferences[$type])) {
-            $defaultPreference = $this->getDefaultPreference($type);
+            $defaultPreference = !isset($this->_virtualTypes[$type]) ? $this->getDefaultPreference($type) : null;
             return $defaultPreference ? $this->getPreference($defaultPreference) : $type;
         } else {
             $preferencePath = [];
@@ -183,6 +183,13 @@ class Config implements \Magento\Framework\ObjectManager\ConfigInterface
         return $type;
     }
 
+    /**
+     * Retrieve default interface preference for annotation
+     *
+     * @param string $type
+     * @return string
+     * @throws \ReflectionException
+     */
     private function getDefaultPreference($type)
     {
         if (interface_exists($type) || class_exists($type)) {
