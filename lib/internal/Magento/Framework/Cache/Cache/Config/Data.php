@@ -24,17 +24,17 @@ class Data extends \Magento\Framework\Config\Data\Scoped
      *
      * @param \Magento\Framework\Cache\Config\Reader $reader
      * @param \Magento\Framework\Config\ScopeInterface $configScope
-     * @param \Magento\Framework\Config\CacheInterface $cache
+     * @param \Magento\Framework\Config\Loader $cache
      * @param string $cacheId
      * @param SerializerInterface|null $serializer
      */
     public function __construct(
         \Magento\Framework\Cache\Config\Reader $reader,
         \Magento\Framework\Config\ScopeInterface $configScope,
-        \Magento\Framework\Config\CacheInterface $cache,
+        \Magento\Framework\Config\Loader $loader,
         $cacheId,
         SerializerInterface $serializer = null
     ) {
-        parent::__construct($reader, $configScope, $cache, $cacheId, $serializer);
+        parent::__construct($reader, $configScope, $loader, $cacheId, $serializer);
     }
 }

@@ -31,10 +31,10 @@ class Data extends \Magento\Framework\Config\Data\Scoped
     public function __construct(
         \Magento\Framework\Event\Config\Reader $reader,
         \Magento\Framework\Config\ScopeInterface $configScope,
-        \Magento\Framework\Config\CacheInterface $cache,
+        \Magento\Framework\Config\Loader $loader,
         $cacheId = 'event_config_cache',
         SerializerInterface $serializer = null
     ) {
-        parent::__construct($reader, $configScope, $cache, $cacheId, $serializer);
+        parent::__construct($reader, $configScope, $loader, $cacheId, $serializer);
     }
 }

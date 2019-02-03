@@ -96,7 +96,7 @@ class PluginList extends Scoped implements InterceptionPluginList
      * PluginList constructor.
      * @param ReaderInterface $reader
      * @param ScopeInterface $configScope
-     * @param Loader $cache
+     * @param Loader $configLoader
      * @param RelationsInterface $relations
      * @param ConfigInterface $omConfig
      * @param DefinitionInterface $definitions
@@ -109,7 +109,7 @@ class PluginList extends Scoped implements InterceptionPluginList
     public function __construct(
         ReaderInterface $reader,
         ScopeInterface $configScope,
-        Loader $cache,
+        Loader $configLoader,
         RelationsInterface $relations,
         ConfigInterface $omConfig,
         DefinitionInterface $definitions,
@@ -123,7 +123,7 @@ class PluginList extends Scoped implements InterceptionPluginList
         $this->_reader = $reader;
         $this->_configScope = $configScope;
         $this->_cacheId = $cacheId;
-        $this->cache = $cache;
+        $this->cache = $configLoader;
         $this->_omConfig = $omConfig;
         $this->_relations = $relations;
         $this->_definitions = $definitions;
@@ -293,9 +293,10 @@ class PluginList extends Scoped implements InterceptionPluginList
             $key = implode('|', $this->_scopePriorityScheme) . "|" . $this->_cacheId;
             list($this->_data, $this->_inherited, $this->_processed) = $this->cache->getCachedContent($key, function() use ($key) {
                 $virtualTypes = [];
+                $loadedFiles = [];
                 foreach ($this->_scopePriorityScheme as $scopeCode) {
                     if (false == isset($this->_loadedScopes[$scopeCode])) {
-                        $data = $this->_reader->read($scopeCode) ?: [];
+                        list($data, $loadedScopeFiles) = $this->_reader->read($scopeCode) ?: [];
                         unset($data['preferences']);
                         if (count($data) > 0) {
                             $this->_inherited = [];
@@ -308,6 +309,7 @@ class PluginList extends Scoped implements InterceptionPluginList
                             }
                         }
                         $this->_loadedScopes[$scopeCode] = true;
+                        $loadedFiles = array_merge($loadedFiles, $loadedScopeFiles);
                     }
                     if ($this->isCurrentScope($scopeCode)) {
                         break;
@@ -319,10 +321,7 @@ class PluginList extends Scoped implements InterceptionPluginList
                 foreach ($this->getClassDefinitions() as $class) {
                     $this->_inheritPlugins($class);
                 }
-                $this->_cache->save(
-                    $this->serializer->serialize([$this->_data, $this->_inherited, $this->_processed]),
-                    $key
-                );
+                return [[$this->_data, $this->_inherited, $this->_processed], array_unique($loadedFiles)];
             });
             foreach ($this->_scopePriorityScheme as $scopeCode) {
                 $this->_loadedScopes[$scopeCode] = true;

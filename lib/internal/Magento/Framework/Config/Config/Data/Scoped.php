@@ -34,7 +34,7 @@ class Scoped extends \Magento\Framework\Config\Data
      *
      * @var Loader
      */
-    protected $_cache;
+    protected $loader;
 
     /**
      * Cache tag
@@ -67,20 +67,20 @@ class Scoped extends \Magento\Framework\Config\Data
      *
      * @param \Magento\Framework\Config\ReaderInterface $reader
      * @param \Magento\Framework\Config\ScopeInterface $configScope
-     * @param \Magento\Framework\Config\CacheInterface $cache
+     * @param \Magento\Framework\Config\CacheInterface $loader
      * @param string $cacheId
      * @param SerializerInterface|null $serializer
      */
     public function __construct(
         \Magento\Framework\Config\ReaderInterface $reader,
         \Magento\Framework\Config\ScopeInterface $configScope,
-        Loader $cache,
+        Loader $loader,
         $cacheId,
         SerializerInterface $serializer = null
     ) {
         $this->_reader = $reader;
         $this->_configScope = $configScope;
-        $this->_cache = $cache;
+        $this->loader = $loader;
         $this->_cacheId = $cacheId;
         $this->serializer = $serializer ?: ObjectManager::getInstance()->get(SerializerInterface::class);
     }
@@ -112,7 +112,7 @@ class Scoped extends \Magento\Framework\Config\Data
             }
             foreach ($this->_scopePriorityScheme as $scopeCode) {
                 if (false == isset($this->_loadedScopes[$scopeCode])) {
-                    $data = $this->_cache->getCachedContent($scopeCode . '::' . $this->_cacheId, function() use ($scopeCode) {
+                    $data = $this->loader->getCachedContent($scopeCode . '::' . $this->_cacheId, function() use ($scopeCode) {
                         return $this->_reader->read($scopeCode);
                     });
                     $this->merge($data);

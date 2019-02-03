@@ -28,7 +28,7 @@ class Data implements \Magento\Framework\Config\DataInterface
      *
      * @var CacheInterface
      */
-    protected $_cache;
+    protected $loader;
 
     /**
      * Cache tag

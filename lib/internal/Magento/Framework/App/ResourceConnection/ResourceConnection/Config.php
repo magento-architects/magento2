@@ -34,12 +34,12 @@ class Config extends \Magento\Framework\Config\Data\Scoped implements ConfigInte
     public function __construct(
         Config\Reader $reader,
         \Magento\Framework\Config\ScopeInterface $configScope,
-        Loader $cache,
+        Loader $loader,
         \Magento\Framework\App\DeploymentConfig $deploymentConfig,
         $cacheId = 'resourcesCache',
         SerializerInterface $serializer = null
     ) {
-        parent::__construct($reader, $configScope, $cache, $cacheId, $serializer);
+        parent::__construct($reader, $configScope, $loader, $cacheId, $serializer);
         $this->deploymentConfig = $deploymentConfig;
     }
 

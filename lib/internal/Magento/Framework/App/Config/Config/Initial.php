@@ -45,18 +45,9 @@ class Initial
      */
     public function __construct(
         \Magento\Framework\App\Config\Initial\Reader $reader,
-        \Magento\Framework\App\Cache\Type\Config $cache,
-        SerializerInterface $serializer = null
+        \Magento\Framework\Config\Loader $loader
     ) {
-        $this->serializer = $serializer ?: \Magento\Framework\App\ObjectManager::getInstance()
-            ->get(SerializerInterface::class);
-        $data = $cache->load(self::CACHE_ID);
-        if (!$data) {
-            $data = $reader->read();
-            $cache->save($this->serializer->serialize($data), self::CACHE_ID);
-        } else {
-            $data = $this->serializer->unserialize($data);
-        }
+        $data = $loader->getCachedContent(self::CACHE_ID, function () use ($reader) {return $reader->read();});
         $this->_data = $data['data'];
         $this->_metadata = $data['metadata'];
     }
