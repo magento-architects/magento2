@@ -6,10 +6,10 @@
  */
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:include schemaLocation="urn:magento:framework:View/Layout/etc/elements.xsd"/>
-    <xs:include schemaLocation="urn:magento:framework:View/Layout/etc/head.xsd"/>
-    <xs:include schemaLocation="urn:magento:framework:View/Layout/etc/body.xsd"/>
-    <xs:include schemaLocation="urn:magento:framework:View/Layout/etc/html.xsd"/>
+    <xs:include schemaLocation="urn:magento:framework:View/etc/elements.xsd"/>
+    <xs:include schemaLocation="urn:magento:framework:View/etc/head.xsd"/>
+    <xs:include schemaLocation="urn:magento:framework:View/etc/body.xsd"/>
+    <xs:include schemaLocation="urn:magento:framework:View/etc/html.xsd"/>
 
     <xs:element name="layout">
         <xs:annotation>

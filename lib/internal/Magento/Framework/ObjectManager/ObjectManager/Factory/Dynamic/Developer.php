@@ -5,8 +5,6 @@
  */
 namespace Magento\Framework\ObjectManager\Factory\Dynamic;
 
-use Magento\Framework\App\ResourceConnection;
-
 class Developer extends \Magento\Framework\ObjectManager\Factory\AbstractFactory
 {
     /**

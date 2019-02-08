@@ -7,7 +7,7 @@
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- Include section -->
-    <xs:redefine schemaLocation="urn:magento:framework:View/Layout/etc/elements.xsd">
+    <xs:redefine schemaLocation="urn:magento:framework:View/etc/elements.xsd">
         <xs:complexType name="argumentType" abstract="true" mixed="true">
             <xs:annotation>
                 <xs:documentation>
