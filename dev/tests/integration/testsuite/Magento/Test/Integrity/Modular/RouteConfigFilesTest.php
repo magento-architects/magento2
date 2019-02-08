@@ -46,8 +46,8 @@ class RouteConfigFilesTest extends \PHPUnit\Framework\TestCase
         $this->validationStateMock->method('isValidationRequired')
             ->willReturn(true);
         $urnResolver = new \Magento\Framework\Config\Dom\UrnResolver();
-        $this->schemaFile = $urnResolver->getRealPath('urn:magento:framework:App/etc/routes.xsd');
-        $this->mergedSchemaFile = $urnResolver->getRealPath('urn:magento:framework:App/etc/routes_merged.xsd');
+        $this->schemaFile = $urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes.xsd');
+        $this->mergedSchemaFile = $urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes_merged.xsd');
     }
 
     public function testRouteConfigsValidation()

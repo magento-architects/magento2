@@ -67,7 +67,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         $params = [
             'xml' => '<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' .
                 trim($layoutUpdate) . '</layout>',
-            'schemaFile' => $this->urnResolver->getRealPath('urn:magento:framework:View/Layout/etc/page_layout.xsd'),
+            'schemaFile' => $this->urnResolver->getRealPath('urn:magento:framework:View/etc/page_layout.xsd'),
             'validationState' => $this->validationState,
         ];
 

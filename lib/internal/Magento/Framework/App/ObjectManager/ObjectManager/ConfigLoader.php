@@ -42,7 +42,6 @@ class ConfigLoader implements ConfigLoaderInterface
     public function __construct(
         \Magento\Framework\ObjectManager\Config\Reader\DomFactory $readerFactory
     ) {
-        echo "!!!!!!!!!!WOW. Config loader created<br>";
         $this->_readerFactory = $readerFactory;
     }
 

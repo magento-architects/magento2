@@ -25,7 +25,7 @@ class XsdTest extends \PHPUnit\Framework\TestCase
             $this->markTestSkipped('Skipped on HHVM. Will be fixed in MAGETWO-45033');
         }
         $urnResolver = new \Magento\Framework\Config\Dom\UrnResolver();
-        $this->_xsdSchema = $urnResolver->getRealPath('urn:magento:framework:View/Layout/etc/page_configuration.xsd');
+        $this->_xsdSchema = $urnResolver->getRealPath('urn:magento:framework:View/etc/page_configuration.xsd');
         $this->_xsdValidator = new \Magento\Framework\TestFramework\Unit\Utility\XsdValidator();
     }
 

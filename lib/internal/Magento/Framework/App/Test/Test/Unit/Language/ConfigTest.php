@@ -28,8 +28,8 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->urnResolverMock = $this->createMock(\Magento\Framework\Config\Dom\UrnResolver::class);
         $this->urnResolverMock->expects($this->any())
             ->method('getRealPath')
-            ->with('urn:magento:framework:App/Language/package.xsd')
-            ->willReturn($this->urnResolver->getRealPath('urn:magento:framework:App/Language/package.xsd'));
+            ->with('urn:magento:framework:AppLanguage/etc/package.xsd')
+            ->willReturn($this->urnResolver->getRealPath('urn:magento:framework:AppLanguage/etc/package.xsd'));
         $validationStateMock = $this->createMock(\Magento\Framework\Config\ValidationStateInterface::class);
         $validationStateMock->method('isValidationRequired')
             ->willReturn(true);
@@ -74,7 +74,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $method = new \ReflectionMethod($this->config, 'getSchemaFile');
         $method->setAccessible(true);
         $this->assertEquals(
-            $this->urnResolver->getRealPath('urn:magento:framework:App/Language/package.xsd'),
+            $this->urnResolver->getRealPath('urn:magento:framework:AppLanguage/etc/package.xsd'),
             $method->invoke($this->config)
         );
     }

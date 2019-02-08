@@ -30,12 +30,12 @@ class SchemaLocatorTest extends \PHPUnit\Framework\TestCase
     {
         $this->urnResolverMock->expects($this->once())
             ->method('getRealPath')
-            ->with('urn:magento:framework:App/etc/routes_merged.xsd')
+            ->with('urn:magento:framework:AppRoute/etc/routes_merged.xsd')
             ->willReturn(
-                $this->urnResolver->getRealPath('urn:magento:framework:App/etc/routes_merged.xsd')
+                $this->urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes_merged.xsd')
             );
         $this->assertContains(
-            $this->urnResolver->getRealPath('urn:magento:framework:App/etc/routes_merged.xsd'),
+            $this->urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes_merged.xsd'),
             $this->config->getSchema()
         );
     }
@@ -44,12 +44,12 @@ class SchemaLocatorTest extends \PHPUnit\Framework\TestCase
     {
         $this->urnResolverMock->expects($this->once())
             ->method('getRealPath')
-            ->with('urn:magento:framework:App/etc/routes.xsd')
+            ->with('urn:magento:framework:AppRoute/etc/routes.xsd')
             ->willReturn(
-                $this->urnResolver->getRealPath('urn:magento:framework:App/etc/routes.xsd')
+                $this->urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes.xsd')
             );
         $this->assertContains(
-            $this->urnResolver->getRealPath('urn:magento:framework:App/etc/routes.xsd'),
+            $this->urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes.xsd'),
             $this->config->getPerFileSchema()
         );
     }

@@ -56,7 +56,7 @@ class Config
      */
     protected function getSchemaFile()
     {
-        return $this->urnResolver->getRealPath('urn:magento:framework:App/Language/package.xsd');
+        return $this->urnResolver->getRealPath('urn:magento:framework:AppLanguage/etc/package.xsd');
     }
 
     /**

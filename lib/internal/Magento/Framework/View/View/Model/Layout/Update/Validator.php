@@ -80,10 +80,10 @@ class Validator extends \Zend_Validate_Abstract
         $this->_initMessageTemplates();
         $this->_xsdSchemas = [
             self::LAYOUT_SCHEMA_PAGE_HANDLE => $urnResolver->getRealPath(
-                'urn:magento:framework:View/Layout/etc/page_layout.xsd'
+                'urn:magento:framework:View/etc/page_layout.xsd'
             ),
             self::LAYOUT_SCHEMA_MERGED => $urnResolver->getRealPath(
-                'urn:magento:framework:View/Layout/etc/layout_merged.xsd'
+                'urn:magento:framework:View/etc/layout_merged.xsd'
             ),
         ];
         $this->validationState = $validationState

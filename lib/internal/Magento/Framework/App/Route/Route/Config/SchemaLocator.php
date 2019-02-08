@@ -28,7 +28,7 @@ class SchemaLocator implements \Magento\Framework\Config\SchemaLocatorInterface
      */
     public function getSchema()
     {
-        return $this->urnResolver->getRealPath('urn:magento:framework:App/etc/routes_merged.xsd');
+        return $this->urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes_merged.xsd');
     }
 
     /**
@@ -38,6 +38,6 @@ class SchemaLocator implements \Magento\Framework\Config\SchemaLocatorInterface
      */
     public function getPerFileSchema()
     {
-        return $this->urnResolver->getRealPath('urn:magento:framework:App/etc/routes.xsd');
+        return $this->urnResolver->getRealPath('urn:magento:framework:AppRoute/etc/routes.xsd');
     }
 }

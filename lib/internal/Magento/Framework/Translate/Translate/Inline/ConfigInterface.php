@@ -5,7 +5,6 @@
  */
 namespace Magento\Framework\Translate\Inline;
 
-throw new Exception('dd');
 /**
  * Inline Translation config interface
  *
