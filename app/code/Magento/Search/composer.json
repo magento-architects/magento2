@@ -6,7 +6,8 @@
     },
     "require": {
         "php": "~7.1.3||~7.2.0||~7.3.0",
-        "magento/module-store": "*"
+        "magento/module-store": "*",
+        "magento/library-search": "*"
     },
     "type": "magento2-module",
     "license": [

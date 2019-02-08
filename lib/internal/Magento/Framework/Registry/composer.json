@@ -1,5 +1,5 @@
 {
-    "name": "magento/library-require-js",
+    "name": "magento/library-registry",
     "type": "magento2-library",
         "license": [
         "OSL-3.0",
@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\RequireJs\\": "RequireJs"
+            "Magento\\Framework\\": ""
         }
     }
 }

@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\Event\\": "Event"
+            "Magento\\Framework\\Event\\": "Event",
+            "Magento\\Framework\\": ""
         }
     }
 }

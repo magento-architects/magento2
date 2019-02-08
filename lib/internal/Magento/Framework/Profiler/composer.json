@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\Profiler\\": "Profiler"
+            "Magento\\Framework\\Profiler\\": "Profiler",
+            "Magento\\Framework\\": ""
         }
     }
 }

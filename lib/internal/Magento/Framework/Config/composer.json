@@ -10,7 +10,8 @@
         "magento/library-exception": "*",
         "magento/library-phrase": "*",
         "magento/library-module": "*",
-        "magento/library-cache": "*"
+        "magento/library-cache": "*",
+        "magento/library-encryption": "*"
     },
     "autoload": {
         "psr-4": {

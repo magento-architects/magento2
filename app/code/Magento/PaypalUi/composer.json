@@ -22,7 +22,8 @@
         "magento/module-tax": "*",
         "magento/module-theme": "*",
         "magento/module-ui": "*",
-        "magento/module-vault": "*"
+        "magento/module-vault": "*",
+        "magento/library-app-csrf": "*"
     },
     "suggest": {
         "magento/module-checkout-agreements": "*"

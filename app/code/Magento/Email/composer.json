@@ -6,13 +6,13 @@
     },
     "require": {
         "php": "~7.1.3||~7.2.0||~7.3.0",
-        "magento/module-backend": "*",
         "magento/module-cms": "*",
         "magento/module-config": "*",
         "magento/module-store": "*",
         "magento/module-theme": "*",
-        "magento/module-media-storage": "*",
-        "magento/module-variable": "*"
+        "magento/module-variable": "*",
+        "magento/library-app-template": "*",
+        "magento/library-mail": "*"
     },
     "suggest": {
         "magento/module-theme": "*"

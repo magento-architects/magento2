@@ -9,7 +9,8 @@
         "magento/module-config": "*",
         "magento/module-require-js": "*",
         "magento/module-store": "*",
-        "magento/module-user": "*"
+        "magento/module-user": "*",
+        "magento/library-flag": "*"
     },
     "type": "magento2-module",
     "license": [

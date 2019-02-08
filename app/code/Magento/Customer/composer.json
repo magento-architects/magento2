@@ -12,7 +12,8 @@
         "magento/module-config": "*",
         "magento/module-directory": "*",
         "magento/module-media-storage": "*",
-        "magento/module-store": "*"
+        "magento/module-store": "*",
+        "magento/library-intl": "*"
     },
     "suggest": {
         "magento/module-cookie": "*",

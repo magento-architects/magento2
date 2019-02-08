@@ -9,7 +9,8 @@
         "magento/module-catalog": "*",
         "magento/module-config": "*",
         "magento/module-eav": "*",
-        "magento/module-store": "*"
+        "magento/module-store": "*",
+        "magento/library-event": "*"
     },
     "type": "magento2-module",
     "license": [

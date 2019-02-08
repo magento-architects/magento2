@@ -8,7 +8,9 @@
         "php": "~7.1.3||~7.2.0||~7.3.0",
         "ext-dom": "*",
         "magento/module-config": "*",
-        "magento/module-store": "*"
+        "magento/module-store": "*",
+        "magento/library-css": "*",
+        "magento/library-app-view": "*"
     },
     "type": "magento2-module",
     "license": [

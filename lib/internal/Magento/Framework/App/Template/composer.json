@@ -1,5 +1,5 @@
 {
-    "name": "magento/library-app-test",
+    "name": "magento/library-app-template",
     "type": "magento2-library",
         "license": [
         "OSL-3.0",
@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\App\\Test\\": "Test"
+            "Magento\\Framework\\App\\": ""
         }
     }
 }

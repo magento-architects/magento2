@@ -1,5 +1,5 @@
 {
-    "name": "magento/library-app-console",
+    "name": "magento/library-app-csrf",
     "type": "magento2-library",
         "license": [
         "OSL-3.0",
@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\App\\Console\\": "Console"
+            "Magento\\Framework\\App\\": ""
         }
     }
 }

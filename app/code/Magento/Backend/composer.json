@@ -11,7 +11,8 @@
       "magento/module-directory": "*",
       "magento/module-require-js": "*",
       "magento/module-user": "*",
-      "magento/library-setup": "*"
+      "magento/library-setup": "*",
+      "magento/library-locale": "*"
     },
     "suggest": {
         "magento/module-theme": "*"

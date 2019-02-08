@@ -11,7 +11,8 @@
         "magento/module-directory": "*",
         "magento/module-eav": "*",
         "magento/module-indexer": "*",
-        "magento/module-store": "*"
+        "magento/module-store": "*",
+        "magento/library-filter": "*"
     },
     "suggest": {
         "magento/module-cookie": "*",

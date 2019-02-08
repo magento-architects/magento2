@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\Flag\\": "Flag"
+            "Magento\\Framework\\Flag\\": "Flag",
+            "Magento\\Framework\\": ""
         }
     }
 }

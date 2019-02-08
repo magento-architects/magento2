@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Magento\\Framework\\App\\DefaultPath\\": "DefaultPath"
+            "Magento\\Framework\\App\\DefaultPath\\": "DefaultPath",
+            "Magento\\Framework\\App\\": ""
         }
     }
 }
