@@ -302,13 +302,15 @@ class Template extends AbstractBlock
         } catch (\Exception $exception) {
         }
 
+        $origTemplate = $this->getTemplate();
+
         try {
-            $this->setTemplate(str_replace('::', 'AdminUi::', $this->getTemplate()));
+            $this->setTemplate(str_replace('::', 'AdminUi::', $origTemplate));
             return $this->fetchView($this->getTemplateFile());
         } catch (\Exception $exception) {
         }
 
-        $this->setTemplate(str_replace('::', 'Ui::', $this->getTemplate()));
+        $this->setTemplate(str_replace('::', 'Ui::', $origTemplate));
         return $this->fetchView($this->getTemplateFile());
     }
 

@@ -43,7 +43,7 @@ class Dashboard extends \Magento\Backend\Block\Template
             $block = $this->getLayout()->createBlock(
                 \Magento\Backend\Block\Template::class
             )->setTemplate(
-                'dashboard/graph/disabled.phtml'
+                'Magento_Backend::dashboard/graph/disabled.phtml'
             )->setConfigUrl(
                 $this->getUrl(
                     'adminhtml/system_config/edit',
