@@ -317,6 +317,14 @@ class Page extends Layout
     {
         $fileName = $this->viewFileSystem->getTemplateFileName($this->template);
         if (!$fileName) {
+            $fileName = $this->viewFileSystem->getTemplateFileName(str_replace('::', 'AdminUi::', $this->template));
+        }
+
+        if (!$fileName) {
+            $fileName = $this->viewFileSystem->getTemplateFileName(str_replace('::', 'Ui::', $this->template));
+        }
+
+        if (!$fileName) {
             throw new \InvalidArgumentException('Template "' . $this->template . '" is not found');
         }
 

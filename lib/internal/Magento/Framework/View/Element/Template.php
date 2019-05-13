@@ -308,7 +308,7 @@ class Template extends AbstractBlock
         } catch (\Exception $exception) {
         }
 
-        $this->setTemplate(str_replace('::', 'Ui::', $this->getTemplateFile()));
+        $this->setTemplate(str_replace('::', 'Ui::', $this->getTemplate()));
         return $this->fetchView($this->getTemplateFile());
     }
 
