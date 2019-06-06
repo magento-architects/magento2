@@ -155,7 +155,7 @@ class Reader
             foreach ($recursiveIterator as $actionFile) {
                 $actionName = str_replace('/', '\\', str_replace($actionDir, '', $actionFile->getPathname()));
                 $action = $namespace . "\\" . Dir::MODULE_CONTROLLER_DIR . substr($actionName, 0, -4);
-                $actions[strtolower(str_replace('AdminUi', '', $action))] = str_replace('AdminUi', '', $action);
+                $actions[strtolower(preg_replace("/([^\\\\]){1}(Ui|AdminUi)/", "$1", $action))] = preg_replace("/([^\\\\]){1}(Ui|AdminUi)/", "$1", $action);
             }
         }
         return $actions;
