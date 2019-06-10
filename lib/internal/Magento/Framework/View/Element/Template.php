@@ -298,7 +298,11 @@ class Template extends AbstractBlock
             return '';
         }
         try {
-            return $this->fetchView($this->getTemplateFile());
+            $template = $this->fetchView($this->getTemplateFile());
+            if (!$template) {
+                throw new \Exception();
+            }
+            return $template;
         } catch (\Exception $exception) {
         }
 
@@ -306,12 +310,20 @@ class Template extends AbstractBlock
 
         try {
             $this->setTemplate(str_replace('::', 'AdminUi::', $origTemplate));
-            return $this->fetchView($this->getTemplateFile());
+            $template = $this->fetchView($this->getTemplateFile());
+            if (!$template) {
+                throw new \Exception();
+            }
+            return $template;
         } catch (\Exception $exception) {
         }
 
         $this->setTemplate(str_replace('::', 'Ui::', $origTemplate));
-        return $this->fetchView($this->getTemplateFile());
+        $template =  $this->fetchView($this->getTemplateFile());
+        if (!$template) {
+            throw new \Exception();
+        }
+        return $template;
     }
 
     /**
