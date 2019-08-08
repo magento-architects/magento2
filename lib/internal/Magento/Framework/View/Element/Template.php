@@ -320,9 +320,7 @@ class Template extends AbstractBlock
 
         $this->setTemplate(str_replace('::', 'Ui::', $origTemplate));
         $template =  $this->fetchView($this->getTemplateFile());
-        if (!$template) {
-            throw new \Exception();
-        }
+
         return $template;
     }
 
