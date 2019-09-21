@@ -118,10 +118,10 @@ class RulePool
                         ['rule' => $this->simpleFactory->create(['pattern' => "<theme_dir>/<module_name>/templates"])]
                     ),
                     $this->moduleFactory->create(
-                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>/view/<area>/templates"])]
+                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>-ui/view/<area>/templates"])]
                     ),
                     $this->moduleFactory->create(
-                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>/view/base/templates"])]
+                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>-ui/view/base/templates"])]
                     ),
                 ]
             )]
@@ -145,10 +145,10 @@ class RulePool
                         ['rule' => $this->simpleFactory->create(['pattern' => "<theme_dir>/<module_name>"])]
                     ),
                     $this->moduleFactory->create(
-                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>/view/<area>"])]
+                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>-ui/view/<area>"])]
                     ),
                     $this->moduleFactory->create(
-                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>/view/base"])]
+                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>-ui/view/base"])]
                     ),
                 ]
             )]
@@ -209,7 +209,7 @@ class RulePool
                     $this->moduleFactory->create(
                         ['rule' => $this->simpleFactory->create(
                             [
-                                'pattern' => "<module_dir>/view/<area>/web/i18n/<locale>",
+                                'pattern' => "<module_dir>-ui/view/<area>/web/i18n/<locale>",
                                 'optionalParams' => ['locale']
                             ]
                         )]
@@ -217,16 +217,16 @@ class RulePool
                     $this->moduleFactory->create(
                         ['rule' => $this->simpleFactory->create(
                             [
-                                'pattern' => "<module_dir>/view/base/web/i18n/<locale>",
+                                'pattern' => "<module_dir>-ui/view/base/web/i18n/<locale>",
                                 'optionalParams' => ['locale']
                             ]
                         )]
                     ),
                     $this->moduleFactory->create(
-                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>/view/<area>/web"])]
+                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>-ui/view/<area>/web"])]
                     ),
                     $this->moduleFactory->create(
-                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>/view/base/web"])]
+                        ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>-ui/view/base/web"])]
                     ),
                 ]
             )]
@@ -251,7 +251,7 @@ class RulePool
                     )]
                 ),
                 $this->moduleFactory->create(
-                    ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>/view/<area>/email"])]
+                    ['rule' => $this->simpleFactory->create(['pattern' => "<module_dir>-ui/view/<area>/email"])]
                 ),
             ]
         );

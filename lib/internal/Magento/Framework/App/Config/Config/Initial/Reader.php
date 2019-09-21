@@ -41,5 +41,4 @@ class Reader extends \Magento\Framework\Config\Reader\Filesystem
             $defaultScope
         );
     }
-
 }

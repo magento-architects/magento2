@@ -24,7 +24,7 @@ class UrnResolver
      *
      * @param string $schema
      * @return string
-     * @throws NotFoundException
+     * @throws \InvalidArgumentException
      */
     public function getRealPath($schema)
     {
@@ -48,16 +48,20 @@ class UrnResolver
                 ComponentRegistrar::LIBRARY,
                 $matches['vendor'] . '/library-' . $this->fromCamelCase($matches['component'])
             );
+            if (!file_exists($package . '/' . $matches['path'])) {
+                $matches['path'] =  $matches['component'] . '/' . $matches['path'];
+            }
         } elseif (preg_match($setupPattern, $schema, $matches)) {
             //urn:magento:setup:
             $package = $componentRegistrar
                 ->getPath(ComponentRegistrar::SETUP, $matches['vendor'] . '/' . $matches['setup']);
         } else {
-            throw new NotFoundException(new Phrase("Unsupported format of schema location: '%1'", [$schema]));
+            throw new \InvalidArgumentException(new Phrase("Unsupported format of schema location: '%1'", [$schema]));
         }
         $schemaPath = $package . '/' . $matches['path'];
         if (empty($package) || !file_exists($schemaPath)) {
-            throw new NotFoundException(
+            var_dump($package, $schemaPath);
+            throw new \InvalidArgumentException(
                 new Phrase("Could not locate schema: '%1' at '%2'", [$schema, $schemaPath])
             );
         }

@@ -90,7 +90,7 @@ class Validator
         ?FileDriver $fileDriver = null
     ) {
         $this->_filesystem = $filesystem;
-        $this->_isAllowSymlinks = $scopeConfigInterface->getValue(self::XML_PATH_TEMPLATE_ALLOW_SYMLINK, $scope);
+        $this->_isAllowSymlinks = true;//$scopeConfigInterface->getValue(self::XML_PATH_TEMPLATE_ALLOW_SYMLINK, $scope);
         $this->_themesDir = $componentRegistrar->getPaths(ComponentRegistrar::THEME);
         $this->moduleDirs = $componentRegistrar->getPaths(ComponentRegistrar::MODULE);
         $this->_compiledDir = $this->_filesystem->getDirectoryRead(DirectoryList::TMP_MATERIALIZATION_DIR)

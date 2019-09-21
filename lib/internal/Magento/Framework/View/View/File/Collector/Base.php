@@ -53,7 +53,7 @@ class Base implements CollectorInterface
      *
      * @param \Magento\Framework\View\Design\ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
@@ -65,7 +65,7 @@ class Base implements CollectorInterface
         foreach ($sharedFiles as $file) {
             $result[] = $this->fileFactory->create($file->getFullPath(), $file->getComponentName(), null, true);
         }
-        $area = $theme->getData('area');
+        $area = "frontend";//$theme->getData('area');
         $themeFiles = $this->componentDirSearch->collectFilesWithContext(
             ComponentRegistrar::MODULE,
             "view/{$area}/{$this->subDir}{$filePath}"
@@ -73,6 +73,6 @@ class Base implements CollectorInterface
         foreach ($themeFiles as $file) {
             $result[] = $this->fileFactory->create($file->getFullPath(), $file->getComponentName());
         }
-        return $result;
+        return [$result, []];
     }
 }

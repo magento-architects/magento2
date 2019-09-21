@@ -71,18 +71,18 @@ class ThemeModular implements CollectorInterface
      *
      * @param \Magento\Framework\View\Design\ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
         $namespace = $module = '*';
         $themePath = $theme->getFullPath();
         if (empty($themePath)) {
-            return [];
+            return [[], []];
         }
         $themeAbsolutePath = $this->componentRegistrar->getPath(ComponentRegistrar::THEME, $themePath);
         if (!$themeAbsolutePath) {
-            return [];
+            return [[], []];
         }
         $themeDir = $this->readDirFactory->create($themeAbsolutePath);
         $files = $themeDir->search("{$namespace}_{$module}/{$this->subDir}$filePath");
@@ -96,6 +96,6 @@ class ThemeModular implements CollectorInterface
             }
             $result[] = $this->fileFactory->create($filename, $matches['moduleName'], $theme);
         }
-        return $result;
+        return [$result, []];
     }
 }

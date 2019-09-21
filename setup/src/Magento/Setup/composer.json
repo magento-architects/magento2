@@ -1,0 +1,25 @@
+{
+  "name": "magento/setup",
+  "type": "library",
+  "version": "1.4.0",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "require": {
+    "php": "~7.1.3|~7.2.0",
+    "magento/library-app-bootstrap": "*",
+    "magento/library-shell": "*",
+    "magento/library-app-maintenance-mode": "*",
+    "magento/library-composer": "*",
+    "magento/library-app-product-metadata": "*",
+    "magento/library-app-error-handler": "*",
+    "magento/library-app-console": "*",
+    "magento/library-convert": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Magento\\Setup\\": ""
+    }
+  }
+}

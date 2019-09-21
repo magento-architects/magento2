@@ -25,7 +25,7 @@ interface CollectorInterface
      *
      * @param ThemeInterface $theme Theme that defines the design context
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      */
     public function getFiles(ThemeInterface $theme, $filePath);
 }

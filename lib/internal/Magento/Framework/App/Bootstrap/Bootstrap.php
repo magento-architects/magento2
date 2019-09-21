@@ -207,7 +207,7 @@ class Bootstrap
         $this->factory = $factory;
         $this->rootDir = $rootDir;
         $this->server = $initParams;
-        $this->objectManager = $this->factory->create($this->server);
+        $this->objectManager = $this->factory->create("global", $this->server);
     }
 
     /**

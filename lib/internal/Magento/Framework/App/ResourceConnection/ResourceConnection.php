@@ -6,7 +6,7 @@
 namespace Magento\Framework\App;
 
 use Magento\Framework\App\ResourceConnection\ConfigInterface as ResourceConfigInterface;
-use Magento\Framework\App\ResourceConnection\ConnectionFactory;
+use Magento\Framework\App\ResourceConnection\ConnectionFactoryInterface;
 use Magento\Framework\Config\ConfigOptionsListConstants;
 
 /**
@@ -50,7 +50,7 @@ class ResourceConnection
     /**
      * Resource connection adapter factory.
      *
-     * @var ConnectionFactory
+     * @var ConnectionFactoryInterface
      */
     protected $connectionFactory;
 
@@ -66,13 +66,13 @@ class ResourceConnection
 
     /**
      * @param ResourceConfigInterface $resourceConfig
-     * @param ConnectionFactory $connectionFactory
+     * @param ConnectionFactoryInterface $connectionFactory
      * @param DeploymentConfig $deploymentConfig
      * @param string $tablePrefix
      */
     public function __construct(
         ResourceConfigInterface $resourceConfig,
-        ConnectionFactory $connectionFactory,
+        ConnectionFactoryInterface $connectionFactory,
         DeploymentConfig $deploymentConfig,
         $tablePrefix = ''
     ) {

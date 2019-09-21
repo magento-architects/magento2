@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alr:test-suite xmlns:alr="urn:model.allure.qatools.yandex.ru" start="1546921814315" stop="1546921827975" version="1.4.0">
+  <name>Magento\Test\Integrity\DependencyTest</name>
+  <test-cases>
+    <test-case start="1546921822566" stop="1546921827958" status="passed">
+      <name>testUndeclared</name>
+    </test-case>
+    <test-case start="1546921827965" stop="1546921827965" status="passed">
+      <name>collectRedundant</name>
+    </test-case>
+    <test-case start="1546921827969" stop="1546921827969" status="passed">
+      <name>testRedundant</name>
+    </test-case>
+  </test-cases>
+</alr:test-suite>

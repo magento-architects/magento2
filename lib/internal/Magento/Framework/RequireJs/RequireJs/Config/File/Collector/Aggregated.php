@@ -73,25 +73,30 @@ class Aggregated implements CollectorInterface
      * @param ThemeInterface $theme
      * @param string $filePath
      * @throws \InvalidArgumentException
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
         if (empty($filePath)) {
             throw new \InvalidArgumentException('File path must be specified');
         }
-        $files = [];
+        $files = $checkedPaths = [];
         if ($this->libDirectory->isExist($filePath)) {
             $filename = $this->libDirectory->getAbsolutePath($filePath);
             $files[] = $this->fileFactory->create($filename);
+            $checkedPaths[] = $this->libDirectory->getAbsolutePath();
         }
 
-        $files = array_merge($files, $this->baseFiles->getFiles($theme, $filePath));
+        list($baseFiles, $basePaths) = $this->baseFiles->getFiles($theme, $filePath);
+        $files = array_merge($files, $baseFiles);
+        $checkedPaths = array_merge($checkedPaths, $basePaths);
 
         foreach ($theme->getInheritedThemes() as $currentTheme) {
-            $files = array_merge($files, $this->themeModularFiles->getFiles($currentTheme, $filePath));
-            $files = array_merge($files, $this->themeFiles->getFiles($currentTheme, $filePath));
+            list($themeModularFiles, $themeModularPaths) = $this->themeModularFiles->getFiles($currentTheme, $filePath);
+            list($themeFiles, $themePaths) = $this->themeFiles->getFiles($currentTheme, $filePath);
+            $files = array_merge($files, $themeModularFiles, $themeFiles);
+            $checkedPaths = array_merge($checkedPaths, $themeModularPaths, $themePaths);
         }
-        return $files;
+        return [$files, $checkedPaths];
     }
 }

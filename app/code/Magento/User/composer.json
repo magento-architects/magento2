@@ -8,7 +8,8 @@
         "php": "~7.1.3||~7.2.0||~7.3.0",
         "magento/module-authorization": "*",
         "magento/module-email": "*",
-        "magento/module-store": "*"
+        "magento/module-store": "*",
+        "magento/library-acl": "*"
     },
     "type": "magento2-module",
     "license": [

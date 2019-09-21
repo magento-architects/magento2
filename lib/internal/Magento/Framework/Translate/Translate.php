@@ -226,7 +226,7 @@ class Translate implements \Magento\Framework\TranslateInterface
         $this->_loadDbTranslation();
 
         if (!$forceReload) {
-            $this->_saveCache();
+            $this->_cache->save($this->getSerializer()->serialize($this->getData()), $this->getCacheId(), [], false);
         }
 
         return $this;
@@ -501,9 +501,6 @@ class Translate implements \Magento\Framework\TranslateInterface
      */
     public function getData()
     {
-        if (!$this->dataLoaded) {
-            $this->loadData();
-        }
         if ($this->_data === null) {
             return [];
         }
@@ -580,17 +577,6 @@ class Translate implements \Magento\Framework\TranslateInterface
             $data = $this->getSerializer()->unserialize($data);
         }
         return $data;
-    }
-
-    /**
-     * Saving data cache
-     *
-     * @return $this
-     */
-    protected function _saveCache()
-    {
-        $this->_cache->save($this->getSerializer()->serialize($this->getData()), $this->getCacheId(), [], false);
-        return $this;
     }
 
     /**

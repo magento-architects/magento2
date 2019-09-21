@@ -13,7 +13,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class ConnectionFactory implements \Magento\Framework\Model\ResourceModel\Type\Db\ConnectionFactoryInterface
+class ConnectionFactory implements \Magento\Framework\App\ResourceConnection\ConnectionFactoryInterface
 {
     /**
      * @var ServiceLocatorInterface

@@ -129,7 +129,7 @@ class Converter implements ConverterInterface
             return [];
         }
 
-        $result = $this->toArray($source);
+        $result = $this->toArray($source->documentElement);
         $result = empty($result) ? $result : reset($result);
         $schemaMap = [];
         foreach ($result as $componentName => $componentData) {

@@ -357,23 +357,10 @@ class Base implements \Magento\Framework\App\RouterInterface
 
         if ($this->pathConfig->shouldBeSecure($path) && !$request->isSecure()) {
             $url = $this->pathConfig->getCurrentSecureUrl($request);
-            if ($this->_shouldRedirectToSecure()) {
-                $url = $this->_url->getRedirectUrl($url);
-            }
-
             $this->_responseFactory->create()->setRedirect($url)->sendResponse();
             // phpcs:ignore Magento2.Security.LanguageConstruct.ExitUsage
             exit;
         }
     }
 
-    /**
-     * Check whether redirect url should be used for secure routes
-     *
-     * @return bool
-     */
-    protected function _shouldRedirectToSecure()
-    {
-        return $this->_url->getUseSession();
-    }
 }

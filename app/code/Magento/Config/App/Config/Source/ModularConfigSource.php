@@ -23,11 +23,17 @@ class ModularConfigSource implements ConfigSourceInterface
     private $reader;
 
     /**
+     * @var \Magento\Framework\Config\Loader
+     */
+    private $loader;
+
+    /**
      * @param Reader $reader
      */
-    public function __construct(Reader $reader)
+    public function __construct(Reader $reader, \Magento\Framework\Config\Loader $loader)
     {
         $this->reader = $reader;
+        $this->loader = $loader;
     }
 
     /**
@@ -39,7 +45,12 @@ class ModularConfigSource implements ConfigSourceInterface
      */
     public function get($path = '')
     {
-        $data = new DataObject($this->reader->read());
+        $data = new DataObject($this->loader->getCachedContent(
+            \Magento\Framework\App\Config\Initial::CACHE_ID,
+            function () {
+                return $this->reader->read();
+            }
+        ));
         if ($path !== '') {
             $path = '/' . $path;
         }

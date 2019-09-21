@@ -152,7 +152,7 @@ class DirectoryList extends \Magento\Framework\Filesystem\DirectoryList
             self::GENERATION => [parent::PATH => Io::DEFAULT_DIRECTORY],
             self::SESSION => [parent::PATH => 'var/session'],
             self::MEDIA => [parent::PATH => 'pub/media', parent::URL_PATH => 'pub/media'],
-            self::STATIC_VIEW => [parent::PATH => 'pub/static', parent::URL_PATH => 'pub/static'],
+            self::STATIC_VIEW => [parent::PATH => 'static', parent::URL_PATH => 'static'],
             self::PUB => [parent::PATH => 'pub', parent::URL_PATH => 'pub'],
             self::LIB_WEB => [parent::PATH => 'lib/web'],
             self::TMP => [parent::PATH => 'var/tmp'],

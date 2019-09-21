@@ -32,7 +32,7 @@ class Converter
     public function afterConvert(\Magento\Framework\App\Config\Initial\Converter $subject, array $result)
     {
         if (isset($result['data']['default']['system'])) {
-            $groups = $this->groupsConfig->get();
+            list($groups, $loadedFiles) = $this->groupsConfig->get();
             foreach ($groups as $group => $fields) {
                 foreach ($fields as $key => $field) {
                     $groups[$group][$key] = $field['value'];

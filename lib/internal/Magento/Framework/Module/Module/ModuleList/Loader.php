@@ -91,7 +91,7 @@ class Loader
                     $e
                 );
             }
-            $name = $data['name'];
+            $name = $data->name;
             if (!in_array($name, $exclude)) {
                 $result[$name] = $data;
             }

@@ -51,16 +51,17 @@ class ModuleOutput implements CollectorInterface
      *
      * @param ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
         $result = [];
-        foreach ($this->subject->getFiles($theme, $filePath) as $file) {
+        list($files, $checkedPaths) = $this->subject->getFiles($theme, $filePath);
+        foreach ($files as $file) {
             if ($this->moduleManager->isOutputEnabled($file->getModule())) {
                 $result[] = $file;
             }
         }
-        return $result;
+        return [$result, $checkedPaths];
     }
 }

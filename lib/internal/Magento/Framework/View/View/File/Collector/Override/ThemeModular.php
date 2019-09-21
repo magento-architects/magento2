@@ -82,7 +82,7 @@ class ThemeModular implements CollectorInterface
      *
      * @param ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getFiles(ThemeInterface $theme, $filePath)
@@ -90,16 +90,16 @@ class ThemeModular implements CollectorInterface
         $namespace = $module = '*';
         $themePath = $theme->getFullPath();
         if (empty($themePath)) {
-            return [];
+            return [[], []];
         }
         $themeAbsolutePath = $this->componentRegistrar->getPath(ComponentRegistrar::THEME, $themePath);
         if (!$themeAbsolutePath) {
-            return [];
+            return [[], []];
         }
         $themeDir = $this->readDirFactory->create($themeAbsolutePath);
         $files = $themeDir->search("{$namespace}_{$module}/{$this->subDir}*/*/{$filePath}");
         if (empty($files)) {
-            return [];
+            return [[], []];
         }
 
         $themes = [];
@@ -127,6 +127,6 @@ class ThemeModular implements CollectorInterface
             }
             $result[] = $this->fileFactory->create($filename, $moduleFull, $themes[$ancestorThemeCode]);
         }
-        return $result;
+        return [$result, []];
     }
 }

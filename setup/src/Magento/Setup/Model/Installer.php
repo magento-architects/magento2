@@ -825,6 +825,7 @@ class Installer
         $registry = $this->objectManagerProvider->get()->get(\Magento\Framework\Registry::class);
         //For backward compatibility in install and upgrade scripts with enabled parallelization.
         $registry->register('setup-mode-enabled', true);
+        var_dump('ddddddd');
 
         $this->assertDbConfigExists();
         $this->assertDbAccessible();

@@ -15,9 +15,9 @@ use Magento\Framework\View\Element\UiComponent\Config\FileCollector\AggregatedFi
 class FileResolver implements FileResolverInterface
 {
     /**
-     * @var AggregatedFileCollectorFactory
+1     * @var AggregatedFileCollector
      */
-    private $fileCollectorFactory;
+    private $fileCollector;
 
     /**
      * @var string
@@ -25,11 +25,11 @@ class FileResolver implements FileResolverInterface
     private $scope;
 
     /**
-     * @param AggregatedFileCollectorFactory $fileCollectorFactory
+     * @param AggregatedFileCollector $fileCollector
      */
-    public function __construct(AggregatedFileCollectorFactory $fileCollectorFactory)
+    public function __construct(AggregatedFileCollector $fileCollector)
     {
-        $this->fileCollectorFactory = $fileCollectorFactory;
+        $this->fileCollector = $fileCollector;
     }
 
     /**
@@ -39,7 +39,6 @@ class FileResolver implements FileResolverInterface
     {
         $this->scope = $scope;
         /** @var AggregatedFileCollector $aggregatedFiles */
-        $aggregatedFiles = $this->fileCollectorFactory->create();
-        return $aggregatedFiles->collectFiles($filename);
+        return $this->fileCollector->collectFiles($filename);
     }
 }

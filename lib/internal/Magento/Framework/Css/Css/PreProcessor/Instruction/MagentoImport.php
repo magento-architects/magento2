@@ -105,7 +105,7 @@ class MagentoImport implements PreProcessorInterface
             $isReference = !empty($matchedContent['reference']);
             $relatedAsset = $this->assetRepo->createRelated($matchedFileId, $asset);
             $resolvedPath = $relatedAsset->getFilePath();
-            $importFiles = $this->fileSource->getFiles($this->getTheme($relatedAsset), $resolvedPath);
+            $importFiles = $this->fileSource->getFiles($this->getTheme($relatedAsset), $resolvedPath)[0];
             /** @var $importFile \Magento\Framework\View\File */
             foreach ($importFiles as $importFile) {
                 $referenceString = $isReference ? '(reference) ' : '';

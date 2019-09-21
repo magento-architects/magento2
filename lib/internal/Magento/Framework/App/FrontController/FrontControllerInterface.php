@@ -5,6 +5,8 @@
  */
 namespace Magento\Framework\App;
 
+use Magento\Framework\Controller\ResultInterface;
+
 /**
  * Application front controller responsible for dispatching application requests.
  * Front controller contains logic common for all actions.
@@ -19,7 +21,7 @@ interface FrontControllerInterface
      * Dispatch application action
      *
      * @param RequestInterface $request
-     * @return ResponseInterface
+     * @return ResultInterface
      */
     public function dispatch(RequestInterface $request);
 }

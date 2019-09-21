@@ -6,8 +6,9 @@
  * See COPYING.txt for license details.
  *
  */
-
 namespace Magento\Framework\Config\Reader;
+
+use Magento\Framework\Config\FileIterator;
 
 /**
  * @SuppressWarnings(PHPMD.NumberOfChildren)
@@ -123,14 +124,14 @@ class Filesystem implements \Magento\Framework\Config\ReaderInterface
      */
     public function read($scope = null)
     {
-        echo "Reading " . get_class($this) . "<br/>";
+        //echo "Reading " . get_class($this) . "<br/>";
         $scope = $scope ?: $this->_defaultScope;
         list($fileList, $checkedPaths) = $this->_fileResolver->get($this->_fileName, $scope);
         if (!count($fileList)) {
             return [[], []];
         }
         $output = $this->_readFiles($fileList);
-        $filesRead = array_merge(array_keys($fileList->toArray()), $checkedPaths);
+        $filesRead = array_merge(array_keys($fileList instanceof FileIterator ? $fileList->toArray() : $fileList), $checkedPaths);
         return [$output, $filesRead];
     }
 

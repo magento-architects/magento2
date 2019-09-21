@@ -21,7 +21,8 @@ class Aggregated extends \Magento\Framework\View\Layout\File\Collector\Aggregate
     public function getFilesContent(ThemeInterface $theme, $filePath)
     {
         $result = [];
-        foreach ($this->getFiles($theme, $filePath) as $file) {
+        list ($files, $checkedPaths) = $this->getFiles($theme, $filePath);
+        foreach ($files as $file) {
             $result[$file->getFilename()] = file_get_contents($file->getFilename());
         }
 

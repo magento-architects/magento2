@@ -1,0 +1,26 @@
+{
+  "name": "magento/management-tool",
+  "type": "project",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "require": {
+    "magento/library-console": "*",
+    "magento/library-setup-console": "*"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../setup/src/*/*/*"
+    },
+    {
+      "type": "path",
+      "url": "../lib/internal/Magento/Framework/*"
+    },
+    {
+      "type": "path",
+      "url": "../lib/internal/Magento/Framework/App/*"
+    }
+  ]
+}

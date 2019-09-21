@@ -73,7 +73,7 @@ class Library implements CollectorInterface
      *
      * @param ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
@@ -94,7 +94,7 @@ class Library implements CollectorInterface
             $foundFiles = $directoryRead->search("web/{$filePath}");
             $list->replace($this->createFiles($directoryRead, $theme, $foundFiles));
         }
-        return $list->getAll();
+        return [$list->getAll(), []];
     }
 
     /**

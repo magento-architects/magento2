@@ -17,9 +17,9 @@ class Config implements ConfigInterface
     protected $_reader;
 
     /**
-     * @var \Magento\Framework\Cache\FrontendInterface
+     * @var \Magento\Framework\Config\Loader
      */
-    protected $_cache;
+    protected $loader;
 
     /**
      * @var string
@@ -49,20 +49,20 @@ class Config implements ConfigInterface
     /**
      * Config constructor.
      * @param Config\Reader $reader
-     * @param \Magento\Framework\Config\Loader $cache
+     * @param \Magento\Framework\Config\Loader $loader
      * @param \Magento\Framework\Config\ScopeInterface $configScope
      * @param \Magento\Framework\App\AreaList $areaList
      * @param string $cacheId
      */
     public function __construct(
         Config\Reader $reader,
-        \Magento\Framework\Config\Loader $cache,
+        \Magento\Framework\Config\Loader $loader,
         \Magento\Framework\Config\ScopeInterface $configScope,
         \Magento\Framework\App\AreaList $areaList,
-        $cacheId = 'RoutesConfig'
+        $cacheId = 'routes'
     ) {
         $this->_reader = $reader;
-        $this->_cache = $cache;
+        $this->loader = $loader;
         $this->_cacheId = $cacheId;
         $this->_configScope = $configScope;
         $this->_areaList = $areaList;
@@ -77,25 +77,14 @@ class Config implements ConfigInterface
     protected function _getRoutes($scope = null)
     {
         $scope = $scope ?: $this->_configScope->getCurrentScope();
-        if (isset($this->_routes[$scope])) {
-            return $this->_routes[$scope];
+        if (!isset($this->_routes[$scope])) {
+            $cacheId = $this->_cacheId . '.' . $scope;
+            $routers = $this->loader->getCachedContent($cacheId, function () use ($scope) {
+                return $this->_reader->read($scope);
+            });
+            $this->_routes[$scope] = $routers[$this->_areaList->getDefaultRouter($scope)]['routes'];
         }
-        $cacheId = $scope . '::' . $this->_cacheId;
-        $cachedRoutes = $this->_cache->load($cacheId);
-        if ($cachedRoutes) {
-            $cachedRoutes = $this->getSerializer()->unserialize($cachedRoutes);
-            if (is_array($cachedRoutes)) {
-                $this->_routes[$scope] = $cachedRoutes;
-                return $cachedRoutes;
-            }
-        }
-
-        $routers = $this->_reader->read($scope);
-        $routes = $routers[$this->_areaList->getDefaultRouter($scope)]['routes'];
-        $routesData = $this->getSerializer()->serialize($routes);
-        $this->_cache->save($routesData, $cacheId);
-        $this->_routes[$scope] = $routes;
-        return $routes;
+        return $this->_routes[$scope];
     }
 
     /**

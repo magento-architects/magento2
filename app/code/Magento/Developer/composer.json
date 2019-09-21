@@ -10,7 +10,10 @@
         "magento/module-config": "*",
         "magento/module-store": "*",
         "magento/library-css": "*",
-        "magento/library-app-view": "*"
+        "magento/library-app-view": "*",
+        "magento/library-xslt-processor": "*",
+        "magento/library-app-utility": "*",
+        "magento/library-dom-document": "*"
     },
     "type": "magento2-module",
     "license": [

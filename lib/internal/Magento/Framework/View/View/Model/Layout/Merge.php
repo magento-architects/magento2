@@ -747,8 +747,9 @@ class Merge implements \Magento\Framework\View\Layout\ProcessorInterface
     {
         $layoutStr = '';
         $theme = $this->_getPhysicalTheme($this->theme);
-        $updateFiles = $this->fileSource->getFiles($theme, '*.xml');
-        $updateFiles = array_merge($updateFiles, $this->pageLayoutFileSource->getFiles($theme, '*.xml'));
+        list($updateFiles, $checkedPaths) = $this->fileSource->getFiles($theme, '*.xml');
+        list($pageLayoutFiles, $pageLayoutPaths) = $this->pageLayoutFileSource->getFiles($theme, '*.xml');
+        $updateFiles = array_merge($updateFiles, $pageLayoutFiles);
         $useErrors = libxml_use_internal_errors(true);
         foreach ($updateFiles as $file) {
             /** @var $fileReader \Magento\Framework\Filesystem\File\Read */

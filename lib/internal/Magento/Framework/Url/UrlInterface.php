@@ -50,14 +50,6 @@ interface UrlInterface
     const SESSION_NAMESPACE = 'frontend';
 
     /**
-     * Retrieve use session rule
-     *
-     * @return bool
-     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
-     */
-    public function getUseSession();
-
-    /**
      * Retrieve Base URL
      *
      * @param array $params

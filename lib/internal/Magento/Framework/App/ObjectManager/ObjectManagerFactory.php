@@ -6,6 +6,7 @@
 namespace Magento\Framework\App;
 
 use Magento\Framework\Config\Loader;
+use Magento\Framework\Serialize\Serializer\Json;
 
 /**
  * Initialization of object manager is a complex operation.
@@ -126,7 +127,11 @@ class ObjectManagerFactory
         $diConfig->extend($areaConfig);
         $factoryClass = $diConfig->getPreference(\Magento\Framework\ObjectManager\Factory\Dynamic\Developer::class);
         $factory = new $factoryClass($diConfig, null, $definitions, $arguments);
+
+        $configLoader = new \Magento\Framework\Config\Loader();
+        $diConfigLoader = new \Magento\Framework\App\ObjectManager\ConfigLoader($configLoader, $diConfigReader);
         $sharedInstances = [
+            \Magento\Framework\ObjectManager\ConfigLoaderInterface::class => $diConfigLoader,
             \Magento\Framework\Config\Loader::class => $cache,
             \Magento\Framework\App\DeploymentConfig::class => $deploymentConfig,
             \Magento\Framework\App\Filesystem\DirectoryList::class => $directoryList,

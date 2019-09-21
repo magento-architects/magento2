@@ -69,17 +69,17 @@ class Aggregated implements CollectorInterface
      *
      * @param \Magento\Framework\View\Design\ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      * @throws \LogicException
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
         $list = $this->fileListFactory->create(\Magento\Framework\Css\PreProcessor\File\FileList\Collator::class);
-        $list->add($this->libraryFiles->getFiles($theme, $filePath));
-        $list->add($this->baseFiles->getFiles($theme, $filePath));
+        $list->add($this->libraryFiles->getFiles($theme, $filePath)[0]);
+        $list->add($this->baseFiles->getFiles($theme, $filePath)[0]);
 
         foreach ($theme->getInheritedThemes() as $currentTheme) {
-            $files = $this->overriddenBaseFiles->getFiles($currentTheme, $filePath);
+            $files = $this->overriddenBaseFiles->getFiles($currentTheme, $filePath)[0];
             $list->replace($files);
         }
         $result = $list->getAll();
@@ -88,6 +88,6 @@ class Aggregated implements CollectorInterface
                 'magento_import returns empty result by path ' . $filePath . ' for theme ' . $theme->getCode()
             );
         }
-        return $result;
+        return [$result, []];
     }
 }

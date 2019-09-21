@@ -5,6 +5,9 @@
  */
 namespace Magento\Framework\App\ResourceConnection;
 
+/**
+ * @preference \Magento\Framework\App\ResourceConnection\ConnectionFactory
+ */
 interface ConnectionFactoryInterface
 {
     /**

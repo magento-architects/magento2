@@ -7,6 +7,7 @@
  */
 namespace Magento\Framework\Module\Dir;
 
+use Magento\Framework\App\ActionInterface;
 use Magento\Framework\Component\ComponentRegistrar;
 use Magento\Framework\Config\FileIterator;
 use Magento\Framework\Config\FileIteratorFactory;
@@ -167,19 +168,23 @@ class Reader
     public function getActionFiles()
     {
         $actions = [];
-        foreach ($this->modulesList->getNames() as $moduleName) {
-            $actionDir = $this->getModuleDir(Dir::MODULE_CONTROLLER_DIR, $moduleName);
+
+        foreach ($this->componentRegistrar->getPaths(ComponentRegistrar::MODULE) as $modulePath) {
+            $actionDir = $modulePath . DIRECTORY_SEPARATOR . Dir::MODULE_CONTROLLER_DIR;
             if (!file_exists($actionDir)) {
                 continue;
             }
             $dirIterator = new \RecursiveDirectoryIterator($actionDir, \RecursiveDirectoryIterator::SKIP_DOTS);
             $recursiveIterator = new \RecursiveIteratorIterator($dirIterator, \RecursiveIteratorIterator::LEAVES_ONLY);
-            $namespace = str_replace('_', '\\', $moduleName);
             /** @var \SplFileInfo $actionFile */
             foreach ($recursiveIterator as $actionFile) {
-                $actionName = str_replace('/', '\\', str_replace($actionDir, '', $actionFile->getPathname()));
-                $action = $namespace . "\\" . Dir::MODULE_CONTROLLER_DIR . substr($actionName, 0, -4);
-                $actions[strtolower($action)] = $action;
+                $fileReflection = new \Zend\Code\Reflection\FileReflection($actionFile, true);
+                foreach($fileReflection->getClasses() as $action) {
+                    $actionName = $action->getName();
+                    if (is_a($actionName, ActionInterface::class, true)) {
+                        $actions[strtolower($actionName)] = $actionName;
+                    }
+                }
             }
         }
         return $actions;

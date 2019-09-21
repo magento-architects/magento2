@@ -69,9 +69,9 @@ class Manager implements ModuleManagerInterface
      */
     public function isOutputEnabled($moduleName)
     {
-        return $this->isEnabled($moduleName)
-            && $this->_isCustomOutputConfigEnabled($moduleName)
-            && !$this->outputConfig->isEnabled($moduleName);
+        return true;// $this->isEnabled($moduleName)
+//            && $this->_isCustomOutputConfigEnabled($moduleName)
+  //          && !$this->outputConfig->isEnabled($moduleName);
     }
 
     /**

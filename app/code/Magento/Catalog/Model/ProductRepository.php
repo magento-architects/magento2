@@ -57,11 +57,6 @@ class ProductRepository implements \Magento\Catalog\Api\ProductRepositoryInterfa
     protected $instancesById = [];
 
     /**
-     * @var \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper
-     */
-    protected $initializationHelper;
-
-    /**
      * @var \Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory
      */
     protected $searchResultsFactory;
@@ -209,7 +204,6 @@ class ProductRepository implements \Magento\Catalog\Api\ProductRepositoryInterfa
      */
     public function __construct(
         ProductFactory $productFactory,
-        \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper $initializationHelper,
         \Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory $searchResultsFactory,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $collectionFactory,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -236,7 +230,6 @@ class ProductRepository implements \Magento\Catalog\Api\ProductRepositoryInterfa
     ) {
         $this->productFactory = $productFactory;
         $this->collectionFactory = $collectionFactory;
-        $this->initializationHelper = $initializationHelper;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->resourceModel = $resourceModel;

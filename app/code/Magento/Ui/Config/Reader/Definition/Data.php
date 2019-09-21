@@ -6,6 +6,7 @@
 namespace Magento\Ui\Config\Reader\Definition;
 
 use Magento\Framework\Config\CacheInterface;
+use Magento\Framework\Config\Loader;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Ui\Config\Converter;
 use Magento\Framework\Data\Argument\InterpreterInterface;
@@ -20,7 +21,7 @@ class Data implements \Magento\Framework\Config\DataInterface
     /**
      * ID in the storage cache
      */
-    const CACHE_ID = 'ui_component_configuration_definition_data';
+    const CACHE_ID = 'ui_component.configuration.definition_data';
 
     /**
      * Search pattern
@@ -33,26 +34,6 @@ class Data implements \Magento\Framework\Config\DataInterface
      * @var array
      */
     private $data = [];
-
-    /**
-     * @var ReaderFactory
-     */
-    private $readerFactory;
-
-    /**
-     * @var CacheInterface
-     */
-    private $cache;
-
-    /**
-     * @var string
-     */
-    private $cacheId;
-
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
 
     /**
      * Argument interpreter.
@@ -68,36 +49,14 @@ class Data implements \Magento\Framework\Config\DataInterface
      * @param InterpreterInterface $argumentInterpreter
      */
     public function __construct(
-        DefinitionFactory $readerFactory,
-        CacheInterface $cache,
-        SerializerInterface $serializer,
+        Definition $reader,
+        Loader $configLoader,
         InterpreterInterface $argumentInterpreter
     ) {
-        $this->readerFactory = $readerFactory;
-        $this->cache = $cache;
-        $this->serializer = $serializer;
         $this->argumentInterpreter = $argumentInterpreter;
-        $this->cacheId = static::CACHE_ID;
-        $this->initData();
-    }
-
-    /**
-     * Initialise data for configuration
-     *
-     * @return void
-     */
-    private function initData()
-    {
-        $data = $this->cache->load($this->cacheId);
-        if (false === $data) {
-            /** @var Definition $reader */
-            $reader = $this->readerFactory->create();
-            $data = $reader->read();
-            $this->cache->save($this->serializer->serialize($data), $this->cacheId);
-        } else {
-            $data = $this->serializer->unserialize($data);
-        }
-
+        $data = $configLoader->getCachedContent(static::CACHE_ID, function() use ($reader) {
+            return $reader->read();
+        });
         if (!empty($data)) {
             $this->data = $this->evaluateComponentArguments($data);
         }

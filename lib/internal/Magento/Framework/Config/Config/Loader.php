@@ -46,7 +46,6 @@ class Loader
         $key = $this->prefix . $key;
         if (apcu_exists($key)) {
             if (MAGENTO_APCU_CHECK_TIMESTAMPS) {
-                echo "Rechecking $key<br />";
                 $includedFiles = $this->serializer ?
                     $this->serializer->unserialize(apcu_fetch($key . '.used_files'))
                     : apcu_fetch($key . '.used_files');

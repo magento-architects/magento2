@@ -15,47 +15,28 @@ use Magento\Framework\ObjectManager\ConfigLoaderInterface;
 class ConfigLoader implements ConfigLoaderInterface
 {
     /**
+     * @var \Magento\Framework\Config\Loader
+     */
+    private $loader;
+
+    /**
      * Config reader
      *
      * @var \Magento\Framework\ObjectManager\Config\Reader\Dom
      */
-    protected $_reader;
+    protected $reader;
 
     /**
-     * Config reader factory
-     *
-     * @var \Magento\Framework\ObjectManager\Config\Reader\DomFactory
-     */
-    protected $_readerFactory;
-
-    /**
-     * Cache
-     *
-     * @var \Magento\Framework\Config\CacheInterface
-     */
-    protected $_cache;
-
-    /**
-     * @param \Magento\Framework\Config\CacheInterface $cache
-     * @param \Magento\Framework\ObjectManager\Config\Reader\DomFactory $readerFactory
+     * ConfigLoader constructor.
+     * @param \Magento\Framework\Config\Loader $loader
+     * @param \Magento\Framework\ObjectManager\Config\Reader\Dom $reader
      */
     public function __construct(
-        \Magento\Framework\ObjectManager\Config\Reader\DomFactory $readerFactory
+        \Magento\Framework\Config\Loader $loader,
+        \Magento\Framework\ObjectManager\Config\Reader\Dom $reader
     ) {
-        $this->_readerFactory = $readerFactory;
-    }
-
-    /**
-     * Get reader instance
-     *
-     * @return \Magento\Framework\ObjectManager\Config\Reader\Dom
-     */
-    protected function _getReader()
-    {
-        if (empty($this->_reader)) {
-            $this->_reader = $this->_readerFactory->create();
-        }
-        return $this->_reader;
+        $this->loader = $loader;
+        $this->reader = $reader;
     }
 
     /**
@@ -63,6 +44,8 @@ class ConfigLoader implements ConfigLoaderInterface
      */
     public function load($area)
     {
-        return $this->_getReader()->read($area);
+        return $this->loader->getCachedContent('om.config', function() use ($area) {
+            return $this->reader->read($area);
+        });
     }
 }

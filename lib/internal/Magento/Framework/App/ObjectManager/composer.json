@@ -12,6 +12,7 @@
         "magento/library-app-arguments": "*",
         "magento/library-app-filesystem": "*",
         "magento/library-app-deployment-config": "*",
+        "magento/library-app-interception": "*",
         "magento/library-object-manager": "*",
         "magento/library-interception": "*",
         "magento/library-component": "*",

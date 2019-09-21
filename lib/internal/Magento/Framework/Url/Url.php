@@ -125,11 +125,6 @@ class Url extends \Magento\Framework\DataObject implements \Magento\Framework\Ur
     protected $_session;
 
     /**
-     * @var \Magento\Framework\Session\SidResolverInterface
-     */
-    protected $_sidResolver;
-
-    /**
      * Constructor
      *
      * @var \Magento\Framework\App\Route\ConfigInterface
@@ -198,6 +193,7 @@ class Url extends \Magento\Framework\DataObject implements \Magento\Framework\Ur
      * @param \Magento\Framework\App\RequestInterface $request
      * @param \Magento\Framework\Url\SecurityInfoInterface $urlSecurityInfo
      * @param \Magento\Framework\Url\ScopeResolverInterface $scopeResolver
+     * @param \Magento\Framework\Session\Generic $session
      * @param \Magento\Framework\Url\RouteParamsResolverFactory $routeParamsResolverFactory
      * @param \Magento\Framework\Url\QueryParamsResolverInterface $queryParamsResolver
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
@@ -213,11 +209,12 @@ class Url extends \Magento\Framework\DataObject implements \Magento\Framework\Ur
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Framework\Url\SecurityInfoInterface $urlSecurityInfo,
         \Magento\Framework\Url\ScopeResolverInterface $scopeResolver,
+        \Magento\Framework\Session\Generic $session,
         \Magento\Framework\Url\RouteParamsResolverFactory $routeParamsResolverFactory,
         \Magento\Framework\Url\QueryParamsResolverInterface $queryParamsResolver,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Url\RouteParamsPreprocessorInterface $routeParamsPreprocessor,
-        $scopeType = null,
+        $scopeType,
         array $data = [],
         HostChecker $hostChecker = null,
         Json $serializer = null
@@ -226,6 +223,7 @@ class Url extends \Magento\Framework\DataObject implements \Magento\Framework\Ur
         $this->_routeConfig = $routeConfig;
         $this->_urlSecurityInfo = $urlSecurityInfo;
         $this->_scopeResolver = $scopeResolver;
+        $this->_session = $session;
         $this->_routeParamsResolverFactory = $routeParamsResolverFactory;
         $this->_queryParamsResolver = $queryParamsResolver;
         $this->_scopeConfig = $scopeConfig;
@@ -263,32 +261,6 @@ class Url extends \Magento\Framework\DataObject implements \Magento\Framework\Ur
             }
         }
         return $this;
-    }
-
-    /**
-     * Set use session rule
-     *
-     * @param bool $useSession
-     * @return \Magento\Framework\UrlInterface
-     */
-    public function setUseSession($useSession)
-    {
-        $this->_useSession = (bool) $useSession;
-        return $this;
-    }
-
-    /**
-     * Retrieve use session rule
-     *
-     * @return bool
-     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
-     */
-    public function getUseSession()
-    {
-        if ($this->_useSession === null) {
-            $this->_useSession = $this->_sidResolver->getUseSessionInUrl();
-        }
-        return $this->_useSession;
     }
 
     /**

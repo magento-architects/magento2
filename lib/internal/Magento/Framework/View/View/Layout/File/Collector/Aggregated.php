@@ -80,18 +80,22 @@ class Aggregated implements CollectorInterface
      *
      * @param ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[]| []]
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
         $list = $this->fileListFactory->create();
-        $list->add($this->baseFiles->getFiles($theme, $filePath));
-
+        list($baseFiles, $checkedPaths) = $this->baseFiles->getFiles($theme, $filePath);
+        $list->add($baseFiles);
         foreach ($theme->getInheritedThemes() as $currentTheme) {
-            $list->add($this->themeFiles->getFiles($currentTheme, $filePath));
-            $list->replace($this->overrideBaseFiles->getFiles($currentTheme, $filePath));
-            $list->replace($this->overrideThemeFiles->getFiles($currentTheme, $filePath));
+            list($themeFiles, $themePaths) = $this->themeFiles->getFiles($currentTheme, $filePath);
+            list($overrideBaseFiles, $overrideBasePaths) = $this->overrideBaseFiles->getFiles($currentTheme, $filePath);
+            list($overrideThemeFiles, $overrideThemePaths) = $this->overrideThemeFiles->getFiles($currentTheme, $filePath);
+            $list->add($themeFiles);
+            $list->replace($overrideBaseFiles);
+            $list->replace($overrideThemeFiles);
+            $checkedPaths = array_merge($checkedPaths, $themePaths, $overrideBasePaths, $overrideThemePaths);
         }
-        return $list->getAll();
+        return [$list->getAll(), $checkedPaths];
     }
 }

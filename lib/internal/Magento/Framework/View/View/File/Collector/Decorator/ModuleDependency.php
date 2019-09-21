@@ -56,13 +56,13 @@ class ModuleDependency implements CollectorInterface
      *
      * @param ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
-        $result = $this->subject->getFiles($theme, $filePath);
+        list($result, $checkedPaths) = $this->subject->getFiles($theme, $filePath);
         usort($result, [$this, 'compareFiles']);
-        return $result;
+        return [$result, $checkedPaths];
     }
 
     /**

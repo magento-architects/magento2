@@ -73,7 +73,7 @@ class AggregatedFileCollector implements FileCollectorInterface
         if ($searchPattern === null) {
             throw new \Exception('Search pattern cannot be empty.');
         }
-        $files = $this->collectorAggregated->getFiles($this->design->getDesignTheme(), $searchPattern);
+        list($files, $checkedPaths) = $this->collectorAggregated->getFiles($this->design->getDesignTheme(), $searchPattern);
         foreach ($files as $file) {
             $fullFileName = $file->getFilename();
             $fileDir = dirname($fullFileName);
@@ -82,6 +82,6 @@ class AggregatedFileCollector implements FileCollectorInterface
             $result[$fullFileName] = $dirRead->readFile($fileName);
         }
 
-        return $result;
+        return [$result, $checkedPaths];
     }
 }

@@ -36,6 +36,7 @@ class AutoloaderRegistry
      */
     public static function getAutoloader()
     {
+
         if (self::$autoloader !== null) {
             return self::$autoloader;
         } else {

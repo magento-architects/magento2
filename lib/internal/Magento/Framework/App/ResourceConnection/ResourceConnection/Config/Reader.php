@@ -47,15 +47,4 @@ class Reader extends \Magento\Framework\Config\Reader\Filesystem
             $defaultScope
         );
     }
-
-    /**
-     * Read resource configuration
-     *
-     * @param string $scope
-     * @return array
-     */
-    public function read($scope = null)
-    {
-        return $scope !== 'primary' ? parent::read($scope) : [];
-    }
 }

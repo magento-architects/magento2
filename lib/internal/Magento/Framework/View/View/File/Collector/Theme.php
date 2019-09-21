@@ -62,18 +62,18 @@ class Theme implements CollectorInterface
      *
      * @param ThemeInterface $theme
      * @param string $filePath
-     * @return \Magento\Framework\View\File[]
+     * @return [\Magento\Framework\View\File[], []]
      * @throws \UnexpectedValueException
      */
     public function getFiles(ThemeInterface $theme, $filePath)
     {
         $themePath = $theme->getFullPath();
         if (empty($themePath)) {
-            return [];
+            return [[], []];
         }
         $themeAbsolutePath = $this->componentRegistrar->getPath(ComponentRegistrar::THEME, $themePath);
         if (!$themeAbsolutePath) {
-            return [];
+            return [[], []];
         }
         $themeDir = $this->readDirFactory->create($themeAbsolutePath);
         $files = $themeDir->search($this->subDir . $filePath);
@@ -82,6 +82,6 @@ class Theme implements CollectorInterface
             $filename = $themeDir->getAbsolutePath($file);
             $result[] = $this->fileFactory->create($filename, null, $theme);
         }
-        return $result;
+        return [$result, []];
     }
 }

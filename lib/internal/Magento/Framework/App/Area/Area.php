@@ -105,7 +105,6 @@ class Area implements \Magento\Framework\App\AreaInterface
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\TranslateInterface $translator,
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        ConfigLoaderInterface $diConfigLoader,
         \Magento\Framework\App\DesignInterface $design,
         \Magento\Framework\App\ScopeResolverInterface $scopeResolver,
         \Magento\Framework\View\DesignExceptions $designExceptions,
@@ -113,7 +112,6 @@ class Area implements \Magento\Framework\App\AreaInterface
     ) {
         $this->_code = $areaCode;
         $this->_objectManager = $objectManager;
-        $this->_diConfigLoader = $diConfigLoader;
         $this->_translator = $translator;
         $this->_logger = $logger;
         $this->_design = $design;
@@ -130,7 +128,7 @@ class Area implements \Magento\Framework\App\AreaInterface
     public function load($part = null)
     {
         if ($part === null) {
-            $this->_loadPart(self::PART_CONFIG)->_loadPart(self::PART_DESIGN)->_loadPart(self::PART_TRANSLATE);
+            $this->_loadPart(self::PART_DESIGN)->_loadPart(self::PART_TRANSLATE);
         } else {
             $this->_loadPart($part);
         }
@@ -213,17 +211,6 @@ class Area implements \Magento\Framework\App\AreaInterface
         }
         $this->_loadedParts[$part] = true;
         \Magento\Framework\Profiler::stop('load_area:' . $this->_code . '.' . $part);
-        return $this;
-    }
-
-    /**
-     * Load area configuration
-     *
-     * @return $this
-     */
-    protected function _initConfig()
-    {
-        $this->_objectManager->configure($this->_diConfigLoader->load($this->_code));
         return $this;
     }
 

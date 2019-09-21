@@ -6,6 +6,7 @@
 namespace Magento\Ui\Config;
 
 use Magento\Framework\Config\ConverterInterface as ConfigConverterInterface;
+use Magento\Framework\Config\Loader;
 use Magento\Framework\Config\ReaderInterface;
 use Magento\Framework\View\Layout\Argument\Parser;
 use Magento\Ui\Config\Argument\ParserInterface;
@@ -76,6 +77,11 @@ class Converter implements ConfigConverterInterface
     private $converterUtils;
 
     /**
+     * @var Loader
+     */
+    private $configLoader;
+
+    /**
      * @param Parser $argumentParser
      * @param ParserInterface $parser
      * @param ReaderInterface $reader
@@ -85,11 +91,13 @@ class Converter implements ConfigConverterInterface
         Parser $argumentParser,
         ParserInterface $parser,
         ReaderInterface $reader,
+        Loader $configLoader,
         ConverterUtils $converterUtils
     ) {
         $this->argumentParser = $argumentParser;
         $this->reader = $reader;
         $this->parser = $parser;
+        $this->configLoader = $configLoader;
         $this->converterUtils = $converterUtils;
     }
 
@@ -151,12 +159,15 @@ class Converter implements ConfigConverterInterface
      */
     public function convert($source)
     {
+        $source = $source->documentElement;
         if ($source === null) {
             return [];
         }
 
         if (!$this->schemaMap) {
-            $this->schemaMap = $this->reader->read();
+            $this->schemaMap = $this->configLoader->getCachedContent('ui.definitions.map', function() {
+                return $this->reader->read();
+            });
         }
         $result = $this->toArray($source);
         return empty($result) ? $result : reset($result);
